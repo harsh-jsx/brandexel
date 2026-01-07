@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+.about-globe {
+  filter: invert(1);
+}
+
+@font-face {
+  font-family: "Druk";
+  src: url("../public/fonts/Druk-CondSuper.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Neue-Light";
+  src: url("../public/fonts/NeueMontreal-Light.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Neue-Regular";
+  src: url("../public/fonts/NeueMontreal-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "PPN";
+  src: url("../public/fonts/PPNeueMontreal-Book.otf") format("opentype");
+}

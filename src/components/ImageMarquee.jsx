@@ -1,0 +1,57 @@
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
+
+const ImageMarquee = () => {
+  const containerRef = useRef(null);
+
+  const images = [
+    "https://picsum.photos/seed/marquee1/500/600",
+    "https://picsum.photos/seed/marquee2/600/500",
+    "https://picsum.photos/seed/marquee3/550/650",
+    "https://picsum.photos/seed/marquee4/500/500",
+    "https://picsum.photos/seed/marquee5/600/600",
+    "https://picsum.photos/seed/marquee6/550/600",
+    "https://picsum.photos/seed/marquee7/500/550",
+    "https://picsum.photos/seed/marquee8/600/650",
+    "https://picsum.photos/seed/marquee9/550/550",
+    "https://picsum.photos/seed/marquee10/500/600",
+  ];
+
+  // Duplicate images for seamless loop
+  const duplicatedImages = [...images, ...images];
+
+  // Track scroll progress
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Transform scroll progress to x position
+  const x = useTransform(scrollYProgress, [0, 1], [0, -1000]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="w-full overflow-hidden py-28"
+      style={{ backgroundColor: "rgb(233, 228, 217)" }}
+    >
+      <motion.div className="flex gap-6" style={{ x }}>
+        {duplicatedImages.map((image, index) => (
+          <div
+            key={index}
+            className="shrink-0 rounded-lg overflow-hidden shadow-lg"
+            style={{ width: "300px", height: "350px" }}
+          >
+            <img
+              src={image}
+              alt={`Creative work ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
+
+export default ImageMarquee;
