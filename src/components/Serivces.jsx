@@ -1,189 +1,155 @@
-import React from "react";
-import { motion } from "motion/react";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const services = [
+  {
+    title: "BRANDING",
+    images: [
+      { src: "https://picsum.photos/seed/b1/500/600", class: "left-8" },
+      { src: "https://picsum.photos/seed/b2/500/600", class: "right-8" },
+    ],
+    pills: [{ text: "Award winning experiences", class: "right-[28%]" }],
+  },
+  {
+    title: "DIGITAL",
+    images: [
+      {
+        src: "https://picsum.photos/seed/d1/700/450",
+        class: "left-1/2 -translate-x-1/2",
+      },
+    ],
+    pills: [
+      { text: "Transformative Branding", class: "left-[22%]" },
+      { text: "Wow Worthy Websites", class: "right-[22%]" },
+    ],
+  },
+  {
+    title: "STORYTELLING",
+    images: [
+      { src: "https://picsum.photos/seed/s1/500/600", class: "left-8" },
+      { src: "https://picsum.photos/seed/s2/500/600", class: "right-8" },
+    ],
+    pills: [{ text: "Look & Feel Your Best", class: "left-[30%]" }],
+  },
+];
 
 const Services = () => {
-  const services = [
-    {
-      id: "branding",
-      title: "BRANDING",
-      images: [
-        {
-          src: "https://picsum.photos/seed/brand1/350/450",
-          position: "left-[3%] top-[8%]",
-          size: { w: 280, h: 340 },
-        },
-        {
-          src: "https://picsum.photos/seed/brand2/350/450",
-          position: "right-[3%] top-[8%]",
-          size: { w: 280, h: 340 },
-        },
-      ],
-      pills: [
-        { text: "Wow-worthy websites", position: "right-[28%] top-[22%]" },
-        { text: "Design that converts", position: "left-[22%] bottom-[25%]" },
-      ],
-    },
-    {
-      id: "digital",
-      title: "DIGITAL DESIGN",
-      images: [
-        {
-          src: "https://picsum.photos/seed/digital1/380/320",
-          position: "left-1/2 -translate-x-1/2 top-[18%]",
-          size: { w: 360, h: 280 },
-        },
-      ],
-      pills: [
-        { text: "Find your audience", position: "left-[10%] top-[32%]" },
-        {
-          text: "Award-winning experiences",
-          position: "right-[10%] bottom-[30%]",
-        },
-      ],
-    },
-    {
-      id: "story",
-      title: "STORYTELLING",
-      images: [
-        {
-          src: "https://picsum.photos/seed/story1/280/380",
-          position: "left-[5%] top-[12%]",
-          size: { w: 260, h: 340 },
-        },
-        {
-          src: "https://picsum.photos/seed/story2/320/380",
-          position: "right-[5%] top-[10%]",
-          size: { w: 300, h: 320 },
-        },
-      ],
-      pills: [
-        { text: "Crazy ideas made real", position: "left-[30%] top-[22%]" },
-        {
-          text: "Stories people remember",
-          position: "right-[25%] bottom-[28%]",
-        },
-      ],
-    },
-  ];
+  const rowsRef = useRef([]);
 
-  const splitText = (text) =>
-    text.split("").map((char, i) => (
-      <motion.span
-        key={i}
-        initial={{
-          opacity: 0,
-          y: 120,
-          rotateX: -90,
-          filter: "blur(6px)",
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-          rotateX: 0,
-          filter: "blur(0px)",
-        }}
-        transition={{
-          duration: 0.9,
-          delay: i * 0.035,
-          ease: [0.16, 1, 0.3, 1],
-        }}
-        viewport={{ once: true }}
-        className="inline-block will-change-transform"
-        style={{ whiteSpace: char === " " ? "pre" : "normal" }}
-      >
-        {char}
-      </motion.span>
-    ));
+  useEffect(() => {
+    rowsRef.current.forEach((row) => {
+      const title = row.querySelector(".masked-text");
+      const pills = row.querySelectorAll(".pill");
+      const images = row.querySelectorAll(".parallax-img");
+
+      /* MASK REVEAL */
+      gsap.fromTo(
+        title,
+        { clipPath: "inset(0 100% 0 0)" },
+        {
+          clipPath: "inset(0 0% 0 0)",
+          ease: "none",
+          scrollTrigger: {
+            trigger: row,
+            start: "top 80%",
+            end: "top 30%",
+            scrub: true,
+          },
+        }
+      );
+
+      /* IMAGE PARALLAX */
+      images.forEach((img) => {
+        gsap.fromTo(
+          img,
+          { y: 60 },
+          {
+            y: -60,
+            ease: "none",
+            scrollTrigger: {
+              trigger: row,
+              scrub: true,
+            },
+          }
+        );
+      });
+
+      /* MAGNETIC PILLS */
+      pills.forEach((pill) => {
+        const xTo = gsap.quickTo(pill, "x", {
+          duration: 0.4,
+          ease: "power3",
+        });
+        const yTo = gsap.quickTo(pill, "y", {
+          duration: 0.4,
+          ease: "power3",
+        });
+
+        pill.addEventListener("mousemove", (e) => {
+          const rect = pill.getBoundingClientRect();
+          const dx = e.clientX - (rect.left + rect.width / 2);
+          const dy = e.clientY - (rect.top + rect.height / 2);
+          xTo(dx * 0.35);
+          yTo(dy * 0.35);
+        });
+
+        pill.addEventListener("mouseleave", () => {
+          xTo(0);
+          yTo(0);
+        });
+      });
+    });
+  }, []);
 
   return (
-    <section
-      className="w-full min-h-screen px-6 py-24 relative overflow-hidden"
-      style={{ backgroundColor: "rgb(233,228,217)" }}
-    >
-      {/* Header */}
-      <motion.h1
-        initial={{ opacity: 0, y: -40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="text-center text-5xl md:text-6xl lg:text-7xl font-[Neue-Light] mb-24"
-        style={{ color: "hsl(0,0%,10%)" }}
-      >
-        FOLKS CALL US <br />
-        WHEN THEY <span className="italic font-[PPN]">NEED</span>
-      </motion.h1>
+    <section className="w-full bg-[#e9e4d9]">
+      {services.map((service, i) => (
+        <div
+          key={i}
+          ref={(el) => (rowsRef.current[i] = el)}
+          className="relative h-[360px] md:h-[420px] overflow-hidden border-b border-[#d8cfbd]"
+        >
+          {/* MASKED TEXT */}
+          <h2
+            className="masked-text absolute inset-0 flex items-center justify-center
+            text-[90px] md:text-[140px] lg:text-[200px]
+            font-black tracking-tight text-[#c8bfa9]"
+          >
+            {service.title}
+          </h2>
 
-      {/* Services */}
-      <div className="max-w-[1500px] mx-auto space-y-32">
-        {services.map((service, idx) => (
-          <div key={service.id} className="relative h-[420px]">
-            {/* Big outlined word */}
-            <h2
-              className="absolute inset-0 flex items-center justify-center select-none
-                         text-[90px] md:text-[140px] lg:text-[190px] xl:text-[220px]
-                         font-black tracking-tight"
-              style={{
-                color: "transparent",
-                WebkitTextStroke: "2px hsl(40,30%,65%)",
-                lineHeight: 0.9,
-              }}
+          {/* IMAGES */}
+          {service.images.map((img, idx) => (
+            <div
+              key={idx}
+              className={`parallax-img absolute top-1/2 -translate-y-1/2 ${img.class}
+              w-[260px] md:w-[320px] lg:w-[380px]
+              rounded-xl overflow-hidden shadow-xl`}
             >
-              {splitText(service.title)}
-            </h2>
+              <img
+                src={img.src}
+                alt=""
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
 
-            {/* Images */}
-            {service.images.map((img, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 60, scale: 0.9 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{
-                  duration: 0.9,
-                  delay: 0.6 + i * 0.2,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.05, rotate: 1.5 }}
-                className={`absolute ${img.position} rounded-xl overflow-hidden shadow-2xl z-10`}
-                style={{ width: img.size.w, height: img.size.h }}
-              >
-                <img
-                  src={img.src}
-                  alt={service.title}
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
-            ))}
-
-            {/* Floating pills */}
-            {service.pills.map((pill, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20, scale: 0.8 }}
-                animate={{
-                  opacity: [0, 1, 1, 0],
-                  y: [20, 0, -8, -20],
-                }}
-                transition={{
-                  duration: 5,
-                  delay: 1.4 + i * 0.6,
-                  repeat: Infinity,
-                  repeatDelay: 3,
-                  ease: "easeInOut",
-                }}
-                className={`absolute ${pill.position} px-6 py-3 rounded-full z-20`}
-                style={{
-                  backgroundColor: "hsl(350,60%,70%)",
-                  color: "hsl(0,0%,10%)",
-                }}
-              >
-                <span className="text-sm md:text-base font-medium whitespace-nowrap">
-                  {pill.text}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-        ))}
-      </div>
+          {/* PILLS */}
+          {service.pills.map((pill, idx) => (
+            <div
+              key={idx}
+              className={`pill absolute bottom-[22%] ${pill.class}
+              px-6 py-3 rounded-full text-sm font-medium
+              bg-[#f2b7a6] text-black cursor-pointer`}
+            >
+              {pill.text}
+            </div>
+          ))}
+        </div>
+      ))}
     </section>
   );
 };

@@ -273,11 +273,11 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
               SAY HELLO
             </span>
             <a
-              href="mailto:hello@rogue.studio"
+              href="mailto:hello@brandexel.com"
               className="block mt-2 hover:opacity-70 transition-opacity"
               style={{ color: "hsl(0, 0%, 10%)" }}
             >
-              hello@rogue.studio
+              hello@brandexel.com
             </a>
           </div>
 
