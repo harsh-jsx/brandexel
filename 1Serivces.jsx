@@ -36,7 +36,7 @@ const services = [
   },
 ];
 
-const Services = () => {
+const Services1 = () => {
   const rowsRef = useRef([]);
 
   useEffect(() => {
@@ -154,4 +154,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default Services1;
