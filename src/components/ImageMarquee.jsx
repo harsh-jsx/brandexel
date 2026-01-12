@@ -1,5 +1,10 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import scrolltrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(scrolltrigger);
 
 const ImageMarquee = () => {
   const containerRef = useRef(null);
@@ -29,10 +34,22 @@ const ImageMarquee = () => {
   // Transform scroll progress to x position
   const x = useTransform(scrollYProgress, [0, 1], [0, -1000]);
 
+  useGSAP(() => {
+    gsap.to(containerRef.current, {
+      backgroundColor: "black",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 50%", // starts when section is halfway down
+        end: "bottom 40%",
+        scrub: true,
+      },
+    });
+  }, []);
+
   return (
     <div
       ref={containerRef}
-      className="w-full overflow-hidden py-28"
+      className="w-full overflow-hidden py-28 img-marquee"
       style={{ backgroundColor: "rgb(233, 228, 217)" }}
     >
       <motion.div className="flex gap-6" style={{ x }}>
@@ -45,7 +62,7 @@ const ImageMarquee = () => {
             <img
               src={image}
               alt={`Creative work ${index + 1}`}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover show-eyes"
             />
           </div>
         ))}

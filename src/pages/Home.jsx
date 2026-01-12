@@ -5,112 +5,12 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import Navbar from "../components/Navbar";
 import ImageMarquee from "../components/ImageMarquee";
 import Services from "../components/Services";
-
+import { image } from "motion/react-client";
+import CustomCursor from "../components/CustomCursor";
+import ClientLogos from "../components/ClientLogos";
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 // Custom Cursor Component (embedded)
-const CustomCursor = ({ isDark }) => {
-  const cursorRef = useRef(null);
-  const cursorTrailRef = useRef([]);
-  const trailCount = 5;
-
-  useEffect(() => {
-    const cursor = cursorRef.current;
-    const trails = cursorTrailRef.current;
-
-    const moveCursor = (e) => {
-      const { clientX, clientY } = e;
-      gsap.to(cursor, {
-        x: clientX,
-        y: clientY,
-        duration: 0.1,
-        ease: "power2.out",
-      });
-      trails.forEach((trail, index) => {
-        if (trail) {
-          gsap.to(trail, {
-            x: clientX,
-            y: clientY,
-            duration: 0.3 + index * 0.08,
-            ease: "power2.out",
-          });
-        }
-      });
-    };
-
-    const handleMouseEnter = () => {
-      gsap.to(cursor, { opacity: 1, scale: 1, duration: 0.3 });
-      trails.forEach((trail) => {
-        if (trail) gsap.to(trail, { opacity: 1, duration: 0.3 });
-      });
-    };
-
-    const handleMouseLeave = () => {
-      gsap.to(cursor, { opacity: 0, scale: 0.5, duration: 0.3 });
-      trails.forEach((trail) => {
-        if (trail) gsap.to(trail, { opacity: 0, duration: 0.3 });
-      });
-    };
-
-    window.addEventListener("mousemove", moveCursor);
-    document.body.addEventListener("mouseenter", handleMouseEnter);
-    document.body.addEventListener("mouseleave", handleMouseLeave);
-
-    return () => {
-      window.removeEventListener("mousemove", moveCursor);
-      document.body.removeEventListener("mouseenter", handleMouseEnter);
-      document.body.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, []);
-
-  return (
-    <>
-      {[...Array(trailCount)].map((_, index) => (
-        <div
-          key={index}
-          ref={(el) => {
-            if (el) cursorTrailRef.current[index] = el;
-          }}
-          className="fixed pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 rounded-full"
-          style={{
-            width: `${8 - index}px`,
-            height: `${8 - index}px`,
-            backgroundColor: isDark
-              ? `hsla(40, 30%, 55%, ${0.3 - index * 0.05})`
-              : `hsla(40, 30%, 35%, ${0.4 - index * 0.07})`,
-            opacity: 0,
-          }}
-        />
-      ))}
-      <div
-        ref={cursorRef}
-        className="fixed pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2"
-        style={{ opacity: 0, mixBlendMode: isDark ? "difference" : "normal" }}
-      >
-        <div
-          className="w-4 h-4 rounded-full"
-          style={{
-            backgroundColor: isDark ? "hsl(0, 0%, 100%)" : "hsl(0, 0%, 15%)",
-          }}
-        />
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full border opacity-50"
-          style={{
-            borderColor: isDark ? "hsl(0, 0%, 100%)" : "hsl(0, 0%, 15%)",
-            animation: "pulse 2s ease-in-out infinite",
-          }}
-        />
-      </div>
-      <style>{`
-        @keyframes pulse {
-          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-          50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.2; }
-        }
-        * { cursor: none !important; }
-      `}</style>
-    </>
-  );
-};
 
 const Home = () => {
   const mainContainerRef = useRef(null);
@@ -137,6 +37,7 @@ const Home = () => {
   const descriptionRef = useRef(null);
   const imageRef = useRef(null);
   const globeBadgeRef = useRef(null);
+  const imagesIntroTl = useRef(null);
 
   const images = [
     {
@@ -208,6 +109,8 @@ const Home = () => {
 
   // Hero animations
   useEffect(() => {
+    imagesIntroTl.current = gsap.timeline();
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
@@ -626,7 +529,7 @@ const Home = () => {
               <img
                 src="https://rogue-studio.transforms.svdcdn.com/staging/globe.jpg?h=550&q=85&auto=format&fit=crop&dm=1689577916&s=73bc3a36b1873efe4182a5d695ea4f0f"
                 alt="Globe sculpture"
-                className="w-full h-auto object-contain about-globe"
+                className="w-full h-auto object-contain about-globe show-eyes"
                 style={{
                   filter: "drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15))",
                   transform: "rotate(-15deg)",
@@ -719,6 +622,7 @@ const Home = () => {
       </div>
       <ImageMarquee />
       <Services />
+      <ClientLogos />
     </>
   );
 };

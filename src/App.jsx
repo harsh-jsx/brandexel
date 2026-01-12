@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Home from "./pages/Home";
 import Preloader from "./components/Preloader";
 import { ReactLenis, useLenis } from "lenis/react";
-
+import Footer from "./components/Footer";
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -32,6 +32,7 @@ const App = () => {
     <div className="bg-black overflow-hidden">
       <ReactLenis root>
         <Home />
+        <Footer />
       </ReactLenis>
     </div>
   );

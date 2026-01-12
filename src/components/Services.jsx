@@ -146,7 +146,7 @@ const Services = ({ isLoading }) => {
       if (marqueeContent) {
         gsap.to(marqueeContent, {
           xPercent: -50,
-          duration: 8,
+          duration: 100,
           ease: "none",
           repeat: -1,
         });

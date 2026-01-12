@@ -1,92 +1,72 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
-const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 const ScrambleText = ({ text, isHovered, className, style }) => {
   const [displayText, setDisplayText] = useState(text);
-  const intervalRef = useRef(null);
-  const frameRef = useRef(0);
-  const isScrambling = useRef(false);
 
-  const scramble = useCallback(() => {
-    if (isScrambling.current) return;
-    isScrambling.current = true;
+  const rafRef = useRef(null);
+  const startTimeRef = useRef(null);
+  const isRunningRef = useRef(false);
 
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
+  const DURATION = 1500; // ms (smooth, premium feel)
+
+  const cancelAnimation = () => {
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
     }
+    isRunningRef.current = false;
+    startTimeRef.current = null;
+  };
 
-    frameRef.current = 0;
-    const totalFrames = 28; // Slower animation
-    const textLength = text.length;
+  const animate = useCallback(
+    (timestamp) => {
+      if (!startTimeRef.current) startTimeRef.current = timestamp;
+      const elapsed = timestamp - startTimeRef.current;
+      const progress = Math.min(elapsed / DURATION, 1);
 
-    intervalRef.current = setInterval(() => {
-      frameRef.current++;
+      // Ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const revealCount = Math.floor(eased * text.length);
 
-      // Eased progress for smoother reveal
-      const linearProgress = frameRef.current / totalFrames;
-      const easedProgress = 1 - Math.pow(1 - linearProgress, 3); // Ease out cubic
-      const revealIndex = Math.floor(easedProgress * textLength);
+      let output = "";
 
-      let result = "";
-      for (let i = 0; i < textLength; i++) {
+      for (let i = 0; i < text.length; i++) {
         if (text[i] === " ") {
-          result += " ";
-        } else if (i < revealIndex) {
-          result += text[i];
-        } else if (i === revealIndex) {
-          // Current character being revealed - more scramble iterations
-          result += chars[Math.floor(Math.random() * chars.length)];
+          output += " ";
+        } else if (i < revealCount) {
+          output += text[i];
         } else {
-          // Characters yet to be revealed - subtle scramble
-          if (Math.random() > 0.7) {
-            result += chars[Math.floor(Math.random() * chars.length)];
-          } else {
-            result += text[i];
-          }
+          output += CHARS[Math.floor(Math.random() * CHARS.length)];
         }
       }
 
-      setDisplayText(result);
+      setDisplayText(output);
 
-      if (frameRef.current >= totalFrames) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(animate);
+      } else {
         setDisplayText(text);
-        isScrambling.current = false;
+        cancelAnimation();
       }
-    }, 50); // Slower interval
-  }, [text]);
-
-  const reset = useCallback(() => {
-    // Don't interrupt mid-scramble, let it complete naturally
-    if (!isScrambling.current) {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-      setDisplayText(text);
-    }
-  }, [text]);
+    },
+    [text]
+  );
 
   useEffect(() => {
-    if (isHovered) {
-      scramble();
+    if (isHovered && !isRunningRef.current) {
+      isRunningRef.current = true;
+      rafRef.current = requestAnimationFrame(animate);
     }
 
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [isHovered, scramble]);
-
-  // Reset text when not hovered and not scrambling
-  useEffect(() => {
-    if (!isHovered && !isScrambling.current) {
+    if (!isHovered) {
+      cancelAnimation();
       setDisplayText(text);
     }
-  }, [isHovered, text]);
+
+    return cancelAnimation;
+  }, [isHovered, animate, text]);
 
   return (
     <span className={className} style={style}>

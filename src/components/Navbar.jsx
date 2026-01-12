@@ -103,7 +103,7 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
   return (
     <div
       ref={menuRef}
-      className="fixed left-0 top-0 h-screen z-50 flex flex-col justify-between overflow-hidden"
+      className="fixed navbar left-0 top-0 h-screen z-50 flex flex-col justify-between overflow-hidden"
       style={{
         width: "60px",
         backgroundColor: isOpen ? "hsl(40, 20%, 95%)" : closedBgColor,
