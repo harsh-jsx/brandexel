@@ -8,6 +8,7 @@ import Services from "../components/Services";
 import { image } from "motion/react-client";
 import CustomCursor from "../components/CustomCursor";
 import ClientLogos from "../components/ClientLogos";
+import Portfolio from "../components/Portfolio";
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 // Custom Cursor Component (embedded)
@@ -622,6 +623,7 @@ const Home = () => {
       </div>
       <ImageMarquee />
       <Services />
+      <Portfolio />
       <ClientLogos />
     </>
   );
