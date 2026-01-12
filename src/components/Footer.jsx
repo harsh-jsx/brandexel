@@ -234,7 +234,7 @@ const Footer = ({ isLoading }) => {
   return (
     <footer
       ref={footerRef}
-      className="relative overflow-hidden pl-16"
+      className="relative overflow-hidden "
       style={{ backgroundColor: "hsl(0, 0%, 3%)" }}
     >
       {/* Reveal Container */}

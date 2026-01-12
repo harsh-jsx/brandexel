@@ -55,21 +55,21 @@ export default function Portfolio({ isLoading }) {
     if (isLoading) return;
 
     const ctx = gsap.context(() => {
-      // Initial states
-      gsap.set(titleRef.current, { opacity: 0, y: 80 });
-      gsap.set(subtitleRef.current, { opacity: 0, y: 40 });
-      gsap.set(progressRef.current, { scaleX: 0 });
-
-      // Header animation
-      const headerTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
-        },
+      /* =========================
+         HEADER
+      ========================= */
+      gsap.set([titleRef.current, subtitleRef.current], {
+        opacity: 0,
+        y: (i) => (i === 0 ? 80 : 40),
       });
 
-      headerTl
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+          },
+        })
         .to(titleRef.current, {
           opacity: 1,
           y: 0,
@@ -87,88 +87,82 @@ export default function Portfolio({ isLoading }) {
           "-=0.8"
         );
 
-      // Horizontal scroll
-      const scrollContainer = scrollContainerRef.current;
-      const scrollWidth = scrollContainer.scrollWidth - window.innerWidth;
+      /* =========================
+         HORIZONTAL SCROLL
+      ========================= */
+      const container = scrollContainerRef.current;
+      const setProgress = gsap.quickSetter(progressRef.current, "scaleX");
 
-      gsap.to(scrollContainer, {
-        x: -scrollWidth,
+      const getScrollWidth = () => container.scrollWidth - window.innerWidth;
+
+      gsap.to(container, {
+        x: () => -getScrollWidth(),
         ease: "none",
         scrollTrigger: {
           trigger: triggerRef.current,
           start: "top top",
-          end: () => `+=${scrollWidth}`,
+          end: () => `+=${getScrollWidth()}`,
           pin: true,
           scrub: 1,
           anticipatePin: 1,
-          onUpdate: (self) => {
-            gsap.to(progressRef.current, {
-              scaleX: self.progress,
-              duration: 0.1,
-              ease: "none",
-            });
-          },
+          invalidateOnRefresh: true,
+          onUpdate: (self) => setProgress(self.progress),
         },
       });
 
-      // Project card animations
-      projectRefs.current.forEach((project) => {
-        if (!project) return;
+      /* =========================
+         PROJECT CARDS (HOVER)
+      ========================= */
+      projectRefs.current.forEach((card) => {
+        if (!card) return;
 
-        const image = project.querySelector(".project-image");
-        const overlay = project.querySelector(".project-overlay");
-        const info = project.querySelector(".project-info");
-        const reveal = project.querySelector(".image-reveal");
+        const image = card.querySelector(".project-image");
+        const overlay = card.querySelector(".project-overlay");
+        const info = card.querySelector(".project-info");
+        const reveal = card.querySelector(".image-reveal");
 
+        gsap.set([overlay, info], { opacity: 0 });
+        gsap.set(info, { y: 20 });
         gsap.set(reveal, { yPercent: 0 });
-        gsap.set(info, { opacity: 0, y: 20 });
 
-        project.addEventListener("mouseenter", () => {
-          gsap.to(reveal, {
+        const hoverTl = gsap.timeline({ paused: true });
+
+        hoverTl
+          .to(reveal, {
             yPercent: -100,
             duration: 0.8,
             ease: "power3.inOut",
-          });
-          gsap.to(image, {
-            scale: 1.1,
-            duration: 0.8,
-            ease: "power3.out",
-          });
-          gsap.to(overlay, {
-            opacity: 1,
-            duration: 0.4,
-          });
-          gsap.to(info, {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            delay: 0.2,
-            ease: "power3.out",
-          });
-        });
+          })
+          .to(
+            image,
+            {
+              scale: 1.08,
+              duration: 0.8,
+              ease: "power3.out",
+            },
+            0
+          )
+          .to(
+            overlay,
+            {
+              opacity: 1,
+              duration: 0.4,
+            },
+            0
+          )
+          .to(
+            info,
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.5,
+              ease: "power3.out",
+            },
+            0.2
+          );
 
-        project.addEventListener("mouseleave", () => {
-          gsap.to(reveal, {
-            yPercent: 0,
-            duration: 0.6,
-            ease: "power3.inOut",
-          });
-          gsap.to(image, {
-            scale: 1,
-            duration: 0.6,
-            ease: "power3.out",
-          });
-          gsap.to(overlay, {
-            opacity: 0,
-            duration: 0.4,
-          });
-          gsap.to(info, {
-            opacity: 0,
-            y: 20,
-            duration: 0.3,
-            ease: "power3.out",
-          });
-        });
+        card.addEventListener("mouseenter", () => hoverTl.play());
+        card.addEventListener("mouseleave", () => hoverTl.reverse());
       });
     }, sectionRef);
 
@@ -178,7 +172,7 @@ export default function Portfolio({ isLoading }) {
   return (
     <section ref={sectionRef} className="relative bg-black">
       {/* Header */}
-      <div className="relative z-10 pt-24 md:pt-32 pb-16 px-6 md:px-12">
+      <div className="relative z-10 pt-24  md:pt-32 pb-16 px-6 md:px-26">
         <div className="max-w-7xl mx-auto">
           <p
             ref={subtitleRef}

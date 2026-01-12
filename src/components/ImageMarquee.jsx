@@ -56,8 +56,8 @@ const ImageMarquee = () => {
         {duplicatedImages.map((image, index) => (
           <div
             key={index}
-            className="shrink-0 rounded-lg overflow-hidden shadow-lg"
-            style={{ width: "300px", height: "350px" }}
+            className="shrink-0 rounded-lg overflow-hidden shadow-lg h-38 w-38 md:h-72 md:w-72"
+            // style={{ width: "300px", height: "350px" }}
           >
             <img
               src={image}

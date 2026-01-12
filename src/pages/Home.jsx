@@ -390,7 +390,7 @@ const Home = () => {
       {/* Scroll Progress Bar */}
       <div
         ref={progressBarRef}
-        className="fixed top-0 left-16 right-0 h-[2px] z-[60] origin-left"
+        className="fixed top-0 left-16 right-0 h-[0px] z-[60] origin-left"
         style={{
           backgroundColor: "hsl(40, 30%, 55%)",
           transform: "scaleX(0)",
@@ -401,7 +401,7 @@ const Home = () => {
         {/* Hero Section - Black Background that transitions to cream */}
         <section
           ref={heroSectionRef}
-          className="min-h-screen overflow-hidden flex items-center justify-center relative pl-16 z-10"
+          className="min-h-screen overflow-hidden flex items-center justify-center relative  z-10"
           style={{ backgroundColor: "hsl(0, 0%, 0%)" }}
         >
           <div className="text-center relative z-10 px-4">
@@ -462,7 +462,7 @@ const Home = () => {
         {/* About Section - Light Background */}
         <section
           ref={aboutSectionRef}
-          className="min-h-screen overflow-x-hidden pl-16 relative z-10"
+          className="min-h-screen overflow-x-hidden  relative z-10"
           style={{ backgroundColor: "rgb(233, 228, 217)" }}
         >
           {/* Hero Content */}
@@ -623,7 +623,7 @@ const Home = () => {
       </div>
       <ImageMarquee />
       <Services />
-      <Portfolio />
+      {/* <Portfolio /> */}
       <ClientLogos />
     </>
   );

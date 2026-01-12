@@ -177,7 +177,7 @@ const Preloader = ({ onComplete }) => {
         {/* Tagline */}
         <p
           ref={taglineRef}
-          className="text-xs uppercase tracking-[0.4em] mb-12"
+          className="text-xs uppercase text-center tracking-[0.4em] mb-12"
           style={{ color: "hsl(40, 30%, 55%)" }}
         >
           Creating Brands Impossible to Ignore

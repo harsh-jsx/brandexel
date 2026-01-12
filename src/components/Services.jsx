@@ -159,7 +159,7 @@ const Services = ({ isLoading }) => {
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen overflow-hidden pl-16 relative z-10 py-32 md:py-40"
+      className="min-h-screen overflow-hidden  relative z-10 py-32 md:py-40"
       style={{ backgroundColor: "hsl(0, 0%, 3%)" }}
     >
       {/* Parallax Background Elements */}
@@ -214,7 +214,7 @@ const Services = ({ isLoading }) => {
 
           {/* SplitText Title */}
           <div ref={titleRef} className="max-w-5xl overflow-hidden">
-            <h2 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal leading-[0.95] tracking-tight">
+            <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl font-normal leading-[0.95] tracking-tight">
               {"SERVICES".split("").map((char, i) => (
                 <span
                   key={`s1-${i}`}
@@ -231,7 +231,7 @@ const Services = ({ isLoading }) => {
                 </span>
               ))}
             </h2>
-            <h2 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal leading-[0.95] tracking-tight mt-2">
+            <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl font-normal leading-[0.95] tracking-tight mt-2">
               {"THAT MAKE".split("").map((char, i) => (
                 <span
                   key={`s2-${i}`}
@@ -248,7 +248,7 @@ const Services = ({ isLoading }) => {
                 </span>
               ))}
             </h2>
-            <h2 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl italic leading-[0.95] tracking-tight mt-2">
+            <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl italic leading-[0.95] tracking-tight mt-2">
               {"BRANDS".split("").map((char, i) => (
                 <span
                   key={`s3-${i}`}
@@ -264,6 +264,8 @@ const Services = ({ isLoading }) => {
                   {char}
                 </span>
               ))}{" "}
+            </h2>
+            <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl italic leading-[0.95] tracking-tight mt-2">
               {"UNFORGETTABLE".split("").map((char, i) => (
                 <span
                   key={`s4-${i}`}

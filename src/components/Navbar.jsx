@@ -1,12 +1,121 @@
 import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-
+import MobileNavbar from "./MobileNavbar";
 gsap.registerPlugin(ScrollToPlugin);
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  return isMobile;
+};
+// const MobileNavbar = ({ onScrollToSection }) => {
+//   const [open, setOpen] = useState(false);
+//   const overlayRef = useRef(null);
+//   const itemsRef = useRef([]);
+
+//   useEffect(() => {
+//     if (!open) return;
+
+//     gsap.fromTo(
+//       overlayRef.current,
+//       { yPercent: -100 },
+//       {
+//         yPercent: 0,
+//         duration: 0.8,
+//         ease: "power4.inOut",
+//       }
+//     );
+
+//     gsap.fromTo(
+//       itemsRef.current,
+//       { y: 60, opacity: 0 },
+//       {
+//         y: 0,
+//         opacity: 1,
+//         stagger: 0.08,
+//         delay: 0.3,
+//         duration: 0.8,
+//         ease: "power4.out",
+//       }
+//     );
+//   }, [open]);
+
+//   const navItems = [
+//     { label: "Work", sectionId: "about" },
+//     { label: "Ideas", sectionId: null },
+//     { label: "Contact", sectionId: null },
+//   ];
+
+//   const handleClick = (id) => {
+//     setOpen(false);
+//     if (id && onScrollToSection) {
+//       setTimeout(() => onScrollToSection(id), 500);
+//     }
+//   };
+
+//   return (
+//     <>
+//       {/* Top Bar */}
+//       <div className="fixed top-0 left-0 right-0 z-50 bg-black px-5 py-4 flex justify-between items-center">
+//         <span className="text-white font-serif text-lg">BRANDEXEL</span>
+//         <button
+//           onClick={() => setOpen(true)}
+//           className="text-white text-xs tracking-widest uppercase"
+//         >
+//           MENU
+//         </button>
+//       </div>
+
+//       {/* Overlay */}
+//       {open && (
+//         <div
+//           ref={overlayRef}
+//           className="fixed inset-0 z-[100] bg-[hsl(40,20%,95%)] flex flex-col justify-center px-8"
+//         >
+//           <button
+//             onClick={() => setOpen(false)}
+//             className="absolute top-6 right-6 text-xs tracking-widest uppercase text-black"
+//           >
+//             CLOSE
+//           </button>
+
+//           <nav className="space-y-8">
+//             {navItems.map((item, i) => (
+//               <div
+//                 key={item.label}
+//                 ref={(el) => (itemsRef.current[i] = el)}
+//                 onClick={() => handleClick(item.sectionId)}
+//                 className="cursor-pointer"
+//               >
+//                 <h2 className="font-serif text-5xl tracking-tight text-black">
+//                   {item.label}
+//                 </h2>
+//               </div>
+//             ))}
+//           </nav>
+
+//           <div className="absolute bottom-8 left-8 text-xs uppercase tracking-widest text-black/50">
+//             hello@rogue.studio
+//           </div>
+//         </div>
+//       )}
+//     </>
+//   );
+// };
 
 const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
+  const isMobile = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
+
   const contentRef = useRef(null);
   const dotsRef = useRef([]);
 
@@ -99,11 +208,13 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
       />
     </svg>
   );
-
+  if (isMobile) {
+    return <MobileNavbar onScrollToSection={onScrollToSection} />;
+  }
   return (
     <div
       ref={menuRef}
-      className="fixed navbar left-0 top-0 h-screen z-50 flex flex-col justify-between overflow-hidden"
+      className="fixed  left-0 top-0 h-screen z-50 flex flex-col justify-between overflow-hidden"
       style={{
         width: "60px",
         backgroundColor: isOpen ? "hsl(40, 20%, 95%)" : closedBgColor,
@@ -273,11 +384,11 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
               SAY HELLO
             </span>
             <a
-              href="mailto:hello@brandexel.com"
+              href="mailto:hello@rogue.studio"
               className="block mt-2 hover:opacity-70 transition-opacity"
               style={{ color: "hsl(0, 0%, 10%)" }}
             >
-              hello@brandexel.com
+              hello@rogue.studio
             </a>
           </div>
 
