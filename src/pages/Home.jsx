@@ -5,7 +5,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import Navbar from "../components/Navbar";
 import ImageMarquee from "../components/ImageMarquee";
 import Serivces from "../components/Serivces";
-
+import Preloader from "../components/Preloader";
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 // Custom Cursor Component (embedded)
@@ -114,6 +114,7 @@ const CustomCursor = ({ isDark }) => {
 
 const Home = () => {
   const mainContainerRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true);
   const heroSectionRef = useRef(null);
   const aboutSectionRef = useRef(null);
   const progressBarRef = useRef(null);
@@ -208,6 +209,7 @@ const Home = () => {
 
   // Hero animations
   useEffect(() => {
+    if (isLoading) return;
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
@@ -272,6 +274,7 @@ const Home = () => {
 
   // Color transition on scroll - changes at halfway point of hero section
   useEffect(() => {
+    if (isLoading) return;
     const ctx = gsap.context(() => {
       // Animate hero section background color
       gsap.to(heroSectionRef.current, {
@@ -329,6 +332,7 @@ const Home = () => {
 
   // Scroll progress bar animation
   useEffect(() => {
+    if (isLoading) return;
     const ctx = gsap.context(() => {
       gsap.to(progressBarRef.current, {
         scaleX: 1,
@@ -347,6 +351,8 @@ const Home = () => {
 
   // About section animations
   useEffect(() => {
+    if (isLoading) return;
+
     const ctx = gsap.context(() => {
       // Set initial states
       gsap.set(subtitleRef.current, { opacity: 0, y: 30 });
@@ -465,6 +471,11 @@ const Home = () => {
 
     return () => ctx.revert();
   }, []);
+  useEffect(() => {
+    if (!isLoading) {
+      ScrollTrigger.refresh(true);
+    }
+  }, [isLoading]);
 
   // Smooth scroll to section function
   const scrollToSection = (sectionId) => {
@@ -477,6 +488,9 @@ const Home = () => {
       });
     }
   };
+  if (isLoading) {
+    return <Preloader onComplete={() => setIsLoading(false)} />;
+  }
 
   return (
     <>
