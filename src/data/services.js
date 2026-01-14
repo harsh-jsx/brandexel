@@ -102,7 +102,7 @@ export const services = [
   },
   {
     number: "08",
-    title: "Product Photo Shoot",
+    title: "Photography",
     description:
       "Professional product photography designed to enhance visual appeal and drive sales.",
     details: [
@@ -113,5 +113,23 @@ export const services = [
       "Jewelry, Apparel & Fashion Shoot",
       "High-Resolution Editing & Retouching",
     ],
+  },
+  {
+    number: "09",
+    category: "Visual & Media Services",
+    title: "Other Services",
+    description:
+      "High-quality photography and video solutions crafted to elevate brand presence, improve engagement, and drive conversions across digital platforms.",
+    details: [
+      "Product Photography for E-Commerce & Catalogs",
+      "Lifestyle & Model Shoots with Products",
+      "Creative Flat Lay Photography",
+      "Food & Beverage Photography",
+      "Jewelry, Apparel & Fashion Photography",
+      "Brand & Promotional Video Production",
+      "Social Media Reels & Short-Form Videos",
+      "High-Resolution Editing, Color Grading & Retouching",
+    ],
+    note: "This category will be expanded with additional visual and media services in the future.",
   },
 ];
