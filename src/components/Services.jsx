@@ -41,6 +41,10 @@ const Services = ({ isLoading }) => {
   // Services section animations
   useEffect(() => {
     if (isLoading) return;
+    gsap.defaults({
+      ease: "power3.out",
+      duration: 1,
+    });
 
     const ctx = gsap.context(() => {
       // Set initial states
@@ -153,14 +157,133 @@ const Services = ({ isLoading }) => {
       }
     }, sectionRef);
 
+    const servicesTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top 85%",
+        end: "bottom 20%",
+        toggleActions: "play none none reverse",
+      },
+    });
+    servicesTl
+      // 1. Lift the entire section subtly (depth)
+      .fromTo(
+        sectionRef.current,
+        { y: 120, rotateX: 6, opacity: 0 },
+        {
+          y: 0,
+          rotateX: 0,
+          opacity: 1,
+          duration: 1.6,
+          ease: "power4.out",
+        },
+        0
+      )
+
+      // 2. Overlay fades like a curtain
+      .to(
+        overlayRef.current,
+        {
+          opacity: 0,
+          duration: 1.8,
+          ease: "power2.out",
+        },
+        0.2
+      )
+
+      // 3. Subtitle floats in (soft)
+      .fromTo(
+        subtitleRef.current,
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1 },
+        0.4
+      )
+
+      // 4. Title characters: depth + stagger (signature moment)
+      .fromTo(
+        titleCharsRef.current,
+        {
+          y: 120,
+          opacity: 0,
+          rotateX: 90,
+          transformOrigin: "50% 100%",
+          filter: "blur(10px)",
+        },
+        {
+          y: 0,
+          opacity: 1,
+          rotateX: 0,
+          filter: "blur(0px)",
+          duration: 1.4,
+          stagger: {
+            each: 0.03,
+            from: "start",
+          },
+          ease: "power4.out",
+        },
+        0.5
+      )
+
+      // 5. Marquee slides in like momentum
+      .fromTo(
+        marqueeRef.current,
+        { y: 80, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.2 },
+        0.8
+      )
+
+      // 6. Service cards cascade (editorial feel)
+      .fromTo(
+        cardsRef.current,
+        {
+          y: 80,
+          opacity: 0,
+          rotateX: 8,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          rotateX: 0,
+          duration: 1.4,
+          stagger: {
+            each: 0.12,
+            from: "start",
+          },
+          ease: "power3.out",
+        },
+        1
+      )
+
+      // 7. CTA arrives last (confidence)
+      .fromTo(
+        ctaRef.current,
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1 },
+        1.4
+      );
+    gsap.to(marqueeRef.current, {
+      x: "-10%",
+      ease: "none",
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1,
+      },
+    });
+
     return () => ctx.revert();
   }, [isLoading]);
 
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen overflow-hidden  relative z-10 py-32 md:py-40"
-      style={{ backgroundColor: "hsl(0, 0%, 3%)" }}
+      className="min-h-screen overflow-hidden relative z-10 py-32 md:py-40"
+      style={{
+        backgroundColor: "hsl(0, 0%, 3%)",
+        perspective: "1200px",
+        transformStyle: "preserve-3d",
+      }}
     >
       {/* Parallax Background Elements */}
       <div
