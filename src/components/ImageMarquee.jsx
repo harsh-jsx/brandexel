@@ -1,10 +1,16 @@
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import React, { useRef, useEffect } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useAnimationFrame,
+} from "motion/react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import scrolltrigger from "gsap/ScrollTrigger";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(scrolltrigger);
+gsap.registerPlugin(ScrollTrigger);
 
 const ImageMarquee = () => {
   const containerRef = useRef(null);
@@ -22,24 +28,34 @@ const ImageMarquee = () => {
     "https://picsum.photos/seed/marquee10/500/600",
   ];
 
-  // Duplicate images for seamless loop
   const duplicatedImages = [...images, ...images];
 
-  // Track scroll progress
+  /** base continuous motion */
+  const baseX = useMotionValue(0);
+
+  /** scroll motion (unchanged behavior) */
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  // Transform scroll progress to x position
-  const x = useTransform(scrollYProgress, [0, 1], [0, -1000]);
+  const scrollX = useTransform(scrollYProgress, [0, 1], [0, -1000]);
+
+  /** combine both safely */
+  const x = useTransform([baseX, scrollX], ([base, scroll]) => base + scroll);
+
+  /** continuous marquee movement */
+  useAnimationFrame((_, delta) => {
+    const speed = 0.03; // same visual speed as before
+    baseX.set(baseX.get() - delta * speed);
+  });
 
   useGSAP(() => {
     gsap.to(containerRef.current, {
       backgroundColor: "black",
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "top 50%", // starts when section is halfway down
+        start: "top 50%",
         end: "bottom 40%",
         scrub: true,
       },
@@ -57,7 +73,6 @@ const ImageMarquee = () => {
           <div
             key={index}
             className="shrink-0 rounded-lg overflow-hidden shadow-lg h-38 w-38 md:h-72 md:w-72"
-            // style={{ width: "300px", height: "350px" }}
           >
             <img
               src={image}
