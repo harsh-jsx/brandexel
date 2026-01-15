@@ -424,7 +424,7 @@ const Home = () => {
             <div ref={impossibleWrapperRef}>
               <h2
                 ref={impossibleRef}
-                className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tighter leading-none py-2 md:py-4 uppercase"
+                className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-10xl font-black tracking-tighter leading-none py-2 md:py-4 uppercase"
                 style={{ fontWeight: 900, color: "hsl(40, 30%, 55%)" }}
               >
                 IMPOSSIBLE
