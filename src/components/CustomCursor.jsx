@@ -1,8 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import eyeIcon from "../assets/eyeIcon.svg";
 
-const TRAIL_COUNT = 5;
+const TRAIL_COUNT = 0;
+
+const lerp = (a, b, n) => a + (b - a) * n;
 
 const CustomCursor = () => {
   const cursorRef = useRef(null);
@@ -10,64 +12,62 @@ const CustomCursor = () => {
   const trailsRef = useRef([]);
 
   const mouse = useRef({ x: 0, y: 0 });
+  const pos = useRef({ x: 0, y: 0 });
+  const trailPos = useRef(
+    [...Array(TRAIL_COUNT)].map(() => ({ x: 0, y: 0 }))
+  );
+
   const isEyeMode = useRef(false);
+  const [enabled, setEnabled] = useState(false);
 
   /* ===============================
-     HARD DISABLE ON MOBILE / TOUCH
+     ENABLE ONLY ON DESKTOP
   =============================== */
-  const isTouchDevice =
-    typeof window !== "undefined" &&
-    window.matchMedia("(pointer: coarse)").matches;
-
-  // 🚫 Do not render or run logic on mobile
-  if (isTouchDevice) return null;
+  useEffect(() => {
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
+    if (!isTouch) setEnabled(true);
+  }, []);
 
   useEffect(() => {
+    if (!enabled) return;
+
     const cursor = cursorRef.current;
     const eye = eyeRef.current;
     const trails = trailsRef.current;
 
-    if (!cursor) return;
-
-    /* ===============================
-       QUICK SETTERS
-    =============================== */
     const setCursorX = gsap.quickSetter(cursor, "x", "px");
     const setCursorY = gsap.quickSetter(cursor, "y", "px");
+    const setEyeX = gsap.quickSetter(eye, "x", "px");
+    const setEyeY = gsap.quickSetter(eye, "y", "px");
 
     const trailSetters = trails.map((el) => ({
       x: gsap.quickSetter(el, "x", "px"),
       y: gsap.quickSetter(el, "y", "px"),
     }));
 
-    const onMouseMove = (e) => {
+    const onMove = (e) => {
       mouse.current.x = e.clientX;
       mouse.current.y = e.clientY;
     };
 
-    /* ===============================
-       GSAP TICKER
-    =============================== */
     const tick = () => {
-      setCursorX(mouse.current.x);
-      setCursorY(mouse.current.y);
+      pos.current.x = lerp(pos.current.x, mouse.current.x, 0.2);
+      pos.current.y = lerp(pos.current.y, mouse.current.y, 0.2);
 
-      trailSetters.forEach((_, i) => {
-        gsap.to(trails[i], {
-          x: mouse.current.x,
-          y: mouse.current.y,
-          duration: 0.35 + i * 0.08,
-          ease: "power3.out",
-        });
+      setCursorX(pos.current.x);
+      setCursorY(pos.current.y);
+      setEyeX(pos.current.x);
+      setEyeY(pos.current.y);
+
+      trailPos.current.forEach((p, i) => {
+        p.x = lerp(p.x, pos.current.x, 0.12 - i * 0.01);
+        p.y = lerp(p.y, pos.current.y, 0.12 - i * 0.01);
+        trailSetters[i].x(p.x);
+        trailSetters[i].y(p.y);
       });
     };
 
-    gsap.ticker.add(tick);
-
-    /* ===============================
-       EYE MODE
-    =============================== */
-    const onMouseOver = (e) => {
+    const onHover = (e) => {
       if (!e.target.closest(".show-eyes")) return;
       if (isEyeMode.current) return;
 
@@ -76,39 +76,37 @@ const CustomCursor = () => {
       gsap.to(eye, { opacity: 1, scale: 1, duration: 0.2 });
     };
 
-    const onMouseOut = (e) => {
+    const onOut = (e) => {
       if (!e.target.closest(".show-eyes")) return;
-
       isEyeMode.current = false;
+
       gsap.to(cursor, { scale: 1, duration: 0.2 });
       gsap.to(eye, { opacity: 0, scale: 0.5, duration: 0.2 });
     };
 
-    const onEnter = () => {
-      gsap.to(cursor, { opacity: 1, duration: 0.3 });
-      trails.forEach((t) => gsap.to(t, { opacity: 1, duration: 0.3 }));
+    const onVisibility = () => {
+      const visible = !document.hidden;
+      gsap.to([cursor, ...trails], { opacity: visible ? 1 : 0, duration: 0.2 });
     };
 
-    const onLeave = () => {
-      gsap.to(cursor, { opacity: 0, duration: 0.3 });
-      trails.forEach((t) => gsap.to(t, { opacity: 0, duration: 0.3 }));
-    };
+    window.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseover", onHover);
+    document.addEventListener("mouseout", onOut);
+    document.addEventListener("visibilitychange", onVisibility);
 
-    window.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseover", onMouseOver);
-    document.addEventListener("mouseout", onMouseOut);
-    document.addEventListener("mouseenter", onEnter);
-    document.addEventListener("mouseleave", onLeave);
+    gsap.set([cursor, eye, ...trails], { opacity: 1 });
+    gsap.ticker.add(tick);
 
     return () => {
       gsap.ticker.remove(tick);
-      window.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseover", onMouseOver);
-      document.removeEventListener("mouseout", onMouseOut);
-      document.removeEventListener("mouseenter", onEnter);
-      document.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseover", onHover);
+      document.removeEventListener("mouseout", onOut);
+      document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, []);
+  }, [enabled]);
+
+  if (!enabled) return null;
 
   return (
     <>
@@ -117,19 +115,18 @@ const CustomCursor = () => {
         <div
           key={i}
           ref={(el) => (trailsRef.current[i] = el)}
-          className="fixed pointer-events-none z-[9998] rounded-full"
+          className="fixed pointer-events-none rounded-full z-[9998]"
           style={{
-            width: 8 - i,
-            height: 8 - i,
-            backgroundColor: "#fff",
-            opacity: 0,
+            width: 7 - i,
+            height: 7 - i,
+            background: "#fff",
             transform: "translate(-50%, -50%)",
             mixBlendMode: "difference",
           }}
         />
       ))}
 
-      {/* Main Cursor */}
+      {/* Cursor */}
       <div
         ref={cursorRef}
         className="fixed pointer-events-none z-[9999]"
@@ -137,31 +134,31 @@ const CustomCursor = () => {
           width: 36,
           height: 36,
           borderRadius: "50%",
-          backgroundColor: "#fff",
-          opacity: 0,
+          background: "#fff",
           transform: "translate(-50%, -50%)",
           mixBlendMode: "difference",
         }}
       />
 
-      {/* Eye Icon */}
+      {/* Eye */}
       <img
         ref={eyeRef}
         src={eyeIcon}
-        alt="Eye cursor"
+        alt=""
         className="fixed pointer-events-none z-[10000]"
         style={{
           width: 28,
           height: 28,
-          opacity: 0,
           transform: "translate(-50%, -50%) scale(0.5)",
+          opacity: 0,
           filter: "invert(1)",
           mixBlendMode: "difference",
         }}
       />
 
       <style>{`
-        * { cursor: none !important; }
+        body { cursor: none; }
+        input, textarea, button { cursor: auto; }
       `}</style>
     </>
   );

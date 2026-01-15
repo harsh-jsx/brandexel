@@ -18,6 +18,7 @@ const Home = () => {
   const heroSectionRef = useRef(null);
   const aboutSectionRef = useRef(null);
   const progressBarRef = useRef(null);
+  const darkNavbarContainerRef = useRef(null);
 
   // State for navbar dark mode
   const [isNavbarDark, setIsNavbarDark] = useState(true);
@@ -227,6 +228,20 @@ const Home = () => {
         },
       });
     }, mainContainerRef);
+
+    // Make navbar dark after images marquee
+
+    gsap.to(darkNavbarContainerRef.current,{
+      scrollTrigger:{
+        trigger:darkNavbarContainerRef.current,
+        start:"top 80%",
+        end:"bottom 60%",
+        scrub:0.5,
+        onUpdate:(self)=>{
+          setIsNavbarDark(true);  
+        }
+      }
+    })
 
     return () => ctx.revert();
   }, []);
@@ -621,10 +636,13 @@ const Home = () => {
           </div>
         </section>
       </div>
+                <div className="nav-dark" ref={darkNavbarContainerRef}>
+
       <ImageMarquee />
       <Services />
       {/* <Portfolio /> */}
       <ClientLogos />
+                </div>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect,useState } from "react";
 import {
   motion,
   useScroll,
@@ -19,11 +19,11 @@ import creative8 from "../assets/creative8.jpeg";
 import creative9 from "../assets/creative9.jpeg";
 import creative10 from "../assets/creative10.jpeg";
 import ScrollTrigger from "gsap/ScrollTrigger";
-
 gsap.registerPlugin(ScrollTrigger);
 
 const ImageMarquee = () => {
   const containerRef = useRef(null);
+  const [isNavbarDark, setIsNavbarDark] = useState(true);
 
   const images = [
     creative1,
@@ -69,6 +69,7 @@ const ImageMarquee = () => {
         end: "bottom 40%",
         scrub: true,
       },
+      setIsNavbarDark:true,
     });
   }, []);
 
