@@ -99,7 +99,7 @@ const Contact = () => {
 
       // Form lines with character-by-character reveal
       formLinesRef.current.filter(Boolean).forEach((line, i) => {
-        const textNodes = line.querySelectorAll(".form-text");
+        const textNodes = line.querySelectorAll(".form-text font-[PPE]");
         textNodes.forEach((textNode) => {
           const split = new SplitText(textNode, {
             type: "chars,words",
@@ -437,14 +437,14 @@ const Contact = () => {
               ref={(el) => (formLinesRef.current[0] = el)}
               className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-4"
             >
-              <span className="form-text">Hi, I'm</span>
+              <span className="form-text font-[PPE]">Hi, I'm</span>
               <InlineInput
                 placeholder="your name"
                 value={formData.name}
                 onChange={(val) => handleChange("name", val)}
                 index={0}
               />
-              <span className="form-text">from</span>
+              <span className="form-text font-[PPE]">from</span>
               <InlineInput
                 placeholder="company name"
                 value={formData.company}
@@ -458,7 +458,7 @@ const Contact = () => {
               ref={(el) => (formLinesRef.current[1] = el)}
               className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-4"
             >
-              <span className="form-text">
+              <span className="form-text font-[PPE]">
                 I'm looking for a partner to help me with
               </span>
               <InlineInput
@@ -474,7 +474,7 @@ const Contact = () => {
               ref={(el) => (formLinesRef.current[2] = el)}
               className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-4"
             >
-              <span className="form-text">
+              <span className="form-text font-[PPE]">
                 I'd like to complete this project within
               </span>
               <InlineSelect
@@ -492,7 +492,9 @@ const Contact = () => {
               ref={(el) => (formLinesRef.current[3] = el)}
               className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-4"
             >
-              <span className="form-text">and my budget is around</span>
+              <span className="form-text font-[PPE]">
+                and my budget is around
+              </span>
               <InlineSelect
                 options={[
                   "$5K - $15K",
@@ -512,7 +514,7 @@ const Contact = () => {
               ref={(el) => (formLinesRef.current[4] = el)}
               className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-8"
             >
-              <span className="form-text">You can reach me at</span>
+              <span className="form-text font-[PPE]">You can reach me at</span>
               <InlineInput
                 placeholder="email@example.com"
                 value={formData.email}
@@ -524,7 +526,7 @@ const Contact = () => {
 
             {/* Optional details */}
             <div ref={(el) => (formLinesRef.current[5] = el)} className="mb-12">
-              <p className="form-text text-white/60 text-lg md:text-xl mb-4">
+              <p className="form-text font-[PPE] text-white/60 text-lg md:text-xl mb-4">
                 Optionally, share more about your project:
               </p>
               <div
@@ -538,7 +540,7 @@ const Contact = () => {
                   onBlur={() => handleInputBlur(6)}
                   placeholder="Additional details, links, inspiration..."
                   rows={3}
-                  className="w-full bg-foreground/[0.02] border border-foreground/10 rounded-xl
+                  className="w-full bg-foreground/[0.02] border border-foreground/10 font-[PPE] rounded-xl
                     text-white/80 text-lg placeholder:text-white
                     p-5 outline-none resize-none 
                     focus:border-secondary/30 focus:bg-foreground/[0.04]
