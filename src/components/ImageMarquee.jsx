@@ -8,6 +8,16 @@ import {
 } from "motion/react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import creative1 from "../assets/creative1.jpeg";
+import creative2 from "../assets/creative2.jpeg";
+import creative3 from "../assets/creative3.jpeg";
+import creative4 from "../assets/creative4.jpeg";
+import creative5 from "../assets/creative5.jpeg";
+import creative6 from "../assets/creative6.jpeg";
+import creative7 from "../assets/creative7.jpeg";
+import creative8 from "../assets/creative8.jpeg";
+import creative9 from "../assets/creative9.jpeg";
+import creative10 from "../assets/creative10.jpeg";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -16,16 +26,16 @@ const ImageMarquee = () => {
   const containerRef = useRef(null);
 
   const images = [
-    "https://picsum.photos/seed/marquee1/500/600",
-    "https://picsum.photos/seed/marquee2/600/500",
-    "https://picsum.photos/seed/marquee3/550/650",
-    "https://picsum.photos/seed/marquee4/500/500",
-    "https://picsum.photos/seed/marquee5/600/600",
-    "https://picsum.photos/seed/marquee6/550/600",
-    "https://picsum.photos/seed/marquee7/500/550",
-    "https://picsum.photos/seed/marquee8/600/650",
-    "https://picsum.photos/seed/marquee9/550/550",
-    "https://picsum.photos/seed/marquee10/500/600",
+    creative1,
+    creative2,
+    creative3,
+    creative4,
+    creative5,
+    creative6,
+    creative7,
+    creative8,
+    creative9,
+    creative10,
   ];
 
   const duplicatedImages = [...images, ...images];

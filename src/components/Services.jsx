@@ -318,7 +318,7 @@ const Services = ({ isLoading }) => {
         style={{ backgroundColor: "hsl(0, 0%, 0%)" }}
       />
 
-      <div className="px-8 md:px-16 relative z-10">
+      <div className="px-8 md:px-16 relative z-10" id="services">
         {/* Section Header */}
         <div className="mb-20 md:mb-32">
           <div className="flex items-center gap-4 mb-8">

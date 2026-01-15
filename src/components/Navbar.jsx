@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import MobileNavbar from "./MobileNavbar";
 gsap.registerPlugin(ScrollToPlugin);
+import logo from "../assets/logo.png";
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -120,19 +121,28 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
   const dotsRef = useRef([]);
 
   const navItems = [
-    { label: "WORK", italic: "Work", count: "(15)", sectionId: "about" },
+    { label: "ABOUT", italic: "about", count: "(15)", sectionId: "about" },
     {
-      label: "IDEAS",
-      italic: "Ideas",
+      label: "SERVICES",
+      italic: "services",
       count: "(05)",
-      subtitle: "[Coming Soon]",
-      sectionId: null,
+      sectionId: "services",
     },
-    { label: "CONTACT", italic: "Contact", count: "", sectionId: null },
+    {
+      label: "CLIENTS",
+      italic: "clients",
+      count: "(05)",
+      sectionId: "clients",
+    },
+    { label: "CONTACT", italic: "Contact", count: "", sectionId: "/contact" },
   ];
 
   const handleNavClick = (sectionId) => {
     if (sectionId && onScrollToSection) {
+      if (sectionId[0] === "/") {
+        window.location.href = `/${sectionId.slice(1)}`;
+        return;
+      }
       setIsOpen(false);
       setTimeout(() => onScrollToSection(sectionId), 300);
     }
