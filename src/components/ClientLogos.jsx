@@ -8,6 +8,8 @@ import client3 from "../assets/client3.jpeg";
 import client4 from "../assets/client4.jpeg";
 import client5 from "../assets/client5.jpeg";
 import client6 from "../assets/client6.jpeg";
+import client7 from "../assets/client7.jpeg";
+import client8 from "../assets/client8.jfif";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,6 +20,8 @@ const clients = [
   { name: "Amazon", logo: client4 },
   { name: "Microsoft", logo: client5 },
   { name: "Netflix", logo: client6 },
+  { name: "Netflix", logo: client7 },
+  { name: "Netflix", logo: client8 },
 ];
 
 export default function ClientLogos({ isLoading }) {
