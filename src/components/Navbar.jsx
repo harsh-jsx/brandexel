@@ -236,7 +236,8 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
     >
       {/* Logo */}
       <div className="p-4 flex items-center justify-center">
-        <Logo color={isOpen ? "hsl(0, 0%, 10%)" : closedFgColor} />
+        {/* <Logo color={isOpen ? "hsl(0, 0%, 10%)" : closedFgColor} /> */}
+        <img src={logo} alt="" className="object-contain" />
       </div>
 
       {/* Dots Toggle */}
@@ -294,7 +295,8 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
             onClick={handleLogoClick}
             className="hover:opacity-70 transition-opacity"
           >
-            <Logo color="hsl(0, 0%, 10%)" />
+            {/* <Logo color="hsl(0, 0%, 10%)" /> */}
+            <img src={logo} alt="" className="h-10 w-10 object-contain" />
           </button>
           <button
             onClick={() => setIsOpen(false)}
