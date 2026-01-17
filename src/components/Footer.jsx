@@ -441,7 +441,16 @@ const Footer = ({ isLoading }) => {
                 </p>
               </div>
             </div>
+            <div className="flex justify-center items-center w-full mt-10">
+
+              <p
+                className="text-[15px] tracking-[0.2em] text-white uppercase text-center transition hover:text-[hsl(40,30%,55%)] hover:scale-125"
+              >
+                <a href="http://403labs.in" target="_blank" rel="noopener noreferrer" className="underline">Made with ❤️ by 403labs </a>
+              </p>
+            </div>
           </div>
+
         </div>
 
         {/* Absolute Bottom Bar */}
@@ -456,11 +465,14 @@ const Footer = ({ isLoading }) => {
             © 2026 Brandexel Studio
           </p>
 
+
+
           <div
             ref={bottomLineRef}
             className="hidden md:block flex-1 h-[1px] mx-8"
             style={{ backgroundColor: "hsl(0, 0%, 12%)" }}
           />
+
 
           <p
             className="text-[10px] tracking-[0.2em] uppercase"

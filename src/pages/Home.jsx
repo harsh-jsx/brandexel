@@ -7,6 +7,7 @@ import ImageMarquee from "../components/ImageMarquee";
 import Services from "../components/Services";
 import CustomCursor from "../components/CustomCursor";
 import ClientLogos from "../components/ClientLogos";
+import globe1 from '../assets/globe1.webp'
 // import Portfolio from "../components/Portfolio";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -521,7 +522,7 @@ const Home = ({ isPreloading }) => {
                 <div ref={heroTextRef} className="space-y-1">
                   {["MAKING CULTURE VISIBLE", "THROUGH DESIGN, TECH,", "AND A LITTLE MAGIC"].map((text, i) => (
                     <div key={i} className="overflow-hidden">
-                      <h1 className="font-['Druk'] text-5xl sm:text-6xl md:text-8xl lg:text-9xl uppercase leading-[0.85] tracking-tight text-[hsl(0,0%,10%)]">
+                      <h1 className="font-['Druk'] text-5xl sm:text-6xl md:text-8xl lg:text-9xl uppercase leading-[0.85]  text-[hsl(0,0%,10%)]">
                         {text.includes("MAGIC") ? (
                           <>
                             AND <span className="font-[PPN] font-light italic text-[hsl(40,30%,40%)] lowercase tracking-normal">a little magic</span>
@@ -536,23 +537,25 @@ const Home = ({ isPreloading }) => {
               </div>
 
               {/* Magnetic Globe */}
-              <div
+              {/* <div
                 ref={globeRef}
                 className="hidden lg:block absolute top-0 right-[20%] w-[350px] pointer-events-none mix-blend-multiply"
               >
                 <img
-                  src="https://rogue-studio.transforms.svdcdn.com/staging/globe.jpg?h=550&q=85&auto=format&fit=crop"
+                  src={globe1}
                   alt="Globe"
-                  className="w-full h-auto object-contain drop-shadow-2xl opacity-90"
+                  className="w-full h-auto object-contain
+         invert brightness-110 contrast-125
+         mix-blend-multiply"
                 />
-              </div>
+              </div> */}
             </div>
 
             {/* Grid Content */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
 
               {/* Left Column */}
-              <div className="lg:col-span-5 flex flex-col justify-between">
+              <div className="lg:col-span-5 flex flex-col ">
                 <div>
                   <div className="w-12 h-12 mb-8 text-[hsl(40,30%,45%)] animate-pulse">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
