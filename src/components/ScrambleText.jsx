@@ -7,65 +7,73 @@ const ScrambleText = ({ text, isHovered, className, style }) => {
 
   const rafRef = useRef(null);
   const startTimeRef = useRef(null);
-  const isRunningRef = useRef(false);
+  const runningRef = useRef(false);
 
-  const DURATION = 1500; // ms (smooth, premium feel)
+  // Faster + smoother
+  const DURATION = 900; // ms (was 1500)
 
-  const cancelAnimation = () => {
+  const stop = () => {
     if (rafRef.current) {
       cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
     }
-    isRunningRef.current = false;
+    runningRef.current = false;
     startTimeRef.current = null;
   };
 
   const animate = useCallback(
-    (timestamp) => {
-      if (!startTimeRef.current) startTimeRef.current = timestamp;
-      const elapsed = timestamp - startTimeRef.current;
-      const progress = Math.min(elapsed / DURATION, 1);
+    (time) => {
+      if (!startTimeRef.current) startTimeRef.current = time;
+      const elapsed = time - startTimeRef.current;
+      const t = Math.min(elapsed / DURATION, 1);
 
-      // Ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const revealCount = Math.floor(eased * text.length);
+      // Smooth quartic ease-out (cleaner than cubic)
+      const eased = 1 - Math.pow(1 - t, 4);
 
       let output = "";
 
       for (let i = 0; i < text.length; i++) {
+        const revealThreshold = eased - i / text.length;
+
         if (text[i] === " ") {
           output += " ";
-        } else if (i < revealCount) {
+        } else if (revealThreshold > 0) {
           output += text[i];
         } else {
-          output += CHARS[Math.floor(Math.random() * CHARS.length)];
+          // Reduce flicker near the end
+          output +=
+            eased > 0.85
+              ? CHARS[
+                  (text.charCodeAt(i) + Math.floor(elapsed / 60)) % CHARS.length
+                ]
+              : CHARS[Math.floor(Math.random() * CHARS.length)];
         }
       }
 
       setDisplayText(output);
 
-      if (progress < 1) {
+      if (t < 1) {
         rafRef.current = requestAnimationFrame(animate);
       } else {
         setDisplayText(text);
-        cancelAnimation();
+        stop();
       }
     },
     [text]
   );
 
   useEffect(() => {
-    if (isHovered && !isRunningRef.current) {
-      isRunningRef.current = true;
+    if (isHovered && !runningRef.current) {
+      runningRef.current = true;
       rafRef.current = requestAnimationFrame(animate);
     }
 
     if (!isHovered) {
-      cancelAnimation();
+      stop();
       setDisplayText(text);
     }
 
-    return cancelAnimation;
+    return stop;
   }, [isHovered, animate, text]);
 
   return (

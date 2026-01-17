@@ -33,6 +33,7 @@ const Footer = ({ isLoading }) => {
         timeZone: "UTC",
       });
       if (timeRef.current) {
+        npm
         timeRef.current.textContent = `${timeString} UTC`;
       }
     };
@@ -57,7 +58,7 @@ const Footer = ({ isLoading }) => {
       });
 
       gsap.set(revealRef.current, {
-        clipPath: "inset(100% 0% 0% 0%)",
+        clipPath: "inset(100% 0% 0% 1%)",
       });
 
       gsap.set(ctaRef.current, { opacity: 0, y: 60 });

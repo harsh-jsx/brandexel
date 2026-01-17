@@ -587,7 +587,7 @@ const Services = ({ isLoading }) => {
                     {service.details.map((detail, detailIndex) => (
                       <span
                         key={detailIndex}
-                        className="px-5 py-2.5 rounded-full text-xs md:text-sm border transition-all duration-500 hover:bg-[hsl(40,30%,55%)] hover:text-[hsl(0,0%,3%)] hover:border-transparent"
+                        className="px-5 py-2.5 rounded-full text-xs md:text-sm border transition-all duration-500 hover:bg-[hsl(40,30%,55%)] hover:text-[hsl(0,0%,3%)] hover:border-transparent hover:scale-110"
                         style={{
                           borderColor: "hsl(40, 30%, 30%)",
                           color: "hsl(40, 30%, 70%)",
@@ -611,11 +611,11 @@ const Services = ({ isLoading }) => {
         {/* Bottom CTA */}
         <div
           ref={ctaRef}
-          className="mt-20 md:mt-32 flex flex-col md:flex-row items-start md:items-center justify-between gap-8"
+          className="mt-20 md:mt-32 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 transition-all duration-500"
         >
           <div>
             <p
-              className="text-2xl md:text-3xl lg:text-4xl font-serif mb-2"
+              className="text-2xl md:text-3xl lg:text-4xl font-serif mb-2 "
               style={{ color: "hsl(0, 0%, 80%)" }}
             >
               Have a project in mind?
