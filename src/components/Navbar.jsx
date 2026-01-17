@@ -134,6 +134,7 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
       count: "(05)",
       sectionId: "clients",
     },
+    { label: "CAREERS", italic: "Join Us", count: "(4)", sectionId: "/careers" },
     { label: "CONTACT", italic: "Contact", count: "", sectionId: "/contact" },
   ];
 
@@ -228,9 +229,8 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
       style={{
         width: "60px",
         backgroundColor: isOpen ? "hsl(40, 20%, 95%)" : closedBgColor,
-        borderRight: `1px solid ${
-          isOpen ? "hsl(0, 0%, 80%)" : closedBorderColor
-        }`,
+        borderRight: `1px solid ${isOpen ? "hsl(0, 0%, 80%)" : closedBorderColor
+          }`,
         transition: "background-color 0.5s ease, border-color 0.5s ease",
       }}
     >
@@ -284,9 +284,8 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
       {/* Expanded Content */}
       <div
         ref={contentRef}
-        className={`absolute inset-0 opacity-0 ${
-          isOpen ? "pointer-events-auto" : "pointer-events-none"
-        }`}
+        className={`absolute inset-0 opacity-0 ${isOpen ? "pointer-events-auto" : "pointer-events-none"
+          }`}
         style={{ backgroundColor: "hsl(40, 20%, 95%)" }}
       >
         {/* Header */}
@@ -317,11 +316,10 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
             <div
               key={item.label}
               onClick={() => handleNavClick(item.sectionId)}
-              className={`border-t py-4 group cursor-pointer overflow-hidden ${
-                item.subtitle
+              className={`border-t py-4 group cursor-pointer overflow-hidden ${item.subtitle
                   ? "opacity-40 pointer-events-none"
                   : "hover:opacity-80"
-              }`}
+                }`}
               style={{ borderColor: "hsl(0, 0%, 80%)" }}
             >
               <div className="marquee-container">

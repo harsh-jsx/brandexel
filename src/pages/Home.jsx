@@ -5,15 +5,13 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import Navbar from "../components/Navbar";
 import ImageMarquee from "../components/ImageMarquee";
 import Services from "../components/Services";
-import { image } from "motion/react-client";
 import CustomCursor from "../components/CustomCursor";
 import ClientLogos from "../components/ClientLogos";
-import Portfolio from "../components/Portfolio";
+// import Portfolio from "../components/Portfolio";
+
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-// Custom Cursor Component (embedded)
-
-const Home = () => {
+const Home = ({ isPreloading }) => {
   const mainContainerRef = useRef(null);
   const heroSectionRef = useRef(null);
   const aboutSectionRef = useRef(null);
@@ -39,7 +37,10 @@ const Home = () => {
   const descriptionRef = useRef(null);
   const imageRef = useRef(null);
   const globeBadgeRef = useRef(null);
+  const curatinRef = useRef(null);
   const imagesIntroTl = useRef(null);
+  const statNumberRefs = useRef([]);
+
 
   const images = [
     {
@@ -107,31 +108,38 @@ const Home = () => {
     { number: 100, suffix: "%", label: "Remote workplace", description: "" },
   ];
 
-  const statNumberRefs = useRef([]);
+  // Hero initial state
+  useEffect(() => {
+    gsap.set([line1Ref.current, line2Ref.current, line3Ref.current], {
+      opacity: 0,
+      y: 50,
+    });
+    gsap.set(impossibleWrapperRef.current, { height: 0, overflow: "hidden" });
+    gsap.set(impossibleRef.current, { opacity: 0, y: 30 });
+    imagesRef.current.forEach((img, i) => {
+      if (!img) return;
+      gsap.set(img, {
+        opacity: 0,
+        scale: 0.8,
+        x: initialPositions[i].x,
+        y: initialPositions[i].y,
+        rotation: initialPositions[i].rotate,
+      });
+    });
+  }, []);
 
   // Hero animations
   useEffect(() => {
+    if (isPreloading) return;
     imagesIntroTl.current = gsap.timeline();
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-      gsap.set([line1Ref.current, line2Ref.current, line3Ref.current], {
-        opacity: 0,
-        y: 50,
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        delay: 0.3 // Ensure the curtain has moved up a bit before we start
       });
-      gsap.set(impossibleWrapperRef.current, { height: 0, overflow: "hidden" });
-      gsap.set(impossibleRef.current, { opacity: 0, y: 30 });
 
-      imagesRef.current.forEach((img, i) => {
-        gsap.set(img, {
-          opacity: 0,
-          scale: 0.8,
-          x: initialPositions[i].x,
-          y: initialPositions[i].y,
-          rotation: initialPositions[i].rotate,
-        });
-      });
+      // (Sets moved to initial useEffect for stability)
 
       tl.to(line1Ref.current, { opacity: 1, y: 0, duration: 0.8 })
         .to(line2Ref.current, { opacity: 1, y: 0, duration: 0.8 }, "-=0.5")
@@ -151,15 +159,18 @@ const Home = () => {
           {
             opacity: 1,
             scale: 1,
-            duration: 0.6,
+            x: (i) => finalPositions[i].x,
+            y: (i) => finalPositions[i].y,
+            rotation: (i) => finalPositions[i].rotate,
+            duration: 1.2,
             stagger: 0.08,
-            ease: "back.out(1.2)",
+            ease: "power4.out",
           },
           "-=0.3"
         )
         .to({}, { duration: 0.8 })
         .add(() => {
-          finalPositions.forEach((pos, i) => {
+          initialPositions.forEach((pos, i) => {
             gsap.to(imagesRef.current[i], {
               x: pos.x,
               y: pos.y,
@@ -167,18 +178,23 @@ const Home = () => {
               duration: 1.2,
               delay: i * 0.05,
               ease: "power2.out",
+              scrollTrigger: {
+                trigger: heroSectionRef.current,
+                start: "top top",
+                end: "bottom center",
+                scrub: 1,
+              }
             });
           });
         });
     }, heroSectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isPreloading]);
 
-  // Color transition on scroll - changes at halfway point of hero section
+  // Color transition on scroll
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Animate hero section background color
       gsap.to(heroSectionRef.current, {
         backgroundColor: "rgb(233, 228, 217)",
         ease: "none",
@@ -188,13 +204,11 @@ const Home = () => {
           end: "bottom center",
           scrub: 0.5,
           onUpdate: (self) => {
-            // Update navbar dark mode based on scroll progress
             setIsNavbarDark(self.progress < 0.5);
           },
         },
       });
 
-      // Animate hero text colors from white to dark
       const heroTextElements = [
         line1Ref.current,
         line2Ref.current,
@@ -216,7 +230,6 @@ const Home = () => {
         }
       });
 
-      // Animate "IMPOSSIBLE" text color
       gsap.to(impossibleRef.current, {
         color: "hsl(40, 30%, 35%)",
         ease: "none",
@@ -229,16 +242,14 @@ const Home = () => {
       });
     }, mainContainerRef);
 
-    // Make navbar dark after images marquee
-
-    gsap.to(darkNavbarContainerRef.current,{
-      scrollTrigger:{
-        trigger:darkNavbarContainerRef.current,
-        start:"top 80%",
-        end:"bottom 60%",
-        scrub:0.5,
-        onUpdate:(self)=>{
-          setIsNavbarDark(true);  
+    gsap.to(darkNavbarContainerRef.current, {
+      scrollTrigger: {
+        trigger: darkNavbarContainerRef.current,
+        start: "top 80%",
+        end: "bottom 60%",
+        scrub: 0.5,
+        onUpdate: (self) => {
+          setIsNavbarDark(true);
         }
       }
     })
@@ -246,7 +257,7 @@ const Home = () => {
     return () => ctx.revert();
   }, []);
 
-  // Scroll progress bar animation
+  // Progress Bar
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(progressBarRef.current, {
@@ -260,85 +271,86 @@ const Home = () => {
         },
       });
     }, mainContainerRef);
-
     return () => ctx.revert();
   }, []);
 
-  // About section animations
+  // About Section Animations (UPDATED)
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Set initial states
-      gsap.set(subtitleRef.current, { opacity: 0, y: 30 });
-      gsap.set(heroTextRef.current?.children || [], { opacity: 0, y: 60 });
-      gsap.set(globeRef.current, { opacity: 0, x: 100, rotation: -15 });
-      gsap.set(globeBadgeRef.current, { opacity: 0, scale: 0 });
-      gsap.set(descriptionRef.current, { opacity: 0, y: 30 });
-      gsap.set(imageRef.current, { opacity: 0, y: 50, scale: 0.95 });
-      statsRef.current.forEach((stat) => {
-        if (stat) gsap.set(stat, { opacity: 0, y: 40 });
-      });
+      // Setup
+      const splitTexts = heroTextRef.current?.querySelectorAll("h1");
+      const subSpan = subtitleRef.current?.querySelector("span");
 
-      // Create timeline with ScrollTrigger
-      const aboutTl = gsap.timeline({
+      gsap.set(subSpan, { y: "110%" });
+      if (splitTexts) gsap.set(splitTexts, { y: "110%" });
+
+      gsap.set(globeRef.current, { x: 100, opacity: 0, rotation: -10 });
+      gsap.set(globeBadgeRef.current, { scale: 0, opacity: 0 });
+      gsap.set(descriptionRef.current, { opacity: 0, y: 30 });
+      gsap.set(statsRef.current, { opacity: 0, y: 40 });
+
+      // Image Curtain Setup
+      const curtain = curatinRef.current;
+      const mainImg = imageRef.current;
+      if (curtain) gsap.set(curtain, { scaleY: 1 });
+      if (mainImg) gsap.set(mainImg, { scale: 1.2 });
+
+      // Main Timeline
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: aboutSectionRef.current,
-          start: "top 70%",
+          start: "top 65%",
+          end: "bottom bottom",
           toggleActions: "play none none reverse",
-        },
+          // markers: true
+        }
       });
 
-      aboutTl
-        .to(subtitleRef.current, { opacity: 1, y: 0, duration: 0.8 }, 0.2)
-        .to(
-          heroTextRef.current?.children || [],
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            stagger: 0.15,
-            ease: "power4.out",
-          },
-          0.4
-        )
-        .to(
-          globeRef.current,
-          {
-            opacity: 1,
-            x: 0,
-            rotation: -15,
-            duration: 1.2,
-            ease: "power2.out",
-          },
-          0.6
-        )
-        .to(
-          globeBadgeRef.current,
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.6,
-            ease: "back.out(2)",
-          },
-          1.2
-        )
-        .to(descriptionRef.current, { opacity: 1, y: 0, duration: 0.8 }, 1)
-        .to(
-          statsRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.15,
-          },
-          1.2
-        )
+      tl
+        // Subtitle Reveal
+        .to(subSpan, { y: "0%", duration: 0.8, ease: "power3.out" })
+
+        // Headline Stagger
+        .to(splitTexts, {
+          y: "0%",
+          duration: 1.2,
+          stagger: 0.1,
+          ease: "power4.out"
+        }, "-=0.6")
+
+        // Globe Entry
+        .to(globeRef.current, {
+          x: 0,
+          opacity: 1,
+          rotation: 0,
+          duration: 1.4,
+          ease: "expo.out"
+        }, "<")
+
+        // Badge Pop
+        .to(globeBadgeRef.current, {
+          scale: 1,
+          opacity: 1,
+          duration: 0.8,
+          ease: "back.out(1.7)"
+        }, "-=1")
+
+        // Description Fade Up
+        .to(descriptionRef.current, { opacity: 1, y: 0, duration: 1 }, "-=0.8")
+
+        // Stats Stagger
+        .to(statsRef.current, { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 }, "-=0.8")
+
+        // Image Curtain Reveal
+        .to(curtain, { scaleY: 0, duration: 1.4, ease: "power4.inOut" }, "-=1")
+        .to(mainImg, { scale: 1, duration: 1.4, ease: "power2.out" }, "<")
+
+        // Number Counter Trigger
         .add(() => {
-          // Animate stat numbers counting up
           stats.forEach((stat, index) => {
             const numEl = statNumberRefs.current[index];
             if (numEl) {
-              gsap.fromTo(
-                numEl,
+              gsap.fromTo(numEl,
                 { innerText: 0 },
                 {
                   innerText: stat.number,
@@ -350,42 +362,43 @@ const Home = () => {
               );
             }
           });
-        }, 1.3)
-        .to(
-          imageRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 1,
-            ease: "power2.out",
-          },
-          1.4
-        );
+        }, "-=1");
 
-      // Floating animation for globe
-      gsap.to(globeRef.current, {
-        y: -15,
-        duration: 3,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true,
-        delay: 2,
-      });
+      // Magnetic Effect on Globe
+      const handleMouseMove = (e) => {
+        if (!aboutSectionRef.current) return;
+        const { clientX, clientY } = e;
+        // const { left, top, width, height } = aboutSectionRef.current.getBoundingClientRect();
+        // Calculate relative to center of screen for simpler effect, or relative to section
+        const xPos = (clientX / window.innerWidth - 0.5) * 60;
+        const yPos = (clientY / window.innerHeight - 0.5) * 60;
 
-      // Rotate badge slowly
-      gsap.to(globeBadgeRef.current, {
+        gsap.to(globeRef.current, {
+          x: xPos,
+          y: yPos,
+          duration: 1.5,
+          ease: "power2.out"
+        });
+      };
+      window.addEventListener("mousemove", handleMouseMove);
+
+      // Rotating Badge Loop
+      gsap.to("svg", { // Targeting svg inside badge specifically if needed
         rotation: 360,
         duration: 20,
-        ease: "none",
         repeat: -1,
+        ease: "none",
       });
+
+      return () => {
+        window.removeEventListener("mousemove", handleMouseMove);
+      };
+
     }, aboutSectionRef);
 
     return () => ctx.revert();
   }, []);
 
-  // Smooth scroll to section function
   const scrollToSection = (sectionId) => {
     const targetRef = sectionId === "hero" ? heroSectionRef : aboutSectionRef;
     if (targetRef.current) {
@@ -402,7 +415,6 @@ const Home = () => {
       <CustomCursor isDark={isNavbarDark} />
       <Navbar isDarkMode={isNavbarDark} onScrollToSection={scrollToSection} />
 
-      {/* Scroll Progress Bar */}
       <div
         ref={progressBarRef}
         className="fixed top-0 left-16 right-0 h-[0px] z-[60] origin-left"
@@ -413,10 +425,10 @@ const Home = () => {
       />
 
       <div ref={mainContainerRef} className="relative">
-        {/* Hero Section - Black Background that transitions to cream */}
+        {/* HERO SECTION */}
         <section
           ref={heroSectionRef}
-          className="min-h-screen overflow-hidden flex items-center justify-center relative  z-10"
+          className="min-h-screen overflow-hidden flex items-center justify-center relative z-10"
           style={{ backgroundColor: "hsl(0, 0%, 0%)" }}
         >
           <div className="text-center relative z-10 px-4">
@@ -439,7 +451,7 @@ const Home = () => {
             <div ref={impossibleWrapperRef}>
               <h2
                 ref={impossibleRef}
-                className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-10xl font-black tracking-tighter leading-none py-2 md:py-4 uppercase"
+                className="font-[PPN] text-3xl sm:text-5xl md:text-6xl lg:text-9xl xl:text-10xl font-black tracking-tighter leading-none py-2 md:py-4 uppercase"
                 style={{ fontWeight: 900, color: "hsl(40, 30%, 55%)" }}
               >
                 IMPOSSIBLE
@@ -474,175 +486,137 @@ const Home = () => {
           </div>
         </section>
 
-        {/* About Section - Light Background */}
+        {/* ABOUT SECTION (ENHANCED) */}
         <section
           ref={aboutSectionRef}
-          className="min-h-screen overflow-x-hidden  relative z-10"
+          className="min-h-screen overflow-x-hidden relative z-10 py-24"
           style={{ backgroundColor: "rgb(233, 228, 217)" }}
         >
-          {/* Hero Content */}
-          <div className="min-h-screen relative px-8 md:px-16 pt-24 pb-16">
-            {/* Globe Badge */}
-            <div
-              ref={globeBadgeRef}
-              className="absolute top-8 right-8 w-16 h-16 rounded-full border flex items-center justify-center"
-              style={{ borderColor: "hsl(0, 0%, 30%)" }}
-            >
-              <div className="text-center">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
+          <div className="relative z-10 px-6 md:px-12 lg:px-20">
+            {/* Header / Top Part */}
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-24 lg:mb-32 relative">
+
+              {/* Rotating Badge */}
+              <div
+                ref={globeBadgeRef}
+                className="absolute -top-10 right-0 lg:top-0 lg:right-10 w-24 h-24 lg:w-32 lg:h-32 rounded-full border border-neutral-400 flex items-center justify-center bg-[#E9E4D9] z-20"
+              >
+                <div className="text-center">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Text Blocks */}
+              <div className="max-w-4xl relative z-10 mt-16 lg:mt-0">
+                <p
+                  ref={subtitleRef}
+                  className="font-[PPN] text-sm tracking-[0.2em] mb-6 lg:mb-10 text-[hsl(40,30%,35%)] overflow-hidden"
                 >
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                </svg>
+                  <span className="block">HOWDY, WE'RE ROGUE</span>
+                </p>
+
+                <div ref={heroTextRef} className="space-y-1">
+                  {["MAKING CULTURE VISIBLE", "THROUGH DESIGN, TECH,", "AND A LITTLE MAGIC"].map((text, i) => (
+                    <div key={i} className="overflow-hidden">
+                      <h1 className="font-['Druk'] text-5xl sm:text-6xl md:text-8xl lg:text-9xl uppercase leading-[0.85] tracking-tight text-[hsl(0,0%,10%)]">
+                        {text.includes("MAGIC") ? (
+                          <>
+                            AND <span className="font-[PPN] font-light italic text-[hsl(40,30%,40%)] lowercase tracking-normal">a little magic</span>
+                          </>
+                        ) : (
+                          text
+                        )}
+                      </h1>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Magnetic Globe */}
+              <div
+                ref={globeRef}
+                className="hidden lg:block absolute top-0 right-[20%] w-[350px] pointer-events-none mix-blend-multiply"
+              >
+                <img
+                  src="https://rogue-studio.transforms.svdcdn.com/staging/globe.jpg?h=550&q=85&auto=format&fit=crop"
+                  alt="Globe"
+                  className="w-full h-auto object-contain drop-shadow-2xl opacity-90"
+                />
               </div>
             </div>
 
-            {/* Subtitle */}
-            <p
-              ref={subtitleRef}
-              className="text-xs uppercase tracking-[0.3em] mb-8"
-              style={{ color: "hsl(40, 30%, 35%)" }}
-            >
-              HOWDY, WE'RE ROGUE
-            </p>
+            {/* Grid Content */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
 
-            {/* Main Heading */}
-            <div ref={heroTextRef} className="max-w-5xl">
-              <h1
-                className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal leading-[1.1] tracking-tight"
-                style={{ color: "hsl(0, 0%, 10%)" }}
-              >
-                MAKING CULTURE VISIBLE
-              </h1>
-              <h1
-                className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal leading-[1.1] tracking-tight"
-                style={{ color: "hsl(0, 0%, 10%)" }}
-              >
-                THROUGH DESIGN, TECH,
-              </h1>
-              <h1
-                className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal leading-[1.1] tracking-tight"
-                style={{ color: "hsl(0, 0%, 10%)" }}
-              >
-                AND{" "}
-                <span className="italic" style={{ color: "hsl(40, 30%, 40%)" }}>
-                  A LITTLE MAGIC
-                </span>
-              </h1>
-            </div>
-
-            {/* Globe Image */}
-            <div
-              ref={globeRef}
-              className="relative mt-8 md:absolute md:-top-8 md:right-0 lg:right-8 w-48 sm:w-64 md:w-72 lg:w-[400px] mx-auto md:mx-0"
-            >
-              <img
-                src="https://rogue-studio.transforms.svdcdn.com/staging/globe.jpg?h=550&q=85&auto=format&fit=crop&dm=1689577916&s=73bc3a36b1873efe4182a5d695ea4f0f"
-                alt="Globe sculpture"
-                className="w-full h-auto object-contain about-globe show-eyes"
-                style={{
-                  filter: "drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15))",
-                  transform: "rotate(-15deg)",
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Stats Section */}
-          <div className="px-8 md:px-16 py-16 grid grid-cols-1 md:grid-cols-2 gap-16">
-            {/* Left Column - Description and Stats */}
-            <div>
-              {/* Decorative star with animated dot */}
-              <div className="mb-8 relative">
-                <span style={{ color: "hsl(40, 30%, 45%)" }}>✦</span>
-              </div>
-
-              {/* Description */}
-              <p
-                ref={descriptionRef}
-                className="text-lg md:text-xl leading-relaxed mb-20 max-w-md mt-12"
-                style={{ color: "hsl(0, 0%, 35%)" }}
-              >
-                Infusing{" "}
-                <span className="italic" style={{ color: "hsl(0, 0%, 25%)" }}>
-                  playfulness
-                </span>{" "}
-                into everything we touch, creating distinctive brand solutions
-                with extraordinary outcomes.
-              </p>
-
-              {/* Stats Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 md:gap-x-20 gap-y-10 md:gap-y-16">
-                {stats.map((stat, index) => (
-                  <div
-                    key={index}
-                    ref={(el) => {
-                      if (el) statsRef.current[index] = el;
-                    }}
-                    className="opacity-0"
-                  >
-                    <p
-                      className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extralight mb-3 tracking-tight"
-                      style={{ color: "hsl(0, 0%, 15%)" }}
-                    >
-                      <span
-                        ref={(el) => {
-                          if (el) statNumberRefs.current[index] = el;
-                        }}
-                      >
-                        0
-                      </span>
-                      <span style={{ color: "hsl(0, 0%, 40%)" }}>
-                        {stat.suffix}
-                      </span>
-                    </p>
-                    <p
-                      className="text-base md:text-lg mb-1 font-normal"
-                      style={{ color: "hsl(0, 0%, 15%)" }}
-                    >
-                      {stat.label}
-                    </p>
-                    {stat.description && (
-                      <p
-                        className="text-sm italic"
-                        style={{ color: "hsl(0, 0%, 50%)" }}
-                      >
-                        {stat.description}
-                      </p>
-                    )}
+              {/* Left Column */}
+              <div className="lg:col-span-5 flex flex-col justify-between">
+                <div>
+                  <div className="w-12 h-12 mb-8 text-[hsl(40,30%,45%)] animate-pulse">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
                   </div>
-                ))}
-              </div>
-            </div>
 
-            {/* Right Column - Image */}
-            <div
-              ref={imageRef}
-              className="relative rounded-2xl overflow-hidden shadow-2xl"
-              style={{ minHeight: "500px" }}
-            >
-              <img
-                src="https://picsum.photos/seed/creative1/800/1000"
-                alt="Creative work"
-                className="w-full h-full object-cover"
-              />
+                  <p
+                    ref={descriptionRef}
+                    className="font-[PPN] text-xl md:text-2xl leading-[1.4] text-[hsl(0,0%,30%)] max-w-md"
+                  >
+                    Infusing <span className="italic text-black font-medium">playfulness</span> into everything we touch, creating distinctive brand solutions with extraordinary outcomes.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-x-8 gap-y-12 mt-20">
+                  {stats.map((stat, index) => (
+                    <div
+                      key={index}
+                      ref={(el) => (statsRef.current[index] = el)}
+                      className="opacity-0 translate-y-8"
+                    >
+                      <p className="font-['Druk'] text-6xl md:text-7xl text-[hsl(0,0%,15%)] leading-none mb-2">
+                        <span ref={(el) => (statNumberRefs.current[index] = el)}>0</span>
+                        <span className="text-[hsl(0,0%,40%)] text-4xl align-top ml-1">{stat.suffix}</span>
+                      </p>
+                      <p className="font-[PPN] text-sm uppercase tracking-wider text-[hsl(0,0%,50%)] border-t border-[hsl(0,0%,80%)] pt-3 inline-block">
+                        {stat.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Column: Image Reveal */}
+              <div className="lg:col-span-7 relative pt-12 lg:pt-0">
+                <div className="relative w-full aspect-[4/5] overflow-hidden rounded-sm group">
+                  <div
+                    ref={curatinRef}
+                    className="absolute inset-0 bg-[hsl(40,30%,55%)] z-10 curtain-reveal"
+                    style={{ transformOrigin: "bottom" }}
+                  ></div>
+                  <img
+                    ref={imageRef}
+                    src="https://picsum.photos/seed/creative1/1200/1500"
+                    alt="Creative work"
+                    className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[1.5s] ease-out"
+                  />
+
+                  <div className="absolute bottom-8 left-8 z-20 mix-blend-difference text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <p className="font-['Druk'] text-xl tracking-widest uppercase">Latest Work</p>
+                    <p className="font-[PPN] text-sm">Brand Identity 2024</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </section>
       </div>
-                <div className="nav-dark" ref={darkNavbarContainerRef}>
 
-      <ImageMarquee />
-      <Services />
-      {/* <Portfolio /> */}
-      <ClientLogos />
-                </div>
+      <div className="nav-dark" ref={darkNavbarContainerRef}>
+        <ImageMarquee />
+        <Services />
+        <ClientLogos />
+      </div>
     </>
   );
 };
