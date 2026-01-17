@@ -33,7 +33,7 @@ const Footer = ({ isLoading }) => {
         timeZone: "UTC",
       });
       if (timeRef.current) {
-        npm
+
         timeRef.current.textContent = `${timeString} UTC`;
       }
     };
