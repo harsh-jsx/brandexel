@@ -264,7 +264,7 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
       </button>
 
       {/* Start a Project */}
-      <div className="pb-8 flex justify-center">
+      <div className="pb-8 flex justify-center" onClick={() => window.location.href = "/contact"}>
         <span
           className="text-xs tracking-widest uppercase flex items-center gap-2"
           style={{

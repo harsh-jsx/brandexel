@@ -167,7 +167,7 @@ const MobileNavbar = ({ onNavigate }) => {
               <span>Instagram</span>
             </div>
 
-            <div className="border border-white/30 py-4 text-center tracking-[0.3em] text-xs uppercase">
+            <div className="border border-white/30 py-4 text-center tracking-[0.3em] text-xs uppercase" onClick={() => window.location.href = "/contact"}>
               START A PROJECT →
             </div>
           </div>

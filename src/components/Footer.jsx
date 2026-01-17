@@ -276,7 +276,7 @@ const Footer = ({ isLoading }) => {
         >
           {/* Top Section - CTA */}
           <div ref={ctaRef} className="group cursor-pointer mb-16 md:mb-0">
-            <div className="flex items-center gap-4 md:gap-8">
+            <div className="flex items-center gap-4 md:gap-8" onClick={() => window.location.href = "/contact"}>
               <span
                 ref={ctaTextRef}
                 className="text-sm md:text-base uppercase tracking-[0.25em]"

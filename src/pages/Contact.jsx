@@ -448,6 +448,7 @@ const Contact = () => {
               ✦ Let's Create Together
             </p>
             <h1
+              onClick={() => window.location.href = "/contact"}
               ref={headerRef}
               className="font-[PPE] text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white leading-[1.1]"
               style={{ perspective: "1000px" }}

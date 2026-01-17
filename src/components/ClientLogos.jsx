@@ -267,7 +267,7 @@ export default function ClientLogos({ isLoading }) {
           </p>
           <a
             ref={ctaRef}
-            href="#contact"
+            href="/contact"
             className="inline-flex items-center gap-4 px-10 py-5 border border-[hsl(40,30%,55%)] rounded-full text-[hsl(40,30%,55%)] hover:bg-[hsl(40,30%,55%)] hover:text-black transition-colors"
           >
             <span ref={ctaTextRef} className="uppercase tracking-wider">

@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ScrambleText from "./ScrambleText";
 import { services } from "../data/services";
-
+import { useNavigate } from "react-router-dom";
 gsap.registerPlugin(ScrollTrigger);
 
 const marqueeWords = [
@@ -26,6 +26,7 @@ const marqueeWords = [
 ];
 
 const Services = ({ isLoading }) => {
+  let navigate = useNavigate();
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
@@ -420,9 +421,8 @@ const Services = ({ isLoading }) => {
             {[...marqueeWords, ...marqueeWords].map((word, i) => (
               <span
                 key={i}
-                className={`font-serif text-6xl sm:text-7xl md:text-8xl lg:text-9xl mx-6 md:mx-10 transition-colors duration-300 ${
-                  word === "✦" ? "text-4xl sm:text-5xl md:text-6xl" : ""
-                }`}
+                className={`font-serif text-6xl sm:text-7xl md:text-8xl lg:text-9xl mx-6 md:mx-10 transition-colors duration-300 ${word === "✦" ? "text-4xl sm:text-5xl md:text-6xl" : ""
+                  }`}
                 style={{
                   color: word === "✦" ? "hsl(40, 30%, 55%)" : "hsl(0, 0%, 15%)",
                   WebkitTextStroke:
@@ -531,7 +531,7 @@ const Services = ({ isLoading }) => {
                 </div>
 
                 {/* Arrow */}
-                <div className="hidden md:flex col-span-2 justify-end items-center">
+                <div className="hidden md:flex col-span-2 justify-end items-center" onClick={() => window.location.href = "/contact"}>
                   <div
                     className="w-14 h-14 rounded-full border-2 flex items-center justify-center"
                     style={{
@@ -628,6 +628,7 @@ const Services = ({ isLoading }) => {
             </p>
           </div>
           <button
+            onClick={() => window.location.href = "/contact"}
             className="group flex items-center gap-4 px-8 py-4 rounded-full border-2 transition-all duration-500 hover:bg-[hsl(40,30%,55%)] hover:border-[hsl(40,30%,55%)]"
             style={{ borderColor: "hsl(0, 0%, 25%)" }}
           >
