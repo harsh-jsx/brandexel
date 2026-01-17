@@ -11,7 +11,7 @@ import ClientLogos from "../components/ClientLogos";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-const Home = () => {
+const Home = ({ isPreloading }) => {
   const mainContainerRef = useRef(null);
   const heroSectionRef = useRef(null);
   const aboutSectionRef = useRef(null);
@@ -108,29 +108,38 @@ const Home = () => {
     { number: 100, suffix: "%", label: "Remote workplace", description: "" },
   ];
 
+  // Hero initial state
+  useEffect(() => {
+    gsap.set([line1Ref.current, line2Ref.current, line3Ref.current], {
+      opacity: 0,
+      y: 50,
+    });
+    gsap.set(impossibleWrapperRef.current, { height: 0, overflow: "hidden" });
+    gsap.set(impossibleRef.current, { opacity: 0, y: 30 });
+    imagesRef.current.forEach((img, i) => {
+      if (!img) return;
+      gsap.set(img, {
+        opacity: 0,
+        scale: 0.8,
+        x: initialPositions[i].x,
+        y: initialPositions[i].y,
+        rotation: initialPositions[i].rotate,
+      });
+    });
+  }, []);
+
   // Hero animations
   useEffect(() => {
+    if (isPreloading) return;
     imagesIntroTl.current = gsap.timeline();
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-      gsap.set([line1Ref.current, line2Ref.current, line3Ref.current], {
-        opacity: 0,
-        y: 50,
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        delay: 0.3 // Ensure the curtain has moved up a bit before we start
       });
-      gsap.set(impossibleWrapperRef.current, { height: 0, overflow: "hidden" });
-      gsap.set(impossibleRef.current, { opacity: 0, y: 30 });
 
-      imagesRef.current.forEach((img, i) => {
-        gsap.set(img, {
-          opacity: 0,
-          scale: 0.8,
-          x: initialPositions[i].x,
-          y: initialPositions[i].y,
-          rotation: initialPositions[i].rotate,
-        });
-      });
+      // (Sets moved to initial useEffect for stability)
 
       tl.to(line1Ref.current, { opacity: 1, y: 0, duration: 0.8 })
         .to(line2Ref.current, { opacity: 1, y: 0, duration: 0.8 }, "-=0.5")
@@ -178,7 +187,7 @@ const Home = () => {
     }, heroSectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isPreloading]);
 
   // Color transition on scroll
   useEffect(() => {

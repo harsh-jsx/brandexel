@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
-const Preloader = ({ onComplete }) => {
+const Preloader = ({ onComplete, onStartExit }) => {
   const preloaderRef = useRef(null);
   const logoRef = useRef(null);
   const logoLettersRef = useRef([]);
@@ -113,14 +113,17 @@ const Preloader = ({ onComplete }) => {
                 },
                 "-=0.2"
               )
+              .add(() => {
+                if (onStartExit) onStartExit();
+              }, "-=0.3") // Perfectly aligned with the start of the wipe
               .to(
                 overlayRef.current,
                 {
                   yPercent: -100,
-                  duration: 1,
-                  ease: "power4.inOut",
+                  duration: 1.2,
+                  ease: "expo.inOut",
                 },
-                "-=0.3"
+                "<" // Start at the same time as the callback
               )
               .to(
                 preloaderRef.current,
@@ -136,7 +139,7 @@ const Preloader = ({ onComplete }) => {
     }, preloaderRef);
 
     return () => ctx.revert();
-  }, [onComplete]);
+  }, [onComplete, onStartExit]);
 
   return (
     <div
