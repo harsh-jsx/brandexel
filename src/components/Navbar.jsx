@@ -104,7 +104,7 @@ const useIsMobile = () => {
 //           </nav>
 
 //           <div className="absolute bottom-8 left-8 text-xs uppercase tracking-widest text-black/50">
-//             hello@rogue.studio
+//             hello@brandexel.com
 //           </div>
 //         </div>
 //       )}
@@ -136,6 +136,7 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
     },
     { label: "CAREERS", italic: "Join Us", count: "(4)", sectionId: "/careers" },
     { label: "CONTACT", italic: "Contact", count: "", sectionId: "/contact" },
+    { label: "CAREERS", italic: "Careers", count: "", sectionId: "/careers" },
   ];
 
   const handleNavClick = (sectionId) => {
@@ -317,8 +318,8 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
               key={item.label}
               onClick={() => handleNavClick(item.sectionId)}
               className={`border-t py-4 group cursor-pointer overflow-hidden ${item.subtitle
-                  ? "opacity-40 pointer-events-none"
-                  : "hover:opacity-80"
+                ? "opacity-40 pointer-events-none"
+                : "hover:opacity-80"
                 }`}
               style={{ borderColor: "hsl(0, 0%, 80%)" }}
             >
@@ -394,11 +395,11 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
               SAY HELLO
             </span>
             <a
-              href="mailto:hello@rogue.studio"
+              href="mailto:hello@brandexel.com"
               className="block mt-2 hover:opacity-70 transition-opacity"
               style={{ color: "hsl(0, 0%, 10%)" }}
             >
-              hello@rogue.studio
+              hello@brandexel.com
             </a>
           </div>
 
