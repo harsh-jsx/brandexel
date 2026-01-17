@@ -446,7 +446,7 @@ const Footer = ({ isLoading }) => {
               <p
                 className="text-[15px] tracking-[0.2em] text-white uppercase text-center transition hover:text-[hsl(40,30%,55%)] hover:scale-125"
               >
-                <a href="http://403labs.in" target="_blank" rel="noopener noreferrer" className="underline">Made with ❤️ by 403labs </a>
+                <a href="http://403labs.in" target="_blank" rel="noopener noreferrer" className="underline">Made with ❤️ by Technology Partner: 403 Labs </a>
               </p>
             </div>
           </div>
