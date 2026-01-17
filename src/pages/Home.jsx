@@ -159,15 +159,18 @@ const Home = ({ isPreloading }) => {
           {
             opacity: 1,
             scale: 1,
-            duration: 0.6,
+            x: (i) => finalPositions[i].x,
+            y: (i) => finalPositions[i].y,
+            rotation: (i) => finalPositions[i].rotate,
+            duration: 1.2,
             stagger: 0.08,
-            ease: "back.out(1.2)",
+            ease: "power4.out",
           },
           "-=0.3"
         )
         .to({}, { duration: 0.8 })
         .add(() => {
-          finalPositions.forEach((pos, i) => {
+          initialPositions.forEach((pos, i) => {
             gsap.to(imagesRef.current[i], {
               x: pos.x,
               y: pos.y,
