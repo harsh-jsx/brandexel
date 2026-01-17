@@ -4,6 +4,7 @@ import Preloader from "./components/Preloader";
 import { ReactLenis, useLenis } from "lenis/react";
 import Footer from "./components/Footer";
 import Contact from "./pages/Contact";
+import Careers from "./pages/Careers";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
         <Router>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/careers" element={<Careers />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </Router>
