@@ -37,9 +37,32 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    try {
+      const response = await fetch('http://localhost:3000/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      if (response.ok) {
+        alert("Thank you! We'll be in touch within 24 hours.");
+      } else {
+        alert("Thank you! (Simulation - Backend not responding)");
+      }
+    } catch (err) {
+      alert("Thank you! (Simulation - Backend not responding)");
+    }
+
     setIsSubmitting(false);
-    alert("Thank you! We'll be in touch within 24 hours.");
+    setFormData({
+      name: "",
+      company: "",
+      goal: "",
+      timeline: "",
+      budget: "",
+      email: "",
+      details: "",
+    });
   };
 
   // Entrance animations
@@ -47,7 +70,8 @@ const Contact = () => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
 
-      // Page reveal wipe
+      // Page reveal animation handled by PageTransition now
+      /*
       tl.set(revealRef.current, { scaleY: 1, transformOrigin: "top" });
       tl.to(revealRef.current, {
         scaleY: 0,
@@ -55,6 +79,7 @@ const Contact = () => {
         ease: "power4.inOut",
         delay: 0.1,
       });
+      */
 
       // Header split animation with blur
       if (headerRef.current) {
@@ -263,15 +288,22 @@ const Contact = () => {
     }
   };
 
+  const setRef = (index, el) => {
+    inputRefs.current[index] = el;
+  };
+
   const InlineInput = ({
     placeholder,
     value,
     onChange,
     index,
     type = "text",
+    handleInputFocus,
+    handleInputBlur,
+    setRef
   }) => (
     <span
-      ref={(el) => (inputRefs.current[index] = el)}
+      ref={(el) => setRef(index, el)}
       className="relative inline-block mx-2"
     >
       <input
@@ -293,9 +325,9 @@ const Contact = () => {
     </span>
   );
 
-  const InlineSelect = ({ options, value, onChange, index, placeholder }) => (
+  const InlineSelect = ({ options, value, onChange, index, placeholder, handleInputFocus, handleInputBlur, setRef }) => (
     <span
-      ref={(el) => (inputRefs.current[index] = el)}
+      ref={(el) => setRef(index, el)}
       className="relative inline-block mx-2"
     >
       <select
@@ -338,11 +370,11 @@ const Contact = () => {
     <>
       <CustomCursor />
 
-      {/* Reveal overlay */}
-      <div
+      {/* Reveal overlay - Handled globaly */}
+      {/* <div
         ref={revealRef}
         className="fixed inset-0 z-[100] bg-secondary pointer-events-none text-white"
-      />
+      /> */}
 
       {/* Back button */}
       <button
@@ -443,6 +475,9 @@ const Contact = () => {
                 value={formData.name}
                 onChange={(val) => handleChange("name", val)}
                 index={0}
+                handleInputFocus={handleInputFocus}
+                handleInputBlur={handleInputBlur}
+                setRef={setRef}
               />
               <span className="form-text font-[PPE]">from</span>
               <InlineInput
@@ -450,6 +485,9 @@ const Contact = () => {
                 value={formData.company}
                 onChange={(val) => handleChange("company", val)}
                 index={1}
+                handleInputFocus={handleInputFocus}
+                handleInputBlur={handleInputBlur}
+                setRef={setRef}
               />
             </p>
 
@@ -466,6 +504,9 @@ const Contact = () => {
                 value={formData.goal}
                 onChange={(val) => handleChange("goal", val)}
                 index={2}
+                handleInputFocus={handleInputFocus}
+                handleInputBlur={handleInputBlur}
+                setRef={setRef}
               />
             </p>
 
@@ -484,6 +525,9 @@ const Contact = () => {
                 onChange={(val) => handleChange("timeline", val)}
                 index={3}
                 placeholder="timeline"
+                handleInputFocus={handleInputFocus}
+                handleInputBlur={handleInputBlur}
+                setRef={setRef}
               />
             </p>
 
@@ -506,6 +550,9 @@ const Contact = () => {
                 onChange={(val) => handleChange("budget", val)}
                 index={4}
                 placeholder="budget range"
+                handleInputFocus={handleInputFocus}
+                handleInputBlur={handleInputBlur}
+                setRef={setRef}
               />
             </p>
 
@@ -521,6 +568,9 @@ const Contact = () => {
                 onChange={(val) => handleChange("email", val)}
                 index={5}
                 type="email"
+                handleInputFocus={handleInputFocus}
+                handleInputBlur={handleInputBlur}
+                setRef={setRef}
               />
             </p>
 

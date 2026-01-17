@@ -6,12 +6,151 @@ import CustomCursor from "../components/CustomCursor";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const InlineInput = ({
+    placeholder,
+    value,
+    onChange,
+    index,
+    type = "text",
+    handleInputFocus,
+    handleInputBlur,
+    setRef
+}) => (
+    <span
+        ref={(el) => setRef(index, el)}
+        className="relative inline-block mx-2 border-b border-white/30"
+    >
+        <input
+            type={type}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            onFocus={() => handleInputFocus(index)}
+            onBlur={() => handleInputBlur(index)}
+            placeholder={placeholder}
+            className="bg-transparent border-none outline-none text-[hsl(40,30%,55%)]
+          placeholder:text-white/20 font-serif italic text-center
+          min-w-[200px]
+          transition-all duration-300"
+            style={{
+                width: value ? `${Math.max(value.length * 14, 200)}px` : undefined,
+            }}
+        />
+        <span className="input-line absolute -bottom-[1px] left-0 w-full h-[2px] bg-[hsl(40,30%,55%)] transform scale-x-0 origin-center transition-transform duration-500" />
+    </span>
+);
+
+const InlineSelect = ({ options, value, onChange, index, placeholder, handleInputFocus, handleInputBlur, setRef }) => (
+    <span
+        ref={(el) => setRef(index, el)}
+        className="relative inline-block mx-2 border-b border-white/30"
+    >
+        <select
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            onFocus={() => handleInputFocus(index)}
+            onBlur={() => handleInputBlur(index)}
+            className="bg-black border-none outline-none text-[hsl(40,30%,55%)]
+          font-serif italic cursor-pointer appearance-none px-4 text-center
+          min-w-[200px]
+          transition-all duration-300"
+        >
+            <option value="" disabled className="bg-zinc-900 text-white/50">
+                {placeholder}
+            </option>
+            {options.map((opt) => (
+                <option key={opt} value={opt} className="bg-zinc-900 text-white">
+                    {opt}
+                </option>
+            ))}
+        </select>
+        <span className="input-line absolute -bottom-[1px] left-0 w-full h-[2px] bg-[hsl(40,30%,55%)] transform scale-x-0 origin-center transition-transform duration-500" />
+    </span>
+);
+
 const Careers = () => {
     const containerRef = useRef(null);
     const heroRef = useRef(null);
     const heroTextRef = useRef(null);
     const valuesRef = useRef(null);
     const rolesRef = useRef(null);
+    const formRef = useRef(null);
+    const inputRefs = useRef([]);
+
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        role: "",
+        portfolio: "",
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const handleChange = (field, value) => {
+        setFormData((prev) => ({ ...prev, [field]: value }));
+    };
+
+    const handleInputFocus = (index) => {
+        const wrapper = inputRefs.current[index];
+        if (wrapper) {
+            gsap.to(wrapper.querySelector(".input-line"), {
+                scaleX: 1,
+                duration: 0.6,
+                ease: "power3.out",
+            });
+            gsap.to(wrapper, {
+                y: -2,
+                duration: 0.3,
+                ease: "power2.out",
+            });
+        }
+    };
+
+    const handleInputBlur = (index) => {
+        const wrapper = inputRefs.current[index];
+        if (wrapper) {
+            const input = wrapper.querySelector("input, textarea, select");
+            gsap.to(wrapper, {
+                y: 0,
+                duration: 0.3,
+                ease: "power2.out",
+            });
+            if (!input?.value) {
+                gsap.to(wrapper.querySelector(".input-line"), {
+                    scaleX: 0,
+                    duration: 0.4,
+                    ease: "power2.in",
+                });
+            }
+        }
+    };
+
+    const setRef = (index, el) => {
+        inputRefs.current[index] = el;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        // Simulate API
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
+        try {
+            const response = await fetch('http://localhost:3000/api/apply', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            if (response.ok) {
+                alert("Application sent! Good luck.");
+            } else {
+                alert("Application sent! (Simulation)");
+            }
+        } catch (err) {
+            alert("Application sent! (Simulation)");
+        }
+
+        setIsSubmitting(false);
+        setFormData({ name: "", email: "", role: "", portfolio: "" });
+    };
 
     // State for navbar/cursor color - starts dark (white text on black)
     const [isDark, setIsDark] = useState(true);
@@ -195,9 +334,6 @@ const Careers = () => {
                     <div className="border-t border-white/20">
                         {roles.map((role, i) => (
                             <div key={i} className="role-item group flex flex-col md:flex-row justify-between items-start md:items-center py-16 border-b border-white/20 hover:bg-white/5 transition-colors cursor-pointer px-4 relative overflow-hidden">
-
-                                {/* Hover Reveal Background or Glitch Effect could go here */}
-
                                 <div className="relative z-10">
                                     <h4 className="font-['Druk'] text-4xl md:text-6xl mb-3 group-hover:translate-x-4 transition-transform duration-500 ease-out">{role.title}</h4>
                                     <span className="font-[PPN] text-base text-white/50 uppercase tracking-widest">{role.dept}</span>
@@ -211,6 +347,68 @@ const Careers = () => {
                                 </div>
                             </div>
                         ))}
+                    </div>
+                </section>
+
+                {/* APPLICATION FORM */}
+                <section ref={formRef} className="py-32 px-6 md:px-12 lg:px-20 bg-black text-white relative z-10">
+                    <div className="max-w-4xl mx-auto">
+                        <h2 className="font-['Druk'] text-5xl md:text-7xl mb-12 uppercase text-center">
+                            Apply Now
+                        </h2>
+
+                        <form onSubmit={handleSubmit} className="space-y-12">
+                            <div className="flex flex-col md:flex-row gap-8 items-center justify-center text-2xl md:text-3xl font-[PPN]">
+                                <span className="opacity-50">I am</span>
+                                <InlineInput
+                                    placeholder="your name"
+                                    value={formData.name}
+                                    onChange={(v) => handleChange("name", v)}
+                                    index={0}
+                                    handleInputFocus={handleInputFocus}
+                                    handleInputBlur={handleInputBlur}
+                                    setRef={setRef}
+                                />
+                            </div>
+
+                            <div className="flex flex-col md:flex-row gap-8 items-center justify-center text-2xl md:text-3xl font-[PPN]">
+                                <span className="opacity-50">Applying for</span>
+                                <InlineSelect
+                                    placeholder="select role"
+                                    options={roles.map(r => r.title).concat(["Other"])}
+                                    value={formData.role}
+                                    onChange={(v) => handleChange("role", v)}
+                                    index={1}
+                                    handleInputFocus={handleInputFocus}
+                                    handleInputBlur={handleInputBlur}
+                                    setRef={setRef}
+                                />
+                            </div>
+
+                            <div className="flex flex-col md:flex-row gap-8 items-center justify-center text-2xl md:text-3xl font-[PPN]">
+                                <span className="opacity-50">Reach me at</span>
+                                <InlineInput
+                                    placeholder="email address"
+                                    value={formData.email}
+                                    onChange={(v) => handleChange("email", v)}
+                                    index={2}
+                                    type="email"
+                                    handleInputFocus={handleInputFocus}
+                                    handleInputBlur={handleInputBlur}
+                                    setRef={setRef}
+                                />
+                            </div>
+
+                            <div className="text-center mt-16">
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="bg-white text-black font-[PPN] px-8 py-4 rounded-full text-lg uppercase tracking-wider hover:bg-[hsl(40,30%,55%)] transition-colors duration-300 disabled:opacity-50"
+                                >
+                                    {isSubmitting ? "Sending..." : "Submit Application"}
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </section>
 

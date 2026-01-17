@@ -5,6 +5,9 @@ import { ReactLenis, useLenis } from "lenis/react";
 import Footer from "./components/Footer";
 import Contact from "./pages/Contact";
 import Careers from "./pages/Careers";
+import Collaborate from "./pages/Collaborate";
+import CaseStudy from "./pages/CaseStudy";
+import PageTransition from "./components/PageTransition";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -50,9 +53,11 @@ const App = () => {
       <ReactLenis root>
         <Router>
           <Routes>
-            <Route path="/" element={<Home isPreloading={!contentVisible} />} />
-            <Route path="/careers" element={<Careers />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/" element={<PageTransition><Home isPreloading={!contentVisible} /></PageTransition>} />
+            <Route path="/careers" element={<PageTransition><Careers /></PageTransition>} />
+            <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+            <Route path="/collaborate" element={<PageTransition><Collaborate /></PageTransition>} />
+            <Route path="/case-study" element={<PageTransition><CaseStudy /></PageTransition>} />
           </Routes>
         </Router>
         <Footer />

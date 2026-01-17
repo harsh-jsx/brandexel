@@ -613,6 +613,45 @@ const Home = ({ isPreloading }) => {
             </div>
           </div>
         </section>
+
+        {/* SELECTED WORKS SECTION */}
+        <section className="py-32 px-6 md:px-12 lg:px-20 relative z-10 bg-[#E9E4D9]">
+          <div className="mb-24 border-b border-[#1a1a1a]/20 pb-8 flex justify-between items-end">
+            <span className="font-[PPN] uppercase tracking-[0.2em] text-sm text-[hsl(40,30%,35%)]">Selected Works</span>
+            <span className="font-[PPN] text-sm text-[hsl(0,0%,30%)] hidden md:block">2023 — 2025</span>
+          </div>
+
+          <div className="flex flex-col">
+            {[
+              { name: "Neo Tokyo", cat: "Identity / Motion", image: "https://picsum.photos/seed/neotokyo/800/600" },
+              { name: "Velvet Void", cat: "Web / Strategy", image: "https://picsum.photos/seed/void/800/600" },
+              { name: "Carbon & Clay", cat: "Packaging", image: "https://picsum.photos/seed/clay/800/600" },
+              { name: "Aero Systems", cat: "Product 3D", image: "https://picsum.photos/seed/aero/800/600" },
+            ].map((work, i) => (
+              <a href="/case-study" key={i} className="group border-b border-[#1a1a1a]/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer transition-all duration-500 hover:px-8 hover:bg-white/40">
+                <h3 className="font-['Druk'] text-5xl md:text-8xl uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-[hsl(40,30%,45%)] flex items-center gap-4">
+                  {work.name}
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-0 group-hover:w-auto overflow-hidden">
+                    <span className="text-2xl md:text-4xl text-[#1a1a1a]/50">↗</span>
+                  </div>
+                </h3>
+                <span className="font-[PPN] text-lg text-[#1a1a1a]/60 group-hover:text-black mt-2 md:mt-0">{work.cat}</span>
+
+                {/* Hover Image Float (Simple version) */}
+                <div className="absolute pointer-events-none opacity-0 group-hover:opacity-10 scale-50 group-hover:scale-100 transition-all duration-500 z-20 w-[300px] h-[200px] right-20 top-1/2 -translate-y-1/2 hidden lg:block rounded- overflow-hidden shadow-2xl rotate-3 group-hover:-rotate-2">
+                  <img src={work.image} alt={work.name} className="w-full h-full object-cover" />
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <div className="mt-24 text-center">
+            <a href="/case-study" className="inline-block border border-[#1a1a1a] px-8 py-4 rounded-full font-[PPN] uppercase tracking-wider hover:bg-[#1a1a1a] hover:text-[#E9E4D9] transition-all duration-300">
+              View All Projects
+            </a>
+          </div>
+
+        </section>
       </div>
 
       <div className="nav-dark" ref={darkNavbarContainerRef}>
