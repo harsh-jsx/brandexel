@@ -58,7 +58,7 @@ const Footer = ({ isLoading }) => {
       });
 
       gsap.set(revealRef.current, {
-        clipPath: "inset(100% 0% 0% 1%)",
+        clipPath: "inset(100% 0% 0% 0%)",
       });
 
       gsap.set(ctaRef.current, { opacity: 0, y: 60 });
