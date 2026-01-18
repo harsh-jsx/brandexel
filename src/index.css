@@ -47,6 +47,10 @@
   animation: marquee 12s linear infinite;
 }
 
+.animate-marquee-slower {
+  animation: marquee 30s linear infinite;
+}
+
 /* Keyframes */
 @keyframes marquee {
   from {

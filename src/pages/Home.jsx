@@ -8,7 +8,7 @@ import Services from "../components/Services";
 import CustomCursor from "../components/CustomCursor";
 import ClientLogos from "../components/ClientLogos";
 import globe1 from '../assets/globe1.webp'
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { fetchAPI, getStrapiMedia } from "../lib/strapi";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -19,6 +19,18 @@ const Home = ({ isPreloading }) => {
   const aboutSectionRef = useRef(null);
   const progressBarRef = useRef(null);
   const darkNavbarContainerRef = useRef(null);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state && location.state.scrollTo) {
+      const sectionId = location.state.scrollTo;
+      // Small delay to allow mounting/preloading
+      setTimeout(() => {
+        gsap.to(window, { scrollTo: `#${sectionId}`, duration: 1.5, ease: "power4.inOut" });
+      }, 500);
+    }
+  }, [location]);
 
   // State for navbar dark mode
   const [isNavbarDark, setIsNavbarDark] = useState(true);
@@ -634,7 +646,7 @@ const Home = ({ isPreloading }) => {
         </section>
 
         {/* SELECTED WORKS SECTION */}
-        <section className="py-32 px-6 md:px-12 lg:px-20 relative z-10 bg-[#E9E4D9]">
+        <section id="selected-works" className="py-32 px-6 md:px-12 lg:px-20 relative z-10 bg-[#E9E4D9]">
           <div className="mb-24 border-b border-[#1a1a1a]/20 pb-8 flex justify-between items-end">
             <span className="font-[PPN] uppercase tracking-[0.2em] text-sm text-[hsl(40,30%,35%)]">Selected Works</span>
             <span className="font-[PPN] text-sm text-[hsl(0,0%,30%)] hidden md:block">2023 — 2025</span>
@@ -678,11 +690,11 @@ const Home = ({ isPreloading }) => {
             ))}
           </div>
 
-          <div className="mt-24 text-center">
+          {/* <div className="mt-24 text-center">
             <a href="/case-study" className="inline-block border border-[#1a1a1a] px-8 py-4 rounded-full font-[PPN] uppercase tracking-wider hover:bg-[#1a1a1a] hover:text-[#E9E4D9] transition-all duration-300">
               View All Projects
             </a>
-          </div>
+          </div> */}
 
         </section>
       </div>

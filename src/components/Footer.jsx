@@ -444,7 +444,7 @@ const Footer = ({ isLoading }) => {
             <div className="flex justify-center items-center w-full mt-10">
 
               <p
-                className="text-[15px] tracking-[0.2em] text-white uppercase text-center transition hover:text-[hsl(40,30%,55%)] hover:scale-125"
+                className="text-[15px] tracking-[0.2em] text-white uppercase text-center transition hover:text-[hsl(40,30%,55%)] duration-700 hover:scale-125"
               >
                 <a href="http://403labs.in" target="_blank" rel="noopener noreferrer" className="underline">Made with ❤️ by Technology Partner: 403 Labs </a>
               </p>
