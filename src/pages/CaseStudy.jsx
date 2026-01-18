@@ -133,7 +133,8 @@ const CaseStudy = () => {
     if (!project) return <div className="bg-[#E9E4D9] h-screen w-full flex items-center justify-center">Case Study Not Found</div>;
 
     const heroImageUrl = getStrapiMedia(project.heroImage);
-    const gallery = project.gallery?.data || [];
+    const galleryData = project.gallery;
+    const gallery = Array.isArray(galleryData) ? galleryData : (galleryData?.data || []);
     // If you have a 'nextCaseStudy' relation, you'd fetch that properly. 
     // For now assuming we just show a static or related one, 
     // or if the API returns it in populated fields.
