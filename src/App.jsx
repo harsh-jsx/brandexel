@@ -7,6 +7,7 @@ import Contact from "./pages/Contact";
 import Careers from "./pages/Careers";
 import Collaborate from "./pages/Collaborate";
 import CaseStudy from "./pages/CaseStudy";
+import CaseStudyStatic from "./pages/CaseStudyStatic";
 import PageTransition from "./components/PageTransition";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -57,7 +58,8 @@ const App = () => {
             <Route path="/careers" element={<PageTransition><Careers /></PageTransition>} />
             <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
             <Route path="/collaborate" element={<PageTransition><Collaborate /></PageTransition>} />
-            <Route path="/case-study" element={<PageTransition><CaseStudy /></PageTransition>} />
+            <Route path="/case-study-static" element={<PageTransition><CaseStudyStatic /></PageTransition>} />
+            <Route path="/case-study/:slug" element={<PageTransition><CaseStudy /></PageTransition>} />
           </Routes>
         </Router>
         <Footer />

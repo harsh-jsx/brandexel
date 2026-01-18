@@ -8,7 +8,8 @@ import Services from "../components/Services";
 import CustomCursor from "../components/CustomCursor";
 import ClientLogos from "../components/ClientLogos";
 import globe1 from '../assets/globe1.webp'
-// import Portfolio from "../components/Portfolio";
+import { Link } from "react-router-dom";
+import { fetchAPI, getStrapiMedia } from "../lib/strapi";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -108,6 +109,24 @@ const Home = ({ isPreloading }) => {
     { number: 4, suffix: "", label: "Team Members", description: "" },
     { number: 100, suffix: "%", label: "Remote workplace", description: "" },
   ];
+
+  // State for Case Studies
+  const [caseStudies, setCaseStudies] = useState([]);
+
+  // Fetch Case Studies
+  useEffect(() => {
+    const getCaseStudies = async () => {
+      try {
+        const response = await fetchAPI("/case-studies?populate=thumbnail");
+        if (response.data) {
+          setCaseStudies(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching case studies:", error);
+      }
+    };
+    getCaseStudies();
+  }, []);
 
   // Hero initial state
   useEffect(() => {
@@ -622,13 +641,27 @@ const Home = ({ isPreloading }) => {
           </div>
 
           <div className="flex flex-col">
+            {/* Combine Static + Dynamic Data */}
             {[
-              { name: "Neo Tokyo", cat: "Identity / Motion", image: "https://picsum.photos/seed/neotokyo/800/600" },
-              { name: "Velvet Void", cat: "Web / Strategy", image: "https://picsum.photos/seed/void/800/600" },
-              { name: "Carbon & Clay", cat: "Packaging", image: "https://picsum.photos/seed/clay/800/600" },
-              { name: "Aero Systems", cat: "Product 3D", image: "https://picsum.photos/seed/aero/800/600" },
+              // Static Item
+              {
+                name: "Neo Tokyo",
+                cat: "Identity / Motion",
+                image: "https://picsum.photos/seed/neotokyo/800/600",
+                link: "/case-study-static"
+              },
+              // Dynamic Items
+              ...caseStudies.map(study => {
+                const attributes = study.attributes || study;
+                return {
+                  name: attributes.title || "Untitled Project",
+                  cat: attributes.category || "Case Study",
+                  image: getStrapiMedia(attributes.thumbnail),
+                  link: attributes.slug ? `/case-study/${attributes.slug}` : "#"
+                };
+              })
             ].map((work, i) => (
-              <a href="/case-study" key={i} className="group border-b border-[#1a1a1a]/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer transition-all duration-500 hover:px-8 hover:bg-white/40">
+              <Link to={work.link} key={i} className="group border-b border-[#1a1a1a]/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer transition-all duration-500 hover:px-8 hover:bg-white/40">
                 <h3 className="font-['Druk'] text-5xl md:text-8xl uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-[hsl(40,30%,45%)] flex items-center gap-4">
                   {work.name}
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-0 group-hover:w-auto overflow-hidden">
@@ -639,9 +672,9 @@ const Home = ({ isPreloading }) => {
 
                 {/* Hover Image Float (Simple version) */}
                 <div className="absolute pointer-events-none opacity-0 group-hover:opacity-10 scale-50 group-hover:scale-100 transition-all duration-500 z-20 w-[300px] h-[200px] right-20 top-1/2 -translate-y-1/2 hidden lg:block rounded- overflow-hidden shadow-2xl rotate-3 group-hover:-rotate-2">
-                  <img src={work.image} alt={work.name} className="w-full h-full object-cover" />
+                  {work.image && <img src={work.image} alt={work.name} className="w-full h-full object-cover" />}
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
 
