@@ -121,7 +121,7 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
   const dotsRef = useRef([]);
 
   const navItems = [
-    { label: "ABOUT", italic: "about", count: "(15)", sectionId: "about" },
+    { label: "ABOUT", italic: "about", count: "(15)", sectionId: "/about" },
     {
       label: "SERVICES",
       italic: "services",

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Home from "./pages/Home";
+import About from "./pages/About";
 import Preloader from "./components/Preloader";
 import { ReactLenis, useLenis } from "lenis/react";
 import Footer from "./components/Footer";
@@ -58,6 +59,7 @@ const App = () => {
             <Route path="/careers" element={<PageTransition><Careers /></PageTransition>} />
             <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
             <Route path="/collaborate" element={<PageTransition><Collaborate /></PageTransition>} />
+            <Route path="/about" element={<PageTransition><About /></PageTransition>} />
             <Route path="/case-study-static" element={<PageTransition><CaseStudyStatic /></PageTransition>} />
             <Route path="/case-study/:slug" element={<PageTransition><CaseStudy /></PageTransition>} />
           </Routes>
