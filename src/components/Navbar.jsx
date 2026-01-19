@@ -288,7 +288,7 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
             </a>
           </div>
 
-          <div
+          {/* <div
             className="flex items-center gap-3 rounded-full px-5 py-3 mb-6"
             style={{ backgroundColor: "hsl(0, 0%, 100%)" }}
           >
@@ -311,7 +311,7 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
             >
               SUBSCRIBE
             </button>
-          </div>
+          </div> */}
 
           <div
             className="flex items-center gap-6 text-xs uppercase tracking-widest"

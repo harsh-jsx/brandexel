@@ -279,6 +279,7 @@ const Services = ({ isLoading }) => {
   return (
     <section
       ref={sectionRef}
+      id="services"
       className="min-h-screen overflow-hidden relative z-10 py-32 md:py-40"
       style={{
         backgroundColor: "hsl(0, 0%, 3%)",

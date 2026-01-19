@@ -256,7 +256,6 @@ const About = () => {
                 </section>
 
                 <ImageMarquee />
-                <Footer />
             </div>
         </>
     );
