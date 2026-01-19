@@ -146,7 +146,7 @@ const About = () => {
                         <img src="https://picsum.photos/seed/texture/800/800" className="hero-img w-full h-full object-cover opacity-40 grayscale" alt="texture" />
                     </div>
 
-                    <div className="relative z-10 font-['Druk'] text-[14vw] leading-[0.8] uppercase tracking-tighter mix-blend-exclusion">
+                    <div className="relative z-10 font-['Druk'] md:text-[14vw] text-[17vw] leading-[0.8] uppercase tracking-tighter mix-blend-exclusion">
                         <div className="overflow-hidden"><SplitText text="WE CRAFT" /></div>
                         <div className="overflow-hidden pl-[15vw]"><SplitText text="DIGITAL" /></div>
                         <div className="overflow-hidden"><SplitText text="LEGACIES" /></div>
@@ -229,7 +229,7 @@ const About = () => {
                 {/* --- TEAM HORIZONTAL --- */}
                 <section className="team-section h-screen bg-[#101010] text-[#E9E4D9] overflow-hidden flex flex-col justify-center">
                     <div className="px-6 md:px-12 lg:px-20 mb-12">
-                        <h2 className="font-['Druk'] text-[5vw] uppercase leading-none">The<br />Outlaws</h2>
+                        <h2 className="font-['Druk'] md:text-[5vw] text-[12vw] uppercase leading-none">The<br />Outlaws</h2>
                     </div>
 
                     <div className="team-track flex gap-10 px-6 md:px-12 lg:px-20 w-fit">

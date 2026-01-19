@@ -218,8 +218,12 @@ const Home = ({ isPreloading }) => {
               }
             });
           });
+          ScrollTrigger.refresh();
         });
     }, heroSectionRef);
+
+    // Force refresh to ensure ScrollTrigger picks up the layout
+    setTimeout(() => ScrollTrigger.refresh(), 100);
 
     return () => ctx.revert();
   }, [isPreloading]);
@@ -460,19 +464,19 @@ const Home = ({ isPreloading }) => {
         {/* HERO SECTION */}
         <section
           ref={heroSectionRef}
-          className="min-h-screen overflow-hidden flex items-center justify-center relative z-10"
+          className="min-h-screen overflow-hidden flex items-center justify-center relative z-9999"
           style={{ backgroundColor: "hsl(0, 0%, 0%)" }}
         >
           <div className="text-center relative z-10 px-4">
             <h1
               ref={line1Ref}
-              className="font-serif text-white text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
+              className="font-[PPN] z-9999 text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
             >
               CREATING
             </h1>
             <h1
               ref={line2Ref}
-              className="font-serif text-white text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none mt-1 md:mt-2 flex items-center justify-center gap-1 md:gap-2"
+              className=" z-9999 font-[PPN] text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none mt-1 md:mt-2 flex items-center justify-center gap-1 md:gap-2"
             >
               BRANDS
               <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
@@ -483,7 +487,7 @@ const Home = ({ isPreloading }) => {
             <div ref={impossibleWrapperRef}>
               <h2
                 ref={impossibleRef}
-                className="font-[PPN] text-3xl sm:text-5xl md:text-6xl lg:text-9xl xl:text-10xl font-black tracking-tighter leading-none py-2 md:py-4 uppercase"
+                className="font-[PPN] text-5xl sm:text-5xl md:text-6xl lg:text-9xl xl:text-10xl font-black tracking-tighter leading-none py-2 md:py-4 uppercase"
                 style={{ fontWeight: 900, color: "hsl(40, 30%, 55%)" }}
               >
                 IMPOSSIBLE
@@ -492,26 +496,26 @@ const Home = ({ isPreloading }) => {
 
             <h1
               ref={line3Ref}
-              className="font-serif text-white text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
+              className="font-[PPN] z-9999 text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
             >
               TO IGNORE
             </h1>
           </div>
 
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none">
             {images.map((image, index) => (
               <div
                 key={index}
                 ref={(el) => {
                   if (el) imagesRef.current[index] = el;
                 }}
-                className={`absolute ${image.width} ${image.height} rounded-lg overflow-hidden shadow-2xl transition-shadow duration-300 hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)]`}
+                className={`absolute ${image.width} ${image.height} z-10 rounded-lg overflow-hidden shadow-2xl transition-shadow duration-300 hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)]`}
                 style={{ zIndex: index === 2 ? 5 : 20 + index }}
               >
                 <img
                   src={image.src}
                   alt={image.alt}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover opacity-50"
                 />
               </div>
             ))}

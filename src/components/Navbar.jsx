@@ -33,7 +33,7 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
   const navItems = [
     { label: "ABOUT", italic: "about", count: "(15)", sectionId: "/about" },
     { label: "WORK", italic: "selected", count: "(15)", sectionId: "selected-works" }, // Swapped CLIENTS for WORK as per context
-    { label: "SERVICES", italic: "services", count: "(05)", sectionId: "services" },
+    { label: "SERVICES", italic: "services", count: "(05)", sectionId: "services1" },
     { label: "CAREERS", italic: "Join Us", count: "(4)", sectionId: "/careers" },
     { label: "CONTACT", italic: "Contact", count: "", sectionId: "/contact" },
   ];

@@ -1,10 +1,12 @@
-import React, { useRef, useEffect,useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
   motion,
   useScroll,
   useTransform,
   useMotionValue,
   useAnimationFrame,
+  useVelocity,
+  useSpring
 } from "motion/react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -23,7 +25,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const ImageMarquee = () => {
   const containerRef = useRef(null);
-  const [isNavbarDark, setIsNavbarDark] = useState(true);
+  const contentRef = useRef(null);
+  const [contentWidth, setContentWidth] = useState(0);
 
   const images = [
     creative1,
@@ -38,26 +41,56 @@ const ImageMarquee = () => {
     creative10,
   ];
 
-  const duplicatedImages = [...images, ...images];
+  // Tripling images ensures we always have coverage during the loop reset
+  const duplicatedImages = [...images, ...images, ...images];
 
-  /** base continuous motion */
+  useEffect(() => {
+    if (contentRef.current) {
+      // Calculate width of one set of images (total width / 3)
+      // We wait a tick to ensure layout is done
+      const measure = () => {
+        if (contentRef.current) {
+          setContentWidth(contentRef.current.scrollWidth / 3);
+        }
+      }
+      measure();
+      window.addEventListener('resize', measure);
+      return () => window.removeEventListener('resize', measure);
+    }
+  }, []);
+
   const baseX = useMotionValue(0);
-
-  /** scroll motion (unchanged behavior) */
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
+  const { scrollY } = useScroll();
+  const scrollVelocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(scrollVelocity, {
+    damping: 50,
+    stiffness: 400
   });
 
-  const scrollX = useTransform(scrollYProgress, [0, 1], [0, -1000]);
+  // Combine base automatic movement with scroll-induced velocity
+  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], {
+    clamp: false
+  });
 
-  /** combine both safely */
-  const x = useTransform([baseX, scrollX], ([base, scroll]) => base + scroll);
+  const x = useTransform(baseX, (v) => {
+    if (!contentWidth) return "0px";
+    return `${((v % contentWidth) - contentWidth) % contentWidth}px`;
+    // Allows v to go indefinitely negative, wrapping between -contentWidth and 0
+  });
 
-  /** continuous marquee movement */
-  useAnimationFrame((_, delta) => {
-    const speed = 0.03; // same visual speed as before
-    baseX.set(baseX.get() - delta * speed);
+  useAnimationFrame((t, delta) => {
+    // Base constant movement to the left
+    let moveBy = -0.05 * delta;
+
+    // Add scroll velocity effect
+    const velocity = velocityFactor.get();
+
+    // If scrolling rapidly, add velocity to movement
+    if (velocity !== 0) {
+      moveBy += velocity * 0.05 * delta;
+    }
+
+    baseX.set(baseX.get() + moveBy);
   });
 
   useGSAP(() => {
@@ -69,7 +102,6 @@ const ImageMarquee = () => {
         end: "bottom 40%",
         scrub: true,
       },
-      setIsNavbarDark:true,
     });
   }, []);
 
@@ -79,7 +111,11 @@ const ImageMarquee = () => {
       className="w-full overflow-hidden py-28 img-marquee"
       style={{ backgroundColor: "rgb(233, 228, 217)" }}
     >
-      <motion.div className="flex gap-6" style={{ x }}>
+      <motion.div
+        ref={contentRef}
+        className="flex gap-6 w-max"
+        style={{ x, willChange: "transform" }}
+      >
         {duplicatedImages.map((image, index) => (
           <div
             key={index}
@@ -87,8 +123,9 @@ const ImageMarquee = () => {
           >
             <img
               src={image}
-              alt={`Creative work ${index + 1}`}
+              alt={`Creative work ${index % images.length + 1}`}
               className="w-full h-full object-cover show-eyes"
+              loading="lazy"
             />
           </div>
         ))}

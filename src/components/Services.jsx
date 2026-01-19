@@ -279,7 +279,6 @@ const Services = ({ isLoading }) => {
   return (
     <section
       ref={sectionRef}
-      id="services"
       className="min-h-screen overflow-hidden relative z-10 py-32 md:py-40"
       style={{
         backgroundColor: "hsl(0, 0%, 3%)",
@@ -320,7 +319,7 @@ const Services = ({ isLoading }) => {
         style={{ backgroundColor: "hsl(0, 0%, 0%)" }}
       />
 
-      <div className="px-8 md:px-16 relative z-10" id="services">
+      <div className="px-8 md:px-16 relative z-10" >
         {/* Section Header */}
         <div className="mb-20 md:mb-32">
           <div className="flex items-center gap-4 mb-8">
@@ -338,7 +337,7 @@ const Services = ({ isLoading }) => {
           </div>
 
           {/* SplitText Title */}
-          <div ref={titleRef} className="max-w-5xl overflow-hidden">
+          <div ref={titleRef} className="max-w-5xl overflow-hidden" id="services1">
             <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl font-normal leading-[0.95] tracking-tight">
               {"SERVICES".split("").map((char, i) => (
                 <span
