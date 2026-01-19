@@ -274,19 +274,19 @@ const Careers = () => {
                     <div ref={heroTextRef} className="mb-12">
                         {/* Line 1 */}
                         <div className="overflow-hidden">
-                            <h1 className="hero-line-inner font-['Druk'] text-[12vw] md:text-[13vw] leading-[0.9] uppercase tracking-normal">
+                            <h1 className="hero-line-inner font-['Druk'] text-[17vw] md:text-[13vw] leading-[0.9] uppercase tracking-normal">
                                 Join The
                             </h1>
                         </div>
                         {/* Line 2 */}
                         <div className="overflow-hidden">
-                            <h1 className="hero-line-inner font-['Druk'] text-[12vw] md:text-[13vw] leading-[0.9] uppercase tracking-normal text-[hsl(40,30%,55%)]">
+                            <h1 className="hero-line-inner font-['Druk'] text-[17vw] md:text-[13vw] leading-[0.9] uppercase tracking-normal text-[hsl(40,30%,55%)]">
                                 Rogue
                             </h1>
                         </div>
                         {/* Line 3 */}
                         <div className="overflow-hidden">
-                            <h1 className="hero-line-inner font-['Druk'] text-[12vw] md:text-[13vw] leading-[0.9] uppercase tracking-normal">
+                            <h1 className="hero-line-inner font-['Druk'] text-[17vw] md:text-[13vw] leading-[0.9] uppercase tracking-normal">
                                 Movement
                             </h1>
                         </div>
