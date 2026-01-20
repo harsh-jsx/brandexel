@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import CustomCursor from "../components/CustomCursor";
 import Footer from "../components/Footer";
 import ImageMarquee from "../components/ImageMarquee";
+import brandexelVid from "../assets/brandexel.mp4";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -62,6 +63,18 @@ const About = () => {
                 duration: 1.5,
                 ease: "expo.out",
                 delay: 0.8
+            });
+
+            // Parallax effect for video
+            gsap.to(".parallax-video-wrapper video", {
+                yPercent: 30,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: heroRef.current,
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                }
             });
 
             // 2. MANIFESTO (Scrub opacity)
@@ -141,24 +154,32 @@ const About = () => {
 
                 {/* --- HERO SECTION --- */}
                 <section ref={heroRef} className="relative min-h-screen flex flex-col justify-end pb-24 px-6 md:px-12 lg:px-20 overflow-hidden pt-32">
-                    <div className="absolute top-0 right-0 w-[50vw] h-[70vh] mix-blend-difference z-0">
-                        {/* Abstract / texture background */}
-                        <img src="https://picsum.photos/seed/texture/800/800" className="hero-img w-full h-full object-cover opacity-40 grayscale" alt="texture" />
+                    <div className="parallax-video-wrapper absolute inset-0 w-full h-full z-0 pointer-events-none">
+                        <video
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="hero-img w-full h-full object-cover opacity-60"
+                        >
+                            <source src={brandexelVid} type="video/mp4" />
+                        </video>
+                        <div className="absolute inset-0 bg-black/50"></div>
                     </div>
 
-                    <div className="relative z-10 font-['Druk'] md:text-[14vw] text-[17vw] leading-[0.8] uppercase tracking-tighter mix-blend-exclusion">
+                    <div className="relative z-10 font-['Druk'] md:text-[14vw] text-[17vw] leading-[0.8] uppercase tracking-tighter text-[#E9E4D9]">
                         <div className="overflow-hidden"><SplitText text="WE CRAFT" /></div>
                         <div className="overflow-hidden pl-[15vw]"><SplitText text="DIGITAL" /></div>
                         <div className="overflow-hidden"><SplitText text="LEGACIES" /></div>
                     </div>
 
                     <div className="flex justify-between items-end mt-12 relative z-10 border-t border-[#E9E4D9]/20 pt-8">
-                        <p className="font-[PPN] max-w-sm text-lg opacity-70">
+                        <p className="font-[PPN] max-w-sm text-lg opacity-80">
                             Global branding agency defining the aesthetics of the future web.
                         </p>
                         <div className="hidden md:block text-right">
-                            <p className="font-[PPN] text-sm uppercase tracking-widest opacity-50">Est. 2023</p>
-                            <p className="font-[PPN] text-sm uppercase tracking-widest opacity-50">Worldwide</p>
+                            <p className="font-[PPN] text-sm uppercase tracking-widest opacity-60">Est. 2023</p>
+                            <p className="font-[PPN] text-sm uppercase tracking-widest opacity-60">Worldwide</p>
                         </div>
                     </div>
                 </section>

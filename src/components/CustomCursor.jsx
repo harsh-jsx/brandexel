@@ -115,7 +115,7 @@ const CustomCursor = () => {
         <div
           key={i}
           ref={(el) => (trailsRef.current[i] = el)}
-          className="fixed pointer-events-none rounded-full z-[9998]"
+          className="fixed pointer-events-none rounded-full z-[99999]"
           style={{
             width: 7 - i,
             height: 7 - i,
@@ -129,7 +129,7 @@ const CustomCursor = () => {
       {/* Cursor */}
       <div
         ref={cursorRef}
-        className="fixed pointer-events-none z-[9999]"
+        className="fixed pointer-events-none z-[100000]"
         style={{
           width: 36,
           height: 36,
@@ -145,7 +145,7 @@ const CustomCursor = () => {
         ref={eyeRef}
         src={eyeIcon}
         alt=""
-        className="fixed pointer-events-none z-[10000]"
+        className="fixed pointer-events-none z-[100001]"
         style={{
           width: 28,
           height: 28,

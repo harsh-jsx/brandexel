@@ -100,7 +100,7 @@ const MobileNavbar = ({ onNavigate }) => {
   return (
     <>
       {/* Top Bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-5 py-4 bg-black">
+      <div className="fixed top-0 left-0 right-0 z-[99999] flex justify-between items-center px-5 py-4 bg-black">
         <button className="text-white text-lg">◔</button>
         <span className="text-white tracking-[0.3em] text-xs">BRANDEXEL</span>
         <button
