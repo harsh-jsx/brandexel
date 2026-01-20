@@ -18,6 +18,8 @@ const Contact = () => {
   const footerRef = useRef(null);
   const contactInfoRef = useRef(null);
 
+  const [formType, setFormType] = useState("client"); // "client" | "creator"
+
   const [formData, setFormData] = useState({
     name: "",
     company: "",
@@ -28,21 +30,37 @@ const Contact = () => {
     details: "",
   });
 
+  const [creatorData, setCreatorData] = useState({
+    name: "",
+    skill: "",
+    portfolio: "",
+    experience: "",
+    email: "",
+    whyBrandexel: "",
+  });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (formType === "client") {
+      setFormData((prev) => ({ ...prev, [field]: value }));
+    } else {
+      setCreatorData((prev) => ({ ...prev, [field]: value }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    const dataToSend = formType === "client" ? formData : creatorData;
+    const endpoint = formType === "client" ? "/api/contact" : "/api/join";
+
     try {
-      const response = await fetch('http://localhost:3000/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+      const response = await fetch(`http://localhost:3000${endpoint}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dataToSend),
       });
       if (response.ok) {
         alert("Thank you! We'll be in touch within 24 hours.");
@@ -54,32 +72,32 @@ const Contact = () => {
     }
 
     setIsSubmitting(false);
-    setFormData({
-      name: "",
-      company: "",
-      goal: "",
-      timeline: "",
-      budget: "",
-      email: "",
-      details: "",
-    });
+    if (formType === "client") {
+      setFormData({
+        name: "",
+        company: "",
+        goal: "",
+        timeline: "",
+        budget: "",
+        email: "",
+        details: "",
+      });
+    } else {
+      setCreatorData({
+        name: "",
+        skill: "",
+        portfolio: "",
+        experience: "",
+        email: "",
+        whyBrandexel: "",
+      });
+    }
   };
 
   // Entrance animations
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
-
-      // Page reveal animation handled by PageTransition now
-      /*
-      tl.set(revealRef.current, { scaleY: 1, transformOrigin: "top" });
-      tl.to(revealRef.current, {
-        scaleY: 0,
-        duration: 1.2,
-        ease: "power4.inOut",
-        delay: 0.1,
-      });
-      */
 
       // Header split animation with blur
       if (headerRef.current) {
@@ -214,7 +232,7 @@ const Contact = () => {
     }, containerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [formType]); // Re-run animation when form type changes
 
   // Magnetic button effect
   useEffect(() => {
@@ -442,164 +460,311 @@ const Contact = () => {
           className="relative z-10 min-h-screen flex flex-col justify-center 
           px-8 md:px-16 lg:px-24 xl:px-32 py-32"
         >
+          {/* Toggle Switch */}
+          <div className="flex gap-6 mb-12">
+            <button
+              onClick={() => setFormType("client")}
+              className={`text-sm tracking-[0.2em] uppercase transition-all duration-300 relative
+                ${formType === "client" ? "text-white" : "text-white/40 hover:text-white/70"}`}
+            >
+              For Clients
+              {formType === "client" && (
+                <span className="absolute -bottom-2 left-0 w-full h-[1px] bg-secondary" />
+              )}
+            </button>
+            <button
+              onClick={() => setFormType("creator")}
+              className={`text-sm tracking-[0.2em] uppercase transition-all duration-300 relative
+                ${formType === "creator" ? "text-white" : "text-white/40 hover:text-white/70"}`}
+            >
+              For Creators
+              {formType === "creator" && (
+                <span className="absolute -bottom-2 left-0 w-full h-[1px] bg-secondary" />
+              )}
+            </button>
+          </div>
+
           {/* Header */}
           <div className="mb-16 md:mb-20">
             <p className="text-secondary text-xs tracking-[0.4em] uppercase mb-6 font-serif">
-              ✦ Let's Create Together
+              {formType === "client" ? "✦ Let's Create Together" : "✦ Join the Team"}
             </p>
             <h1
-              onClick={() => window.location.href = "/contact"}
               ref={headerRef}
+              key={formType} // Re-trigger animation on change
               className="font-[PPE] text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white leading-[1.1]"
               style={{ perspective: "1000px" }}
             >
-              Start a Project
+              {formType === "client" ? "Start a Project" : "Work With Us"}
             </h1>
             <p
               ref={subheadRef}
+              key={`${formType}-sub`}
               className="text-white/50 text-lg md:text-xl mt-6 max-w-xl"
             >
-              Tell us about your vision and we'll bring it to life.
+              {formType === "client"
+                ? "Tell us about your vision and we'll bring it to life."
+                : "We're always looking for talented creators to join our network."}
             </p>
           </div>
 
           {/* Conversational Form */}
           <form onSubmit={handleSubmit} className="max-w-5xl">
-            {/* Line 1 */}
-            <p
-              ref={(el) => (formLinesRef.current[0] = el)}
-              className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-4"
-            >
-              <span className="form-text font-[PPE]">Hi, I'm</span>
-              <InlineInput
-                placeholder="your name"
-                value={formData.name}
-                onChange={(val) => handleChange("name", val)}
-                index={0}
-                handleInputFocus={handleInputFocus}
-                handleInputBlur={handleInputBlur}
-                setRef={setRef}
-              />
-              <span className="form-text font-[PPE]">from</span>
-              <InlineInput
-                placeholder="company name"
-                value={formData.company}
-                onChange={(val) => handleChange("company", val)}
-                index={1}
-                handleInputFocus={handleInputFocus}
-                handleInputBlur={handleInputBlur}
-                setRef={setRef}
-              />
-            </p>
+            {formType === "client" ? (
+              // CLIENT FORM
+              <>
+                {/* Line 1 */}
+                <p
+                  ref={(el) => (formLinesRef.current[0] = el)}
+                  className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-4"
+                >
+                  <span className="form-text font-[PPE]">Hi, I'm</span>
+                  <InlineInput
+                    placeholder="your name"
+                    value={formData.name}
+                    onChange={(val) => handleChange("name", val)}
+                    index={0}
+                    handleInputFocus={handleInputFocus}
+                    handleInputBlur={handleInputBlur}
+                    setRef={setRef}
+                  />
+                  <span className="form-text font-[PPE]">from</span>
+                  <InlineInput
+                    placeholder="company name"
+                    value={formData.company}
+                    onChange={(val) => handleChange("company", val)}
+                    index={1}
+                    handleInputFocus={handleInputFocus}
+                    handleInputBlur={handleInputBlur}
+                    setRef={setRef}
+                  />
+                </p>
 
-            {/* Line 2 */}
-            <p
-              ref={(el) => (formLinesRef.current[1] = el)}
-              className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-4"
-            >
-              <span className="form-text font-[PPE]">
-                I'm looking for a partner to help me with
-              </span>
-              <InlineInput
-                placeholder="your project goal"
-                value={formData.goal}
-                onChange={(val) => handleChange("goal", val)}
-                index={2}
-                handleInputFocus={handleInputFocus}
-                handleInputBlur={handleInputBlur}
-                setRef={setRef}
-              />
-            </p>
+                {/* Line 2 */}
+                <p
+                  ref={(el) => (formLinesRef.current[1] = el)}
+                  className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-4"
+                >
+                  <span className="form-text font-[PPE]">
+                    I'm looking for a partner to help me with
+                  </span>
+                  <InlineInput
+                    placeholder="your project goal"
+                    value={formData.goal}
+                    onChange={(val) => handleChange("goal", val)}
+                    index={2}
+                    handleInputFocus={handleInputFocus}
+                    handleInputBlur={handleInputBlur}
+                    setRef={setRef}
+                  />
+                </p>
 
-            {/* Line 3 */}
-            <p
-              ref={(el) => (formLinesRef.current[2] = el)}
-              className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-4"
-            >
-              <span className="form-text font-[PPE]">
-                I'd like to complete this project within
-              </span>
-              <InlineSelect
-                className="bg-black text-white"
-                options={["1 month", "2-3 months", "3-6 months", "6+ months"]}
-                value={formData.timeline}
-                onChange={(val) => handleChange("timeline", val)}
-                index={3}
-                placeholder="timeline"
-                handleInputFocus={handleInputFocus}
-                handleInputBlur={handleInputBlur}
-                setRef={setRef}
-              />
-            </p>
+                {/* Line 3 */}
+                <p
+                  ref={(el) => (formLinesRef.current[2] = el)}
+                  className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-4"
+                >
+                  <span className="form-text font-[PPE]">
+                    I'd like to complete this project within
+                  </span>
+                  <InlineSelect
+                    className="bg-black text-white"
+                    options={["1 month", "2-3 months", "3-6 months", "6+ months"]}
+                    value={formData.timeline}
+                    onChange={(val) => handleChange("timeline", val)}
+                    index={3}
+                    placeholder="timeline"
+                    handleInputFocus={handleInputFocus}
+                    handleInputBlur={handleInputBlur}
+                    setRef={setRef}
+                  />
+                </p>
 
-            {/* Line 4 */}
-            <p
-              ref={(el) => (formLinesRef.current[3] = el)}
-              className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-4"
-            >
-              <span className="form-text font-[PPE]">
-                and my budget is around
-              </span>
-              <InlineSelect
-                options={[
-                  "$5K - $15K",
-                  "$15K - $50K",
-                  "$50K - $100K",
-                  "$100K+",
-                ]}
-                value={formData.budget}
-                onChange={(val) => handleChange("budget", val)}
-                index={4}
-                placeholder="budget range"
-                handleInputFocus={handleInputFocus}
-                handleInputBlur={handleInputBlur}
-                setRef={setRef}
-              />
-            </p>
+                {/* Line 4 */}
+                <p
+                  ref={(el) => (formLinesRef.current[3] = el)}
+                  className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-4"
+                >
+                  <span className="form-text font-[PPE]">
+                    and my budget is around
+                  </span>
+                  <InlineSelect
+                    options={[
+                      "$5K - $15K",
+                      "$15K - $50K",
+                      "$50K - $100K",
+                      "$100K+",
+                    ]}
+                    value={formData.budget}
+                    onChange={(val) => handleChange("budget", val)}
+                    index={4}
+                    placeholder="budget range"
+                    handleInputFocus={handleInputFocus}
+                    handleInputBlur={handleInputBlur}
+                    setRef={setRef}
+                  />
+                </p>
 
-            {/* Line 5 */}
-            <p
-              ref={(el) => (formLinesRef.current[4] = el)}
-              className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-8"
-            >
-              <span className="form-text font-[PPE]">You can reach me at</span>
-              <InlineInput
-                placeholder="email@example.com"
-                value={formData.email}
-                onChange={(val) => handleChange("email", val)}
-                index={5}
-                type="email"
-                handleInputFocus={handleInputFocus}
-                handleInputBlur={handleInputBlur}
-                setRef={setRef}
-              />
-            </p>
+                {/* Line 5 */}
+                <p
+                  ref={(el) => (formLinesRef.current[4] = el)}
+                  className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-8"
+                >
+                  <span className="form-text font-[PPE]">You can reach me at</span>
+                  <InlineInput
+                    placeholder="email@example.com"
+                    value={formData.email}
+                    onChange={(val) => handleChange("email", val)}
+                    index={5}
+                    type="email"
+                    handleInputFocus={handleInputFocus}
+                    handleInputBlur={handleInputBlur}
+                    setRef={setRef}
+                  />
+                </p>
 
-            {/* Optional details */}
-            <div ref={(el) => (formLinesRef.current[5] = el)} className="mb-12">
-              <p className="form-text font-[PPE] text-white/60 text-lg md:text-xl mb-4">
-                Optionally, share more about your project:
-              </p>
-              <div
-                ref={(el) => (inputRefs.current[6] = el)}
-                className="relative max-w-2xl"
-              >
-                <textarea
-                  value={formData.details}
-                  onChange={(e) => handleChange("details", e.target.value)}
-                  onFocus={() => handleInputFocus(6)}
-                  onBlur={() => handleInputBlur(6)}
-                  placeholder="Additional details, links, inspiration..."
-                  rows={3}
-                  className="w-full bg-foreground/[0.02] border border-foreground/10 font-[PPE] rounded-xl
-                    text-white/80 text-lg placeholder:text-white
-                    p-5 outline-none resize-none 
-                    focus:border-secondary/30 focus:bg-foreground/[0.04]
-                    transition-all duration-500"
-                />
-                <span className="input-line absolute bottom-0 left-4 right-4 h-[2px] bg-gradient-to-r from-secondary to-secondary/50 transform scale-x-0 origin-left rounded-full" />
-              </div>
-            </div>
+                {/* Optional details */}
+                <div ref={(el) => (formLinesRef.current[5] = el)} className="mb-12">
+                  <p className="form-text font-[PPE] text-white/60 text-lg md:text-xl mb-4">
+                    Optionally, share more about your project:
+                  </p>
+                  <div
+                    ref={(el) => (inputRefs.current[6] = el)}
+                    className="relative max-w-2xl"
+                  >
+                    <textarea
+                      value={formData.details}
+                      onChange={(e) => handleChange("details", e.target.value)}
+                      onFocus={() => handleInputFocus(6)}
+                      onBlur={() => handleInputBlur(6)}
+                      placeholder="Additional details, links, inspiration..."
+                      rows={3}
+                      className="w-full bg-foreground/[0.02] border border-foreground/10 font-[PPE] rounded-xl
+                        text-white/80 text-lg placeholder:text-white
+                        p-5 outline-none resize-none 
+                        focus:border-secondary/30 focus:bg-foreground/[0.04]
+                        transition-all duration-500"
+                    />
+                    <span className="input-line absolute bottom-0 left-4 right-4 h-[2px] bg-gradient-to-r from-secondary to-secondary/50 transform scale-x-0 origin-left rounded-full" />
+                  </div>
+                </div>
+              </>
+            ) : (
+              // CREATOR FORM
+              <>
+                {/* Line 1 */}
+                <p
+                  ref={(el) => (formLinesRef.current[0] = el)}
+                  className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-4"
+                >
+                  <span className="form-text font-[PPE]">Hi, I'm</span>
+                  <InlineInput
+                    placeholder="your name"
+                    value={creatorData.name}
+                    onChange={(val) => handleChange("name", val)}
+                    index={0}
+                    handleInputFocus={handleInputFocus}
+                    handleInputBlur={handleInputBlur}
+                    setRef={setRef}
+                  />
+                  <span className="form-text font-[PPE]">and I specialize in</span>
+                  <InlineInput
+                    placeholder="skill (e.g. Design)"
+                    value={creatorData.skill}
+                    onChange={(val) => handleChange("skill", val)}
+                    index={1}
+                    handleInputFocus={handleInputFocus}
+                    handleInputBlur={handleInputBlur}
+                    setRef={setRef}
+                  />
+                </p>
+
+                {/* Line 2 */}
+                <p
+                  ref={(el) => (formLinesRef.current[1] = el)}
+                  className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-4"
+                >
+                  <span className="form-text font-[PPE]">
+                    You can check out my work at
+                  </span>
+                  <InlineInput
+                    placeholder="portfolio/social link"
+                    value={creatorData.portfolio}
+                    onChange={(val) => handleChange("portfolio", val)}
+                    index={2}
+                    handleInputFocus={handleInputFocus}
+                    handleInputBlur={handleInputBlur}
+                    setRef={setRef}
+                  />
+                </p>
+
+                {/* Line 3 */}
+                <p
+                  ref={(el) => (formLinesRef.current[2] = el)}
+                  className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-4"
+                >
+                  <span className="form-text font-[PPE]">
+                    I have
+                  </span>
+                  <InlineSelect
+                    className="bg-black text-white"
+                    options={["0-1 years", "1-3 years", "3-5 years", "5+ years"]}
+                    value={creatorData.experience}
+                    onChange={(val) => handleChange("experience", val)}
+                    index={3}
+                    placeholder="experience level"
+                    handleInputFocus={handleInputFocus}
+                    handleInputBlur={handleInputBlur}
+                    setRef={setRef}
+                  />
+                  <span className="form-text font-[PPE]">of experience.</span>
+                </p>
+
+                {/* Line 4 */}
+                <p
+                  ref={(el) => (formLinesRef.current[3] = el)}
+                  className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-8"
+                >
+                  <span className="form-text font-[PPE]">Contact me at</span>
+                  <InlineInput
+                    placeholder="email@example.com"
+                    value={creatorData.email}
+                    onChange={(val) => handleChange("email", val)}
+                    index={4}
+                    type="email"
+                    handleInputFocus={handleInputFocus}
+                    handleInputBlur={handleInputBlur}
+                    setRef={setRef}
+                  />
+                </p>
+
+                {/* Why Brandexel */}
+                <div ref={(el) => (formLinesRef.current[4] = el)} className="mb-12">
+                  <p className="form-text font-[PPE] text-white/60 text-lg md:text-xl mb-4">
+                    Why do you want to join Brandexel?
+                  </p>
+                  <div
+                    ref={(el) => (inputRefs.current[5] = el)}
+                    className="relative max-w-2xl"
+                  >
+                    <textarea
+                      value={creatorData.whyBrandexel}
+                      onChange={(e) => handleChange("whyBrandexel", e.target.value)}
+                      onFocus={() => handleInputFocus(5)}
+                      onBlur={() => handleInputBlur(5)}
+                      placeholder="Tell us what drives you..."
+                      rows={3}
+                      className="w-full bg-foreground/[0.02] border border-foreground/10 font-[PPE] rounded-xl
+                        text-white/80 text-lg placeholder:text-white
+                        p-5 outline-none resize-none 
+                        focus:border-secondary/30 focus:bg-foreground/[0.04]
+                        transition-all duration-500"
+                    />
+                    <span className="input-line absolute bottom-0 left-4 right-4 h-[2px] bg-gradient-to-r from-secondary to-secondary/50 transform scale-x-0 origin-left rounded-full" />
+                  </div>
+                </div>
+              </>
+            )}
 
             {/* Submit section */}
             <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12">
@@ -622,9 +787,11 @@ const Contact = () => {
                       d="M 100, 100 m -80, 0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0"
                     />
                   </defs>
-                  <text className="fill-foreground/50 text-[11px] uppercase tracking-[0.5em] font-light">
+                  <text className="fill-white/80 text-[11px] uppercase tracking-[0.5em] font-light">
                     <textPath href="#circlePath">
-                      Send Inquiry • Start Project • Let's Create •
+                      {formType === "client"
+                        ? "Send Inquiry • Start Project • Let's Create •"
+                        : "Join Team • Submit Application • Work With Us •"}
                     </textPath>
                   </text>
                 </svg>

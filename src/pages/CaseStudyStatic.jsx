@@ -102,7 +102,7 @@ const CaseStudyStatic = () => {
                     <div className="absolute inset-0 z-0 select-none pointer-events-none">
                         <img
                             ref={heroImageRef}
-                            src="https://picsum.photos/seed/neotokyo/1920/1080"
+                            src="https://picsum.photos/seed/tokyo/1920/1080"
                             alt="Project Hero"
                             className="w-full h-full object-cover origin-bottom"
                         />
@@ -111,12 +111,12 @@ const CaseStudyStatic = () => {
 
                     <div ref={titleRef} className="relative z-10 w-full mix-blend-difference text-[#E9E4D9]">
                         <div className="overflow-hidden">
-                            <h1 className="font-['Druk'] text-[15vw] leading-[0.8] uppercase tracking-tighter">
+                            <h1 className="font-['Druk'] md:text-[15vw] text-[25vw] leading-[0.8] uppercase tracking-tighter">
                                 {project.title.split(" ")[0]}
                             </h1>
                         </div>
                         <div className="overflow-hidden">
-                            <h1 className="font-['Druk'] text-[15vw] leading-[0.8] uppercase tracking-tighter ml-[10vw]">
+                            <h1 className="font-['Druk'] md:text-[15vw] text-[25vw] leading-[0.8] uppercase tracking-tighter ml-[10vw]">
                                 {project.title.split(" ")[1]}
                             </h1>
                         </div>

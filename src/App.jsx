@@ -9,6 +9,7 @@ import Careers from "./pages/Careers";
 import Collaborate from "./pages/Collaborate";
 import CaseStudy from "./pages/CaseStudy";
 import CaseStudyStatic from "./pages/CaseStudyStatic";
+import NotFound from "./pages/NotFound";
 import PageTransition from "./components/PageTransition";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -62,6 +63,7 @@ const App = () => {
             <Route path="/about" element={<PageTransition><About /></PageTransition>} />
             <Route path="/case-study-static" element={<PageTransition><CaseStudyStatic /></PageTransition>} />
             <Route path="/case-study/:slug" element={<PageTransition><CaseStudy /></PageTransition>} />
+            <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
           </Routes>
         </Router>
         <Footer />
