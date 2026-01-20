@@ -82,12 +82,14 @@ const ImageMarquee = () => {
     // Base constant movement to the left
     let moveBy = -0.05 * delta;
 
-    // Add scroll velocity effect
+    // Add scroll velocity effect - ALWAYS in the same direction (left)
     const velocity = velocityFactor.get();
 
-    // If scrolling rapidly, add velocity to movement
+    // Independent of scroll direction (up or down), we want to ACCELERATE to the left
     if (velocity !== 0) {
-      moveBy += velocity * 0.05 * delta;
+      // Use absolute value of velocity to always subtract (move left)
+      // Multiplied by -1 to ensure it adds to the negative moveBy
+      moveBy += -Math.abs(velocity) * 0.05 * delta;
     }
 
     baseX.set(baseX.get() + moveBy);
