@@ -86,22 +86,9 @@ export const services = [
       "Performance Reports & Growth Strategy",
     ],
   },
+
   {
     number: "07",
-    title: "Photography & Videography",
-    description:
-      "High-quality visual production tailored for brands, events, and digital platforms to enhance storytelling.",
-    details: [
-      "Corporate & Business Shoots",
-      "E-Commerce Product Photography",
-      "Event Coverage (Photo & Video)",
-      "Social Media Content Production",
-      "Lifestyle & Model Shoots",
-      "Music Videos & Short Films",
-    ],
-  },
-  {
-    number: "08",
     title: "Influencer Marketing",
     description:
       "Strategic connecting brands with influential voices to amplify reach and authentic engagement.",
@@ -112,6 +99,21 @@ export const services = [
       "Content Strategy & Briefing",
       "Performance Tracking & Reporting",
       "Long-term Brand Ambassador Programs",
+    ],
+  },
+  {
+    number: "08",
+    title: "Other Services",
+    description:
+      "High-quality visual production tailored for brands, events, and digital platforms to enhance storytelling.",
+    details: [
+      "Photography & Videography",
+      "Corporate & Business Shoots",
+      "E-Commerce Product Photography",
+      "Event Coverage (Photo & Video)",
+      "Social Media Content Production",
+      "Lifestyle & Model Shoots",
+      "Music Videos & Short Films",
     ],
   },
 ];

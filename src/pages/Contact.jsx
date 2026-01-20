@@ -6,6 +6,81 @@ import CustomCursor from "../components/CustomCursor";
 
 gsap.registerPlugin(SplitText);
 
+// Moved outside to prevent re-creation on every render
+const InlineInput = ({
+  placeholder,
+  value,
+  onChange,
+  index,
+  type = "text",
+  handleInputFocus,
+  handleInputBlur,
+  setRef
+}) => (
+  <span
+    ref={(el) => setRef(index, el)}
+    className="relative inline-block mx-2"
+  >
+    <input
+      type={type}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      onFocus={() => handleInputFocus(index)}
+      onBlur={() => handleInputBlur(index)}
+      placeholder={placeholder}
+      className="bg-transparent border-none outline-none text-secondary 
+        placeholder:text-secondary/30 font-serif italic
+        min-w-[140px] md:min-w-[200px]
+        transition-all duration-300"
+      style={{
+        width: value ? `${Math.max(value.length * 14, 140)}px` : undefined,
+      }}
+    />
+    <span className="input-line absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-secondary to-secondary/50 transform scale-x-0 origin-left" />
+  </span>
+);
+
+const InlineSelect = ({ options, value, onChange, index, placeholder, handleInputFocus, handleInputBlur, setRef }) => (
+  <span
+    ref={(el) => setRef(index, el)}
+    className="relative inline-block mx-2"
+  >
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      onFocus={() => handleInputFocus(index)}
+      onBlur={() => handleInputBlur(index)}
+      className="bg-black border-none outline-none text-secondary 
+        font-serif italic cursor-pointer appearance-none pr-6
+        min-w-[140px] md:min-w-[180px]
+        transition-all duration-300"
+    >
+      <option value="" disabled className="bg-background text-white">
+        {placeholder}
+      </option>
+      {options.map((opt) => (
+        <option key={opt} value={opt} className="bg-background text-white">
+          {opt}
+        </option>
+      ))}
+    </select>
+    <svg
+      className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary/50 pointer-events-none"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M19 9l-7 7-7-7"
+      />
+    </svg>
+    <span className="input-line absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-secondary to-secondary/50 transform scale-x-0 origin-left" />
+  </span>
+);
+
 const Contact = () => {
   const navigate = useNavigate();
   const containerRef = useRef(null);
@@ -310,79 +385,7 @@ const Contact = () => {
     inputRefs.current[index] = el;
   };
 
-  const InlineInput = ({
-    placeholder,
-    value,
-    onChange,
-    index,
-    type = "text",
-    handleInputFocus,
-    handleInputBlur,
-    setRef
-  }) => (
-    <span
-      ref={(el) => setRef(index, el)}
-      className="relative inline-block mx-2"
-    >
-      <input
-        type={type}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        onFocus={() => handleInputFocus(index)}
-        onBlur={() => handleInputBlur(index)}
-        placeholder={placeholder}
-        className="bg-transparent border-none outline-none text-secondary 
-          placeholder:text-secondary/30 font-serif italic
-          min-w-[140px] md:min-w-[200px]
-          transition-all duration-300"
-        style={{
-          width: value ? `${Math.max(value.length * 14, 140)}px` : undefined,
-        }}
-      />
-      <span className="input-line absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-secondary to-secondary/50 transform scale-x-0 origin-left" />
-    </span>
-  );
 
-  const InlineSelect = ({ options, value, onChange, index, placeholder, handleInputFocus, handleInputBlur, setRef }) => (
-    <span
-      ref={(el) => setRef(index, el)}
-      className="relative inline-block mx-2"
-    >
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        onFocus={() => handleInputFocus(index)}
-        onBlur={() => handleInputBlur(index)}
-        className="bg-black border-none outline-none text-secondary 
-          font-serif italic cursor-pointer appearance-none pr-6
-          min-w-[140px] md:min-w-[180px]
-          transition-all duration-300"
-      >
-        <option value="" disabled className="bg-background text-white">
-          {placeholder}
-        </option>
-        {options.map((opt) => (
-          <option key={opt} value={opt} className="bg-background text-white">
-            {opt}
-          </option>
-        ))}
-      </select>
-      <svg
-        className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary/50 pointer-events-none"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M19 9l-7 7-7-7"
-        />
-      </svg>
-      <span className="input-line absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-secondary to-secondary/50 transform scale-x-0 origin-left" />
-    </span>
-  );
 
   return (
     <>
