@@ -153,34 +153,46 @@ const About = () => {
             <div ref={containerRef} className="bg-[#101010] text-[#E9E4D9] min-h-screen">
 
                 {/* --- HERO SECTION --- */}
-                <section ref={heroRef} className="relative min-h-screen flex flex-col justify-end pb-24 px-6 md:px-12 lg:px-20 overflow-hidden pt-32">
-                    <div className="parallax-video-wrapper absolute inset-0 w-full h-full z-0 pointer-events-none">
-                        <video
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            className="hero-img w-full h-full object-cover opacity-60"
-                        >
-                            <source src={brandexelVid} type="video/mp4" />
-                        </video>
-                        <div className="absolute inset-0 bg-black/50"></div>
-                    </div>
+                <section ref={heroRef} className="relative min-h-screen flex flex-col pt-32 px-6 md:px-12 lg:px-20 overflow-hidden bg-[#101010]">
 
-                    <div className="relative z-10 font-albra md:text-[14vw] text-[17vw] leading-[0.8] uppercase tracking-tighter text-[#E9E4D9]">
-                        <div className="overflow-hidden"><SplitText text="WE CRAFT" /></div>
-                        <div className="overflow-hidden pl-[15vw]"><SplitText text="DIGITAL" /></div>
-                        <div className="overflow-hidden"><SplitText text="LEGACIES" /></div>
-                    </div>
-
-                    <div className="flex justify-between items-end mt-12 relative z-10 border-t border-[#E9E4D9]/20 pt-8">
-                        <p className="font-abc max-w-sm text-lg opacity-80">
-                            Global branding agency defining the aesthetics of the future web.
-                        </p>
-                        <div className="hidden md:block text-right">
-                            <p className="font-abc text-sm uppercase tracking-widest opacity-60">Est. 2023</p>
-                            <p className="font-abc text-sm uppercase tracking-widest opacity-60">Worldwide</p>
+                    {/* Text Section (Top) */}
+                    <div className="relative z-10 flex flex-col mb-12 text-white">
+                        <div className="font-albra md:text-[11vw] text-[13vw] leading-[0.85] uppercase tracking-tighter text-hite">
+                            <div className="overflow-hidden"><SplitText text="WE CRAFT" /></div>
+                            <div className="overflow-hidden pl-[10vw] flex items-center gap-4 md:gap-8">
+                                <span className="w-12 h-12 md:w-24 md:h-24 rounded-full border border-[#E9E4D9]/30 flex items-center justify-center shrink-0 mt-2 md:mt-4 animate-spin-slow">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-6 h-6 md:w-10 md:h-10 opacity-70"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
+                                </span>
+                                <SplitText text="DIGITAL" />
+                            </div>
+                            <div className="overflow-hidden"><SplitText text="LEGACIES" /></div>
                         </div>
+
+                        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mt-12 pt-8 border-t border-[#E9E4D9]/20">
+                            <p className="font-abc max-w-md text-lg opacity-80 leading-relaxed">
+                                Global branding agency defining the aesthetics of the future web. We merge art, code, and strategy.
+                            </p>
+                            <div className="hidden md:block text-right">
+                                <p className="font-abc text-sm uppercase tracking-widest opacity-60">Est. 2023</p>
+                                <p className="font-abc text-sm uppercase tracking-widest opacity-60">Worldwide</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Video Section (Bottom - Non-overlapping) */}
+                    <div className="parallax-video-wrapper relative w-full flex-grow min-h-[40vh] md:min-h-[50vh] rounded-t-3xl overflow-hidden mt-auto">
+                        <div className="absolute inset-0 overflow-hidden">
+                            <video
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                className="hero-img w-full h-full object-cover scale-110" // Initial scale for parallax
+                            >
+                                <source src={brandexelVid} type="video/mp4" />
+                            </video>
+                        </div>
+                        {/* Subtle gradient from bottom to blend if needed, or keeping it clean */}
                     </div>
                 </section>
 

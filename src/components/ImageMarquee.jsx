@@ -29,8 +29,6 @@ const ImageMarquee = () => {
   const [contentWidth, setContentWidth] = useState(0);
 
   const images = [
-    creative1,
-    creative2,
     creative3,
     creative4,
     creative5,

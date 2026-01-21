@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ScrambleText from "./ScrambleText";
 import { services } from "../data/services";
 import { useNavigate } from "react-router-dom";
+import MagneticButton from "./MagneticButton";
 gsap.registerPlugin(ScrollTrigger);
 
 const marqueeWords = [
@@ -50,39 +51,6 @@ const Services = ({ isLoading }) => {
     card.style.setProperty("--mouse-x", `${x}px`);
     card.style.setProperty("--mouse-y", `${y}px`);
   };
-
-  // Magnetic Button Logic
-  useEffect(() => {
-    if (isLoading || !ctaRef.current) return;
-
-    const btn = ctaRef.current.querySelector("button");
-    if (!btn) return;
-
-    const handleMagnetMove = (e) => {
-      const rect = btn.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-
-      gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3, ease: "power2.out" });
-      gsap.to(btn.querySelector(".fill-circle"), {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-        duration: 0
-      });
-    };
-
-    const handleMagnetLeave = () => {
-      gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
-    };
-
-    btn.addEventListener("mousemove", handleMagnetMove);
-    btn.addEventListener("mouseleave", handleMagnetLeave);
-
-    return () => {
-      btn.removeEventListener("mousemove", handleMagnetMove);
-      btn.removeEventListener("mouseleave", handleMagnetLeave);
-    };
-  }, [isLoading]);
 
   // Services section animations
   useEffect(() => {
@@ -543,10 +511,13 @@ const Services = ({ isLoading }) => {
                     {service.details.map((detail, detailIndex) => (
                       <span
                         key={detailIndex}
-                        className="px-6 py-2 rounded-full text-xs md:text-sm border border-[hsl(0,0%,20%)] text-[hsl(0,0%,50%)] relative overflow-hidden group/pill transition-all duration-300"
+                        className="px-6 py-2 rounded-full text-xs md:text-sm border border-[hsl(0,0%,20%)] text-[hsl(0,0%,50%)] relative overflow-hidden group/pill transition-all duration-300 hover:border-[hsl(40,30%,55%)] hover:text-white hover:shadow-[0_0_15px_rgba(207,173,115,0.2)]"
                       >
-                        <span className="relative z-10 transition-colors duration-300 group-hover/pill:text-black">{detail}</span>
-                        <div className="absolute inset-0 bg-[hsl(40,30%,55%)] scale-x-0 group-hover/pill:scale-x-100 origin-left transition-transform duration-500 ease-out z-0" />
+                        <span className="relative z-10 transition-colors duration-300 group-hover/pill:text-white">
+                          {detail}
+                        </span>
+                        {/* Moving Shine - Improved */}
+                        <div className="absolute inset-0 translate-x-[-100%] group-hover/pill:animate-[shine_1s_ease-in-out_infinite] z-0 pointer-events-none bg-gradient-to-r from-transparent via-white/20 to-transparent" />
                       </span>
                     ))}
                   </div>
@@ -563,12 +534,13 @@ const Services = ({ isLoading }) => {
             <p className="text-sm uppercase tracking-[0.2em] text-[#666666]">Let's create something extraordinary together</p>
           </div>
 
-          <button
+          <MagneticButton
             onClick={() => window.location.href = "/contact"}
-            className="relative overflow-hidden rounded-full group cursor-pointer"
+            className="px-10 py-5 border border-[#333] hover:border-transparent"
+            fillColor="hsl(40,30%,55%)"
           >
-            <div className="relative z-10 flex items-center gap-4 px-10 py-5 bg-transparent border border-[#333] rounded-full transition-colors duration-300 group-hover:border-transparent">
-              <span className="text-sm uppercase tracking-[0.15em] font-medium text-white transition-colors duration-300 group-hover:text-black">
+            <div className="flex items-center gap-4">
+              <span className="text-sm uppercase tracking-[0.15em] font-medium transition-colors duration-300 group-hover:text-black">
                 Start a Conversation
               </span>
               <div className="w-10 h-10 rounded-full bg-[hsl(40,30%,55%)] flex items-center justify-center text-black">
@@ -577,9 +549,7 @@ const Services = ({ isLoading }) => {
                 </svg>
               </div>
             </div>
-            {/* Magnetic Fill */}
-            <div className="fill-circle absolute top-0 left-0 w-full h-full bg-[hsl(40,30%,55%)] rounded-full scale-0 group-hover:scale-[2.5] transition-transform duration-700 ease-out z-0 origin-center pointer-events-none" />
-          </button>
+          </MagneticButton>
         </div>
       </div>
     </section>

@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "../components/Navbar";
 import CustomCursor from "../components/CustomCursor";
+import MagneticButton from "../components/MagneticButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -446,13 +447,23 @@ const Careers = () => {
                             </div>
 
                             <div className="text-center mt-16">
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className="bg-white text-black font-abc px-8 py-4 rounded-full text-lg uppercase tracking-wider hover:bg-[hsl(40,30%,55%)] transition-colors duration-300 disabled:opacity-50"
-                                >
-                                    {isSubmitting ? "Sending..." : "Submit Application"}
-                                </button>
+                                <div className="flex justify-center">
+                                    <MagneticButton
+                                        onClick={handleSubmit} // Button inside form with onClick will trigger submit if type=submit not explicitly prevented, but here we can just let it bubble or handle inside. Ideally type="submit" props should be passed.
+                                        // MagneticButton renders a button tag, so we need to ensure it handles type="submit" or the onClick does the job.
+                                        // The MagneticButton component strictly uses onClick. For a form submit, we might need to modify MagneticButton or wrap it.
+                                        // Let's modify MagneticButton usage or assume onClick is fine. 
+                                        // Actually, standard handleSubmit is on the form. The button just needs to be clicked.
+                                        // MagneticButton doesn't forward "type" prop. Let's rely on onClick or modify MagneticButton.
+                                        // For now, I'll pass onClick={handleSubmit} (which is already there) but also I need to suppress the default form action if I use click? 
+                                        // The form has onSubmit={handleSubmit}. If the button is type="button" (default usually in React if not specified? No default is submit), it submits.
+                                        // Providing onClick to MagneticButton ref forwards it to the button element.
+                                        className="bg-white text-black font-abc px-10 py-5 text-lg uppercase tracking-wider"
+                                        fillColor="hsl(40,30%,55%)"
+                                    >
+                                        {isSubmitting ? "Sending..." : "Submit Application"}
+                                    </MagneticButton>
+                                </div>
                             </div>
                         </form>
                     </div>

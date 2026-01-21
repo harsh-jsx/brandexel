@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "../components/Navbar";
 import CustomCursor from "../components/CustomCursor";
 import { Link } from "react-router-dom";
+import MagneticButton from "../components/MagneticButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -159,8 +160,12 @@ const CaseStudyStatic = () => {
                                     alt={`Gallery ${i}`}
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
-                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
-                                    <span className="font-albra text-4xl uppercase">View Full</span>
+                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20 pointer-events-none">
+                                    <div className="pointer-events-auto">
+                                        <MagneticButton className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 uppercase tracking-widest text-sm hover:border-white/50" strength={0.3} fillColor="white" textColor="black">
+                                            View Full
+                                        </MagneticButton>
+                                    </div>
                                 </div>
                             </div>
                         ))}
