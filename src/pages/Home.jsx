@@ -678,13 +678,13 @@ const Home = ({ isPreloading }) => {
               })
             ].map((work, i) => (
               <Link to={work.link} key={i} className="group border-b border-[#1a1a1a]/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer transition-all duration-500 hover:px-8 hover:bg-white/40">
-                <h3 className="font-albra text-5xl md:text-8xl uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-[hsl(40,30%,45%)] flex items-center gap-4">
+                <h3 className="font-albra text-5xl md:text-8xl uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#C02FFB] group-hover:via-[#6B2AD9] group-hover:to-[#241D97] group-hover:bg-clip-text flex items-center gap-4">
                   {work.name}
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-0 group-hover:w-auto overflow-hidden">
-                    <span className="text-2xl md:text-4xl text-[#1a1a1a]/50">↗</span>
+                    <span className="text-2xl md:text-4xl text-[#241D97]">↗</span>
                   </div>
                 </h3>
-                <span className="font-abc text-lg text-[#1a1a1a]/60 group-hover:text-black mt-2 md:mt-0">{work.cat}</span>
+                <span className="font-abc text-lg text-[#1a1a1a]/60 group-hover:text-[#241D97] mt-2 md:mt-0">{work.cat}</span>
 
                 {/* Hover Image Float (Simple version) */}
                 <div className="absolute pointer-events-none opacity-0 group-hover:opacity-10 scale-50 group-hover:scale-100 transition-all duration-500 z-20 w-[300px] h-[200px] right-20 top-1/2 -translate-y-1/2 hidden lg:block rounded- overflow-hidden shadow-2xl rotate-3 group-hover:-rotate-2">

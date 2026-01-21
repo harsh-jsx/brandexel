@@ -163,7 +163,7 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
 
       {/* Start a Project - Magnetic Vertical */}
       <div
-        className="pb-8 flex justify-center cursor-pointer relative z-50"
+        className={`pb-8 flex justify-center cursor-pointer relative z-50 transition-opacity duration-300 ${isOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}
         onClick={() => navigate("/contact")}
         onMouseMove={(e) => {
           const btn = e.currentTarget;
