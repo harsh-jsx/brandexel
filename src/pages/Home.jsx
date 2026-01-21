@@ -254,7 +254,7 @@ const Home = ({ isPreloading }) => {
       heroTextElements.forEach((el) => {
         if (el) {
           gsap.to(el, {
-            color: "hsl(0, 0%, 10%)",
+            // color: "hsl(0, 0%, 10%)",
             ease: "none",
             scrollTrigger: {
               trigger: heroSectionRef.current,
@@ -487,8 +487,8 @@ const Home = ({ isPreloading }) => {
             <div ref={impossibleWrapperRef}>
               <h2
                 ref={impossibleRef}
-                className="font-abc text-5xl sm:text-5xl md:text-6xl lg:text-9xl xl:text-10xl font-black tracking-tighter leading-none py-2 md:py-4 uppercase"
-                style={{ fontWeight: 900, color: "hsl(40, 30%, 55%)" }}
+                className="bg-gradient-to-r from-[#C02FFB] via-[#6B2AD9] to-[#241D97] bg-clip-text text-transparent  font-abc text-5xl sm:text-5xl md:text-6xl  lg:text-9xl xl:text-10xl font-black tracking-tighter leading-none py-2 md:py-4 uppercase"
+                style={{ fontWeight: 900, }}
               >
                 IMPOSSIBLE
               </h2>
@@ -560,7 +560,7 @@ const Home = ({ isPreloading }) => {
                       <h1 className="font-albra text-3xl sm:text-6xl md:text-6xl lg:text-6xl uppercase leading-[0.85]  text-[hsl(0,0%,10%)]">
                         {text.includes("MAGIC") ? (
                           <>
-                            AND <span className="font-abc font-light italic text-[hsl(40,30%,40%)] lowercase tracking-normal">a little magic</span>
+                            AND <span className="font-abc font-light italic bg-gradient-to-r from-[#C02FFB] via-[#6B2AD9] to-[#241D97] bg-clip-text text-transparent lowercase tracking-normal">a little magic</span>
                           </>
                         ) : (
                           text

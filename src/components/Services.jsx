@@ -437,7 +437,7 @@ const Services = ({ isLoading }) => {
                 className={`font-[albra] text-6xl sm:text-7xl md:text-8xl lg:text-9xl mx-6 md:mx-10 transition-colors duration-300 ${word === "✦" ? "text-4xl sm:text-5xl md:text-6xl" : ""
                   }`}
                 style={{
-                  color: word === "✦" ? "hsl(40, 30%, 55%)" : "hsl(0, 0%, 15%)",
+                  color: word === "✦" ? "#241D97" : "hsl(0, 0%, 15%)",
                   WebkitTextStroke:
                     word === "✦" ? "none" : "1px hsl(0, 0%, 25%)",
                   WebkitTextFillColor:
@@ -536,15 +536,15 @@ const Services = ({ isLoading }) => {
 
           <MagneticButton
             onClick={() => window.location.href = "/contact"}
-            className="px-10 py-5 border border-[#333] hover:border-transparent"
-            fillColor="hsl(40,30%,55%)"
+            className="px-10 py-5 border border-white/20 hover:border-[#C02FFB]/50 transition-colors duration-300"
+            fillColor="#C02FFB"
           >
             <div className="flex items-center gap-4">
-              <span className="text-sm uppercase tracking-[0.15em] font-medium transition-colors duration-300 group-hover:text-black">
+              <span className="text-sm uppercase tracking-[0.15em] font-medium transition-colors duration-300 text-white group-hover:text-white">
                 Start a Conversation
               </span>
-              <div className="w-10 h-10 rounded-full bg-[hsl(40,30%,55%)] flex items-center justify-center text-black">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <div className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:-rotate-45 transition-transform duration-300">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </div>

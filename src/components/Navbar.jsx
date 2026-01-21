@@ -197,8 +197,8 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
           }}
         >
           <span
-            className="nav-dot w-2 h-2 rounded-full transition-transform duration-300 group-hover:scale-150"
-            style={{ backgroundColor: "hsl(40, 30%, 55%)" }}
+            className="nav-dot w-2 h-2 rounded-full transition-transform duration-300 group-hover:scale-150 shadow-[0_0_10px_#C02FFB]"
+            style={{ backgroundColor: "#C02FFB" }}
           />
           START A PROJECT
         </span>
