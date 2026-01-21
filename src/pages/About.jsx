@@ -167,19 +167,19 @@ const About = () => {
                         <div className="absolute inset-0 bg-black/50"></div>
                     </div>
 
-                    <div className="relative z-10 font-['Druk'] md:text-[14vw] text-[17vw] leading-[0.8] uppercase tracking-tighter text-[#E9E4D9]">
+                    <div className="relative z-10 font-albra md:text-[14vw] text-[17vw] leading-[0.8] uppercase tracking-tighter text-[#E9E4D9]">
                         <div className="overflow-hidden"><SplitText text="WE CRAFT" /></div>
                         <div className="overflow-hidden pl-[15vw]"><SplitText text="DIGITAL" /></div>
                         <div className="overflow-hidden"><SplitText text="LEGACIES" /></div>
                     </div>
 
                     <div className="flex justify-between items-end mt-12 relative z-10 border-t border-[#E9E4D9]/20 pt-8">
-                        <p className="font-[PPN] max-w-sm text-lg opacity-80">
+                        <p className="font-abc max-w-sm text-lg opacity-80">
                             Global branding agency defining the aesthetics of the future web.
                         </p>
                         <div className="hidden md:block text-right">
-                            <p className="font-[PPN] text-sm uppercase tracking-widest opacity-60">Est. 2023</p>
-                            <p className="font-[PPN] text-sm uppercase tracking-widest opacity-60">Worldwide</p>
+                            <p className="font-abc text-sm uppercase tracking-widest opacity-60">Est. 2023</p>
+                            <p className="font-abc text-sm uppercase tracking-widest opacity-60">Worldwide</p>
                         </div>
                     </div>
                 </section>
@@ -187,7 +187,7 @@ const About = () => {
                 {/* --- MANIFESTO SECTION --- */}
                 <section className="manifesto-section py-32 md:py-56 px-6 md:px-12 lg:px-20 bg-[#E9E4D9] text-[#1a1a1a]">
                     <div className="max-w-5xl mx-auto">
-                        <p className="font-['Druk'] text-4xl md:text-7xl leading-[1.1] uppercase text-center">
+                        <p className="font-albra text-4xl md:text-7xl leading-[1.1] uppercase text-center">
                             {/* Manually split for control */}
                             {"Basic exists to be broken. Normal is a curse. We believe that to be seen, you must first have the courage to disappear from the crowd. BrandExel is the glitch in the matrix.".split(" ").map((word, i) => (
                                 <span key={i} className="manifesto-word inline-block mr-[0.25em]">{word}</span>
@@ -199,8 +199,8 @@ const About = () => {
                 {/* --- VALUES GRID --- */}
                 <section className="py-32 px-6 md:px-12 lg:px-20 bg-[#101010]">
                     <div className="mb-24">
-                        <span className="font-[PPN] text-[#E9E4D9] uppercase tracking-[0.2em] text-sm opacity-50">Our DNA</span>
-                        <h2 className="font-['Druk'] text-[#E9E4D9] text-6xl md:text-8xl mt-4 uppercase">The Code<br />We Live By</h2>
+                        <span className="font-abc text-[#E9E4D9] uppercase tracking-[0.2em] text-sm opacity-50">Our DNA</span>
+                        <h2 className="font-albra text-[#E9E4D9] text-6xl md:text-8xl mt-4 uppercase">The Code<br />We Live By</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -210,10 +210,10 @@ const About = () => {
                             { title: "Speed & Soul", desc: "We move fast, but we never lose the human touch. Technology is the tool, emotion is the goal." }
                         ].map((item, i) => (
                             <div key={i} className="value-card border border-[#E9E4D9]/20 p-10 hover:bg-[#E9E4D9] hover:text-[#101010] transition-colors duration-500 group min-h-[400px] flex flex-col justify-between cursor-default">
-                                <span className="font-[PPN] text-sm opacity-50">0{i + 1}</span>
+                                <span className="font-abc text-sm opacity-50">0{i + 1}</span>
                                 <div>
-                                    <h3 className="font-['Druk'] text-4xl mb-6 uppercase">{item.title}</h3>
-                                    <p className="font-[PPN] text-lg opacity-70 group-hover:opacity-100">{item.desc}</p>
+                                    <h3 className="font-albra text-4xl mb-6 uppercase">{item.title}</h3>
+                                    <p className="font-abc text-lg opacity-70 group-hover:opacity-100">{item.desc}</p>
                                 </div>
                             </div>
                         ))}
@@ -223,7 +223,7 @@ const About = () => {
                 {/* --- PROCESS --- */}
                 <section className="py-32 bg-[#E9E4D9] text-[#1a1a1a]">
                     <div className="px-6 md:px-12 lg:px-20 mb-20">
-                        <h2 className="font-['Druk'] text-8xl uppercase mb-8">Process</h2>
+                        <h2 className="font-albra text-8xl uppercase mb-8">Process</h2>
                     </div>
 
                     <div className="flex flex-col w-full">
@@ -234,13 +234,13 @@ const About = () => {
                             { step: "04", name: "DEPLOY", desc: "Launch day. We ensure everything is pixel-perfect and ready for the world." }
                         ].map((p, i) => (
                             <div key={i} className="process-item group relative border-t border-[#1a1a1a]/20 py-16 px-6 md:px-12 lg:px-20 flex flex-col md:flex-row md:items-start gap-10 hover:bg-white transition-colors duration-300">
-                                <span className="p-num font-['Druk'] text-6xl md:text-8xl text-[#1a1a1a]/20 group-hover:text-[#1a1a1a] transition-colors duration-500">{p.step}</span>
+                                <span className="p-num font-albra text-6xl md:text-8xl text-[#1a1a1a]/20 group-hover:text-[#1a1a1a] transition-colors duration-500">{p.step}</span>
                                 <div className="flex-1 pt-4">
-                                    <h3 className="font-['Druk'] text-5xl md:text-6xl uppercase mb-4">{p.name}</h3>
-                                    <p className="font-[PPN] text-xl max-w-lg opacity-70">{p.desc}</p>
+                                    <h3 className="font-albra text-5xl md:text-6xl uppercase mb-4">{p.name}</h3>
+                                    <p className="font-abc text-xl max-w-lg opacity-70">{p.desc}</p>
                                 </div>
                                 <div className="hidden md:block w-32 h-32 rounded-full border border-[#1a1a1a]/20 group-hover:bg-[#1a1a1a] group-hover:text-[#E9E4D9] transition-all duration-500 flex items-center justify-center">
-                                    <span className="font-[PPN] text-2xl">↓</span>
+                                    <span className="font-abc text-2xl">↓</span>
                                 </div>
                             </div>
                         ))}
@@ -250,7 +250,7 @@ const About = () => {
                 {/* --- TEAM HORIZONTAL --- */}
                 <section className="team-section h-screen bg-[#101010] text-[#E9E4D9] overflow-hidden flex flex-col justify-center">
                     <div className="px-6 md:px-12 lg:px-20 mb-12">
-                        <h2 className="font-['Druk'] md:text-[5vw] text-[12vw] uppercase leading-none">The<br />Outlaws</h2>
+                        <h2 className="font-albra md:text-[5vw] text-[12vw] uppercase leading-none">The<br />Outlaws</h2>
                     </div>
 
                     <div className="team-track flex gap-10 px-6 md:px-12 lg:px-20 w-fit">
@@ -266,8 +266,8 @@ const About = () => {
                                     <img src={m.img} alt={m.name} className="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-700" />
                                 </div>
                                 <div className="mt-4 border-t border-[#E9E4D9] pt-2 flex justify-between items-baseline">
-                                    <span className="font-['Druk'] text-4xl uppercase">{m.name}</span>
-                                    <span className="font-[PPN] text-sm opacity-50">0{i + 1}</span>
+                                    <span className="font-albra text-4xl uppercase">{m.name}</span>
+                                    <span className="font-abc text-sm opacity-50">0{i + 1}</span>
                                 </div>
                             </div>
                         ))}

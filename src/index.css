@@ -23,6 +23,32 @@
   font-family: "PPN";
   src: url("../public/fonts/PPNeueMontreal-Book.otf") format("opentype");
 }
+
+@font-face {
+  font-family: "Albra";
+  src: url("../public/fonts/AlbraGrotesk-Bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "ABC";
+  src: url("../public/fonts/ABCReproMono-Regular.otf") format("opentype");
+}
+
+@layer base {
+  html {
+    font-family: "ABC", monospace;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Albra", sans-serif;
+  }
+}
+
 /* Marquee wrapper */
 .marquee-container {
   width: 100%;
@@ -56,6 +82,7 @@
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(-50%);
   }

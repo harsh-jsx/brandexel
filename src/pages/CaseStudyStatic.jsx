@@ -111,12 +111,12 @@ const CaseStudyStatic = () => {
 
                     <div ref={titleRef} className="relative z-10 w-full mix-blend-difference text-[#E9E4D9]">
                         <div className="overflow-hidden">
-                            <h1 className="font-['Druk'] md:text-[15vw] text-[25vw] leading-[0.8] uppercase tracking-tighter">
+                            <h1 className="font-albra md:text-[15vw] text-[25vw] leading-[0.8] uppercase tracking-tighter">
                                 {project.title.split(" ")[0]}
                             </h1>
                         </div>
                         <div className="overflow-hidden">
-                            <h1 className="font-['Druk'] md:text-[15vw] text-[25vw] leading-[0.8] uppercase tracking-tighter ml-[10vw]">
+                            <h1 className="font-albra md:text-[15vw] text-[25vw] leading-[0.8] uppercase tracking-tighter ml-[10vw]">
                                 {project.title.split(" ")[1]}
                             </h1>
                         </div>
@@ -127,23 +127,23 @@ const CaseStudyStatic = () => {
                 <section ref={detailsRef} className="py-32 px-6 md:px-12 lg:px-20 grid grid-cols-1 md:grid-cols-12 gap-12">
                     <div className="md:col-span-4 space-y-8">
                         <div>
-                            <p className="font-[PPN] text-sm uppercase tracking-widest opacity-50 mb-2">Client</p>
-                            <p className="font-[PPN] text-xl">{project.client}</p>
+                            <p className="font-abc text-sm uppercase tracking-widest opacity-50 mb-2">Client</p>
+                            <p className="font-abc text-xl">{project.client}</p>
                         </div>
                         <div>
-                            <p className="font-[PPN] text-sm uppercase tracking-widest opacity-50 mb-2">Services</p>
-                            <p className="font-[PPN] text-xl">{project.services}</p>
+                            <p className="font-abc text-sm uppercase tracking-widest opacity-50 mb-2">Services</p>
+                            <p className="font-abc text-xl">{project.services}</p>
                         </div>
                         <div>
-                            <p className="font-[PPN] text-sm uppercase tracking-widest opacity-50 mb-2">Year</p>
-                            <p className="font-[PPN] text-xl">{project.year}</p>
+                            <p className="font-abc text-sm uppercase tracking-widest opacity-50 mb-2">Year</p>
+                            <p className="font-abc text-xl">{project.year}</p>
                         </div>
                     </div>
                     <div className="md:col-span-8">
-                        <p className="font-['Druk'] text-4xl md:text-6xl leading-[0.9] uppercase mb-12">
+                        <p className="font-albra text-4xl md:text-6xl leading-[0.9] uppercase mb-12">
                             {project.description}
                         </p>
-                        <p className="font-[PPN] text-lg max-w-2xl leading-relaxed opacity-75 indent-12">
+                        <p className="font-abc text-lg max-w-2xl leading-relaxed opacity-75 indent-12">
                             The challenge was not just to design a logo, but to design a behavior. The identity needed to move, breathe, and adapt to the chaotic rhythm of the city. We utilized generative algorithms to create a logo system that is never the same twice, yet always recognizable.
                         </p>
                     </div>
@@ -160,7 +160,7 @@ const CaseStudyStatic = () => {
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
                                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
-                                    <span className="font-['Druk'] text-4xl uppercase">View Full</span>
+                                    <span className="font-albra text-4xl uppercase">View Full</span>
                                 </div>
                             </div>
                         ))}
@@ -174,8 +174,8 @@ const CaseStudyStatic = () => {
                     <div className="absolute inset-0 bg-black transform scale-y-0 group-hover:scale-y-100 transition-transform duration-700 origin-bottom z-0" />
 
                     <div className="relative z-10 text-center mix-blend-difference text-[#1a1a1a] group-hover:text-[#E9E4D9] transition-colors duration-500">
-                        <p className="font-[PPN] uppercase tracking-[0.3em] mb-4">Next Case Study</p>
-                        <h2 className="font-['Druk'] text-[10vw] leading-none uppercase">
+                        <p className="font-abc uppercase tracking-[0.3em] mb-4">Next Case Study</p>
+                        <h2 className="font-albra text-[10vw] leading-none uppercase">
                             Velvet <br /> Void
                         </h2>
                     </div>

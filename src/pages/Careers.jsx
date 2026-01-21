@@ -28,7 +28,7 @@ const InlineInput = ({
             onBlur={() => handleInputBlur(index)}
             placeholder={placeholder}
             className="bg-transparent border-none outline-none text-[hsl(40,30%,55%)]
-          placeholder:text-white/20 font-serif italic text-center
+          placeholder:text-white/20 font-abc italic text-center
           min-w-[200px]
           transition-all duration-300"
             style={{
@@ -50,7 +50,7 @@ const InlineSelect = ({ options, value, onChange, index, placeholder, handleInpu
             onFocus={() => handleInputFocus(index)}
             onBlur={() => handleInputBlur(index)}
             className="bg-black border-none outline-none text-[hsl(40,30%,55%)]
-          font-serif italic cursor-pointer appearance-none px-4 text-center
+          font-abc italic cursor-pointer appearance-none px-4 text-center
           min-w-[200px]
           transition-all duration-300"
         >
@@ -81,11 +81,42 @@ const Careers = () => {
         email: "",
         role: "",
         portfolio: "",
+        cvUrl: ""
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (field, value) => {
         setFormData((prev) => ({ ...prev, [field]: value }));
+    };
+
+    const [isUploading, setIsUploading] = useState(false);
+
+    const handleFileUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        setIsUploading(true);
+        const data = new FormData();
+        data.append("file", file);
+        data.append("upload_preset", "brandexel_careers"); // REPLACE WITH YOUR PRESET
+        data.append("cloud_name", "dpq549k4u"); // REPLACE WITH YOUR CLOUD NAME
+
+        try {
+            const res = await fetch("https://api.cloudinary.com/v1_1/dpq549k4u/upload", {
+                method: "POST",
+                body: data,
+            });
+            const result = await res.json();
+            if (result.secure_url) {
+                setFormData((prev) => ({ ...prev, cvUrl: result.secure_url }));
+                alert("File uploaded successfully!");
+            }
+        } catch (error) {
+            console.error("Upload failed", error);
+            alert("Upload failed. Please try again.");
+        } finally {
+            setIsUploading(false);
+        }
     };
 
     const handleInputFocus = (index) => {
@@ -274,26 +305,26 @@ const Careers = () => {
                     <div ref={heroTextRef} className="mb-12">
                         {/* Line 1 */}
                         <div className="overflow-hidden">
-                            <h1 className="hero-line-inner font-['Druk'] text-[17vw] md:text-[13vw] leading-[0.9] uppercase tracking-normal">
+                            <h1 className="hero-line-inner font-albra text-[17vw] md:text-[13vw] leading-[0.9] uppercase tracking-normal">
                                 Join The
                             </h1>
                         </div>
                         {/* Line 2 */}
                         <div className="overflow-hidden">
-                            <h1 className="hero-line-inner font-['Druk'] text-[17vw] md:text-[13vw] leading-[0.9] uppercase tracking-normal text-[hsl(40,30%,55%)]">
+                            <h1 className="hero-line-inner font-albra text-[17vw] md:text-[13vw] leading-[0.9] uppercase tracking-normal text-[hsl(40,30%,55%)]">
                                 Rogue
                             </h1>
                         </div>
                         {/* Line 3 */}
                         <div className="overflow-hidden">
-                            <h1 className="hero-line-inner font-['Druk'] text-[17vw] md:text-[13vw] leading-[0.9] uppercase tracking-normal">
+                            <h1 className="hero-line-inner font-albra text-[17vw] md:text-[13vw] leading-[0.9] uppercase tracking-normal">
                                 Movement
                             </h1>
                         </div>
                     </div>
 
                     <div className="max-w-xl ml-auto mr-12 hero-desc">
-                        <p className="font-[PPN] text-xl md:text-3xl leading-relaxed opacity-90">
+                        <p className="font-abc text-xl md:text-3xl leading-relaxed opacity-90">
                             We are not looking for employees. We are looking for obsessed craftspeople who want to build things that shouldn't be possible.
                         </p>
                     </div>
@@ -302,16 +333,16 @@ const Careers = () => {
                 {/* VALUES */}
                 <section ref={valuesRef} className="py-32 px-6 md:px-12 lg:px-20 min-h-[80vh]">
                     <div className="mb-24 border-b border-current pb-8 opacity-50">
-                        <span className="font-[PPN] uppercase tracking-[0.2em] text-sm">Our DNA</span>
+                        <span className="font-abc uppercase tracking-[0.2em] text-sm">Our DNA</span>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-32">
                         {values.map((item, i) => (
                             <div key={i} className="value-item group">
-                                <h3 className="font-['Druk'] text-5xl md:text-7xl mb-8 uppercase group-hover:text-[hsl(40,30%,45%)] transition-colors duration-500">
+                                <h3 className="font-albra text-5xl md:text-7xl mb-8 uppercase group-hover:text-[hsl(40,30%,45%)] transition-colors duration-500">
                                     {item.title}
                                 </h3>
-                                <p className="font-[PPN] text-xl md:text-2xl max-w-sm leading-relaxed border-l-2 border-current pl-8 group-hover:border-[hsl(40,30%,45%)] transition-colors duration-500 selection:bg-[hsl(40,30%,55%)] selection:text-white">
+                                <p className="font-abc text-xl md:text-2xl max-w-sm leading-relaxed border-l-2 border-current pl-8 group-hover:border-[hsl(40,30%,45%)] transition-colors duration-500 selection:bg-[hsl(40,30%,55%)] selection:text-white">
                                     {item.desc}
                                 </p>
                             </div>
@@ -323,10 +354,10 @@ const Careers = () => {
                 <section ref={rolesRef} className="py-40 px-6 md:px-12 lg:px-20 bg-black text-white rounded-t-[3rem] -mt-10 relative z-10">
                     <div className="flex flex-col md:flex-row justify-between items-end mb-32">
                         <div>
-                            <span className="font-[PPN] uppercase tracking-[0.2em] text-sm block mb-6 text-[hsl(40,30%,55%)]">Open Roles</span>
-                            <h2 className="font-['Druk'] text-7xl md:text-9xl uppercase leading-none">Your Turn</h2>
+                            <span className="font-abc uppercase tracking-[0.2em] text-sm block mb-6 text-[hsl(40,30%,55%)]">Open Roles</span>
+                            <h2 className="font-albra text-7xl md:text-9xl uppercase leading-none">Your Turn</h2>
                         </div>
-                        <p className="font-[PPN] max-w-xs text-white/50 mt-12 md:mt-0 text-lg">
+                        <p className="font-abc max-w-xs text-white/50 mt-12 md:mt-0 text-lg">
                             Don't see your role? Send us your portfolio anyway. We hire talent, not titles.
                         </p>
                     </div>
@@ -335,12 +366,12 @@ const Careers = () => {
                         {roles.map((role, i) => (
                             <div key={i} className="role-item group flex flex-col md:flex-row justify-between items-start md:items-center py-16 border-b border-white/20 hover:bg-white/5 transition-colors cursor-pointer px-4 relative overflow-hidden">
                                 <div className="relative z-10">
-                                    <h4 className="font-['Druk'] text-4xl md:text-6xl mb-3 group-hover:translate-x-4 transition-transform duration-500 ease-out">{role.title}</h4>
-                                    <span className="font-[PPN] text-base text-white/50 uppercase tracking-widest">{role.dept}</span>
+                                    <h4 className="font-albra text-4xl md:text-6xl mb-3 group-hover:translate-x-4 transition-transform duration-500 ease-out">{role.title}</h4>
+                                    <span className="font-abc text-base text-white/50 uppercase tracking-widest">{role.dept}</span>
                                 </div>
 
                                 <div className="flex items-center gap-8 mt-6 md:mt-0 relative z-10">
-                                    <span className="font-[PPN] border border-white/30 rounded-full px-6 py-2 text-sm group-hover:bg-white group-hover:text-black transition-colors duration-300">{role.type}</span>
+                                    <span className="font-abc border border-white/30 rounded-full px-6 py-2 text-sm group-hover:bg-white group-hover:text-black transition-colors duration-300">{role.type}</span>
                                     <div className="w-16 h-16 rounded-full bg-[hsl(40,30%,55%)] text-black flex items-center justify-center opacity-0 group-hover:opacity-100 transform scale-50 group-hover:scale-100 transition-all duration-500">
                                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>
                                     </div>
@@ -353,12 +384,12 @@ const Careers = () => {
                 {/* APPLICATION FORM */}
                 <section ref={formRef} className="py-32 px-6 md:px-12 lg:px-20 bg-black text-white relative z-10">
                     <div className="max-w-4xl mx-auto">
-                        <h2 className="font-['Druk'] text-5xl md:text-7xl mb-12 uppercase text-center">
+                        <h2 className="font-albra text-5xl md:text-7xl mb-12 uppercase text-center">
                             Apply Now
                         </h2>
 
                         <form onSubmit={handleSubmit} className="space-y-12">
-                            <div className="flex flex-col md:flex-row gap-8 items-center justify-center text-2xl md:text-3xl font-[PPN]">
+                            <div className="flex flex-col md:flex-row gap-8 items-center justify-center text-2xl md:text-3xl font-abc">
                                 <span className="opacity-50">I am</span>
                                 <InlineInput
                                     placeholder="your name"
@@ -371,7 +402,7 @@ const Careers = () => {
                                 />
                             </div>
 
-                            <div className="flex flex-col md:flex-row gap-8 items-center justify-center text-2xl md:text-3xl font-[PPN]">
+                            <div className="flex flex-col md:flex-row gap-8 items-center justify-center text-2xl md:text-3xl font-abc">
                                 <span className="opacity-50">Applying for</span>
                                 <InlineSelect
                                     placeholder="select role"
@@ -385,7 +416,7 @@ const Careers = () => {
                                 />
                             </div>
 
-                            <div className="flex flex-col md:flex-row gap-8 items-center justify-center text-2xl md:text-3xl font-[PPN]">
+                            <div className="flex flex-col md:flex-row gap-8 items-center justify-center text-2xl md:text-3xl font-abc">
                                 <span className="opacity-50">Reach me at</span>
                                 <InlineInput
                                     placeholder="email address"
@@ -399,11 +430,26 @@ const Careers = () => {
                                 />
                             </div>
 
+                            <div className="flex flex-col md:flex-row gap-8 items-center justify-center text-2xl md:text-3xl font-abc">
+                                <label className="cursor-pointer relative group flex items-center gap-4">
+                                    <span className="opacity-50 group-hover:text-white transition-colors duration-300">
+                                        {formData.cvUrl ? "✓ CV Uploaded" : "+ Upload CV / Portfolio (PDF)"}
+                                    </span>
+                                    <input
+                                        type="file"
+                                        accept=".pdf,.doc,.docx"
+                                        onChange={handleFileUpload}
+                                        className="hidden"
+                                    />
+                                    {isUploading && <span className="text-sm animate-pulse text-[hsl(40,30%,55%)]">Uploading...</span>}
+                                </label>
+                            </div>
+
                             <div className="text-center mt-16">
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="bg-white text-black font-[PPN] px-8 py-4 rounded-full text-lg uppercase tracking-wider hover:bg-[hsl(40,30%,55%)] transition-colors duration-300 disabled:opacity-50"
+                                    className="bg-white text-black font-abc px-8 py-4 rounded-full text-lg uppercase tracking-wider hover:bg-[hsl(40,30%,55%)] transition-colors duration-300 disabled:opacity-50"
                                 >
                                     {isSubmitting ? "Sending..." : "Submit Application"}
                                 </button>

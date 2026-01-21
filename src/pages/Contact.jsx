@@ -129,7 +129,7 @@ const Contact = () => {
     setIsSubmitting(true);
 
     const dataToSend = formType === "client" ? formData : creatorData;
-    const endpoint = formType === "client" ? "/api/contact" : "/api/join";
+    const endpoint = formType === "client" ? "/api/contact" : "/api/collaborate";
 
     try {
       const response = await fetch(`http://localhost:3000${endpoint}`, {
@@ -309,10 +309,13 @@ const Contact = () => {
     return () => ctx.revert();
   }, [formType]); // Re-run animation when form type changes
 
-  // Magnetic button effect
+  // Magnetic button effect (Parallax)
   useEffect(() => {
     const btn = magnetRef.current;
     if (!btn) return;
+
+    const inner = btn.querySelector(".center-circle");
+    const textRing = btn.querySelector("svg"); // The rotating text svg
 
     const handleMouseMove = (e) => {
       const rect = btn.getBoundingClientRect();
@@ -320,18 +323,36 @@ const Contact = () => {
       const y = e.clientY - rect.top - rect.height / 2;
 
       gsap.to(btn, {
-        x: x * 0.4,
-        y: y * 0.4,
-        duration: 0.4,
+        x: x * 0.2,
+        y: y * 0.2,
+        duration: 0.5,
         ease: "power2.out",
       });
+
+      if (inner) {
+        gsap.to(inner, {
+          x: x * 0.3,
+          y: y * 0.3,
+          duration: 0.5,
+          ease: "power2.out",
+        });
+      }
+
+      if (textRing) {
+        gsap.to(textRing, {
+          x: x * 0.1,
+          y: y * 0.1,
+          duration: 0.5,
+          ease: "power2.out",
+        });
+      }
     };
 
     const handleMouseLeave = () => {
-      gsap.to(btn, {
+      gsap.to([btn, inner, textRing], {
         x: 0,
         y: 0,
-        duration: 0.8,
+        duration: 1,
         ease: "elastic.out(1, 0.3)",
       });
     };
@@ -801,7 +822,7 @@ const Contact = () => {
 
                 {/* Center circle */}
                 <div
-                  className="absolute inset-10 md:inset-12 rounded-full bg-secondary 
+                  className="center-circle absolute inset-10 md:inset-12 rounded-full bg-secondary 
                   flex items-center justify-center overflow-hidden
                   group-hover:scale-110 transition-transform duration-700 ease-out
                   shadow-[0_0_40px_rgba(var(--secondary-rgb),0.3)]"

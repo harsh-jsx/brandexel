@@ -224,7 +224,7 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
                       className="flex items-center gap-3 mr-6 whitespace-nowrap"
                     >
                       <span
-                        className="font-serif text-3xl md:text-5xl font-light"
+                        className="font-albra text-3xl md:text-5xl font-light"
                         style={{
                           color: "hsl(0, 0%, 50%)",
                           WebkitTextStroke: "1px hsl(0, 0%, 50%)",
@@ -235,21 +235,21 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
                       </span>
                       <span style={{ color: "hsl(0, 0%, 60%)" }}>✦</span>
                       <span
-                        className="font-serif text-3xl md:text-5xl italic"
+                        className="font-albra text-3xl md:text-5xl italic"
                         style={{ color: "hsl(40, 30%, 55%)" }}
                       >
                         {item.italic}
                       </span>
                       <span style={{ color: "hsl(0, 0%, 60%)" }}>✦</span>
                       <span
-                        className="font-serif text-3xl md:text-5xl font-bold"
+                        className="font-albra text-3xl md:text-5xl font-bold"
                         style={{ color: "hsl(0, 0%, 20%)" }}
                       >
                         {item.label}
                       </span>
                       <span style={{ color: "hsl(0, 0%, 60%)" }}>✦</span>
                       <span
-                        className="font-serif text-3xl md:text-5xl italic"
+                        className="font-albra text-3xl md:text-5xl italic"
                         style={{ color: "hsl(40, 30%, 55%)" }}
                       >
                         {item.italic}

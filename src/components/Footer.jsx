@@ -194,35 +194,45 @@ const Footer = ({ isLoading }) => {
         }
       });
 
-      // CTA hover animation
-      const ctaEl = ctaRef.current;
-      if (ctaEl) {
-        const handleCtaEnter = () => {
-          gsap.to(ctaArrowRef.current, {
-            x: 10,
-            duration: 0.3,
-            ease: "power2.out",
+      // CTA hover animation (Magnetic Arrow)
+      const arrowEl = ctaArrowRef.current;
+      if (arrowEl) {
+        const handleMagnetMove = (e) => {
+          const rect = arrowEl.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+
+          gsap.to(arrowEl, { x: x * 0.5, y: y * 0.5, duration: 0.3, ease: "power2.out" });
+          gsap.to(arrowEl.querySelector(".fill-circle"), {
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top,
+            duration: 0
           });
-          gsap.to(ctaTextRef.current, {
-            x: -5,
-            duration: 0.3,
-            ease: "power2.out",
-          });
+
+          gsap.to(ctaTextRef.current, { x: x * 0.1, duration: 0.3 });
         };
-        const handleCtaLeave = () => {
-          gsap.to(ctaArrowRef.current, {
-            x: 0,
-            duration: 0.3,
-            ease: "power2.out",
-          });
-          gsap.to(ctaTextRef.current, {
-            x: 0,
-            duration: 0.3,
-            ease: "power2.out",
-          });
+
+        const handleMagnetLeave = () => {
+          gsap.to(arrowEl, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+          gsap.to(ctaTextRef.current, { x: 0, duration: 0.5 });
         };
-        ctaEl.addEventListener("mouseenter", handleCtaEnter);
-        ctaEl.addEventListener("mouseleave", handleCtaLeave);
+
+        const handleEnter = () => {
+          gsap.to(arrowEl.querySelector(".fill-circle"), { scale: 2.5, duration: 0.5, ease: "power2.out" });
+          gsap.to(arrowEl, { borderColor: "transparent", duration: 0.3 });
+          gsap.to(arrowEl.querySelector("svg"), { stroke: "#000", x: 5, duration: 0.3 });
+        }
+        const handleLeave = () => {
+          gsap.to(arrowEl.querySelector(".fill-circle"), { scale: 0, duration: 0.5, ease: "power2.in" });
+          gsap.to(arrowEl, { borderColor: "hsl(40, 30%, 55%)", duration: 0.3 });
+          gsap.to(arrowEl.querySelector("svg"), { stroke: "hsl(40, 30%, 55%)", x: 0, duration: 0.3 });
+        }
+
+
+        arrowEl.addEventListener("mousemove", handleMagnetMove);
+        arrowEl.addEventListener("mouseleave", handleMagnetLeave);
+        arrowEl.parentElement.addEventListener("mouseenter", handleEnter);
+        arrowEl.parentElement.addEventListener("mouseleave", handleLeave);
       }
     }, footerRef);
 
@@ -286,9 +296,10 @@ const Footer = ({ isLoading }) => {
               </span>
               <div
                 ref={ctaArrowRef}
-                className="w-12 h-12 md:w-16 md:h-16 rounded-full border flex items-center justify-center transition-colors duration-300 group-hover:bg-[hsl(40,30%,55%)]"
+                className="relative w-12 h-12 md:w-16 md:h-16 rounded-full border flex items-center justify-center overflow-hidden"
                 style={{ borderColor: "hsl(40, 30%, 55%)" }}
               >
+                <div className="fill-circle absolute top-0 left-0 w-full h-full bg-[hsl(40,30%,55%)] rounded-full scale-0 origin-center pointer-events-none z-0" />
                 <svg
                   width="24"
                   height="24"
@@ -296,7 +307,7 @@ const Footer = ({ isLoading }) => {
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.5"
-                  className="transition-colors duration-300 group-hover:stroke-[hsl(0,0%,5%)]"
+                  className="relative z-10 transition-colors duration-300"
                   style={{ color: "hsl(40, 30%, 55%)" }}
                 >
                   <path d="M7 17L17 7M17 7H7M17 7V17" />
@@ -322,7 +333,7 @@ const Footer = ({ isLoading }) => {
                     ref={(el) => {
                       if (el) charRefs.current[index] = el;
                     }}
-                    className="font-[PPN] text-[12vw] md:text-[11vw] lg:text-[10vw] font-light tracking-[-0.04em] inline-block cursor-default select-none leading-none"
+                    className="font-abc text-[12vw] md:text-[11vw] lg:text-[10vw] font-light tracking-[-0.04em] inline-block cursor-default select-none leading-none"
                     style={{
                       color: "hsl(0, 0%, 92%)",
                       WebkitTextStroke: "1px hsl(0, 0%, 25%)",

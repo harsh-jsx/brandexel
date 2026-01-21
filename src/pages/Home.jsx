@@ -470,13 +470,13 @@ const Home = ({ isPreloading }) => {
           <div className="text-center relative z-10 px-4">
             <h1
               ref={line1Ref}
-              className="font-[PPN] z-9999 text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
+              className="font-albra z-9999 text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
             >
               CREATING
             </h1>
             <h1
               ref={line2Ref}
-              className=" z-9999 font-[PPN] text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none mt-1 md:mt-2 flex items-center justify-center gap-1 md:gap-2"
+              className=" z-9999 font-albra text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none mt-1 md:mt-2 flex items-center justify-center gap-1 md:gap-2"
             >
               BRANDS
               <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
@@ -487,7 +487,7 @@ const Home = ({ isPreloading }) => {
             <div ref={impossibleWrapperRef}>
               <h2
                 ref={impossibleRef}
-                className="font-[PPN] text-5xl sm:text-5xl md:text-6xl lg:text-9xl xl:text-10xl font-black tracking-tighter leading-none py-2 md:py-4 uppercase"
+                className="font-abc text-5xl sm:text-5xl md:text-6xl lg:text-9xl xl:text-10xl font-black tracking-tighter leading-none py-2 md:py-4 uppercase"
                 style={{ fontWeight: 900, color: "hsl(40, 30%, 55%)" }}
               >
                 IMPOSSIBLE
@@ -496,7 +496,7 @@ const Home = ({ isPreloading }) => {
 
             <h1
               ref={line3Ref}
-              className="font-[PPN] z-9999 text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
+              className="font-albra z-9999 text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
             >
               TO IGNORE
             </h1>
@@ -549,7 +549,7 @@ const Home = ({ isPreloading }) => {
               <div className="max-w-4xl relative z-10 mt-16 lg:mt-0">
                 <p
                   ref={subtitleRef}
-                  className="font-[PPN] text-sm tracking-[0.2em] mb-6 lg:mb-10 text-[hsl(40,30%,35%)] overflow-hidden"
+                  className="font-abc text-sm tracking-[0.2em] mb-6 lg:mb-10 text-[hsl(40,30%,35%)] overflow-hidden"
                 >
                   <span className="block">HOWDY, WE'RE ROGUE</span>
                 </p>
@@ -557,10 +557,10 @@ const Home = ({ isPreloading }) => {
                 <div ref={heroTextRef} className="space-y-1">
                   {["MAKING CULTURE VISIBLE", "THROUGH DESIGN, TECH,", "AND A LITTLE MAGIC"].map((text, i) => (
                     <div key={i} className="overflow-hidden">
-                      <h1 className="font-['Druk'] text-5xl sm:text-6xl md:text-8xl lg:text-9xl uppercase leading-[0.85]  text-[hsl(0,0%,10%)]">
+                      <h1 className="font-albra text-3xl sm:text-6xl md:text-6xl lg:text-6xl uppercase leading-[0.85]  text-[hsl(0,0%,10%)]">
                         {text.includes("MAGIC") ? (
                           <>
-                            AND <span className="font-[PPN] font-light italic text-[hsl(40,30%,40%)] lowercase tracking-normal">a little magic</span>
+                            AND <span className="font-abc font-light italic text-[hsl(40,30%,40%)] lowercase tracking-normal">a little magic</span>
                           </>
                         ) : (
                           text
@@ -598,7 +598,7 @@ const Home = ({ isPreloading }) => {
 
                   <p
                     ref={descriptionRef}
-                    className="font-[PPN] text-xl md:text-2xl leading-[1.4] text-[hsl(0,0%,30%)] max-w-md"
+                    className="font-abc text-xl md:text-2xl leading-[1] text-[hsl(0,0%,30%)] max-w-md"
                   >
                     Infusing <span className="italic text-black font-medium">playfulness</span> into everything we touch, creating distinctive brand solutions with extraordinary outcomes.
                   </p>
@@ -611,11 +611,11 @@ const Home = ({ isPreloading }) => {
                       ref={(el) => (statsRef.current[index] = el)}
                       className="opacity-0 translate-y-8"
                     >
-                      <p className="font-['Druk'] text-6xl md:text-7xl text-[hsl(0,0%,15%)] leading-none mb-2">
+                      <p className="font-albra text-6xl md:text-7xl text-[hsl(0,0%,15%)] leading-none mb-2">
                         <span ref={(el) => (statNumberRefs.current[index] = el)}>0</span>
                         <span className="text-[hsl(0,0%,40%)] text-4xl align-top ml-1">{stat.suffix}</span>
                       </p>
-                      <p className="font-[PPN] text-sm uppercase tracking-wider text-[hsl(0,0%,50%)] border-t border-[hsl(0,0%,80%)] pt-3 inline-block">
+                      <p className="font-abc text-sm uppercase tracking-wider text-[hsl(0,0%,50%)] border-t border-[hsl(0,0%,80%)] pt-3 inline-block">
                         {stat.label}
                       </p>
                     </div>
@@ -639,8 +639,8 @@ const Home = ({ isPreloading }) => {
                   />
 
                   <div className="absolute bottom-8 left-8 z-20 mix-blend-difference text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <p className="font-['Druk'] text-xl tracking-widest uppercase">Latest Work</p>
-                    <p className="font-[PPN] text-sm">Brand Identity 2024</p>
+                    <p className="font-albra text-xl tracking-widest uppercase">Latest Work</p>
+                    <p className="font-abc text-sm">Brand Identity 2024</p>
                   </div>
                 </div>
               </div>
@@ -652,8 +652,8 @@ const Home = ({ isPreloading }) => {
         {/* SELECTED WORKS SECTION */}
         <section id="selected-works" className="py-32 px-6 md:px-12 lg:px-20 relative z-10 bg-[#E9E4D9]">
           <div className="mb-24 border-b border-[#1a1a1a]/20 pb-8 flex justify-between items-end">
-            <span className="font-[PPN] uppercase tracking-[0.2em] text-sm text-[hsl(40,30%,35%)]">Selected Works</span>
-            <span className="font-[PPN] text-sm text-[hsl(0,0%,30%)] hidden md:block">2023 — 2025</span>
+            <span className="font-abc uppercase tracking-[0.2em] text-sm text-[hsl(40,30%,35%)]">Selected Works</span>
+            <span className="font-abc text-sm text-[hsl(0,0%,30%)] hidden md:block">2023 — 2025</span>
           </div>
 
           <div className="flex flex-col">
@@ -678,13 +678,13 @@ const Home = ({ isPreloading }) => {
               })
             ].map((work, i) => (
               <Link to={work.link} key={i} className="group border-b border-[#1a1a1a]/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer transition-all duration-500 hover:px-8 hover:bg-white/40">
-                <h3 className="font-['Druk'] text-5xl md:text-8xl uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-[hsl(40,30%,45%)] flex items-center gap-4">
+                <h3 className="font-albra text-5xl md:text-8xl uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-[hsl(40,30%,45%)] flex items-center gap-4">
                   {work.name}
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-0 group-hover:w-auto overflow-hidden">
                     <span className="text-2xl md:text-4xl text-[#1a1a1a]/50">↗</span>
                   </div>
                 </h3>
-                <span className="font-[PPN] text-lg text-[#1a1a1a]/60 group-hover:text-black mt-2 md:mt-0">{work.cat}</span>
+                <span className="font-abc text-lg text-[#1a1a1a]/60 group-hover:text-black mt-2 md:mt-0">{work.cat}</span>
 
                 {/* Hover Image Float (Simple version) */}
                 <div className="absolute pointer-events-none opacity-0 group-hover:opacity-10 scale-50 group-hover:scale-100 transition-all duration-500 z-20 w-[300px] h-[200px] right-20 top-1/2 -translate-y-1/2 hidden lg:block rounded- overflow-hidden shadow-2xl rotate-3 group-hover:-rotate-2">
@@ -695,7 +695,7 @@ const Home = ({ isPreloading }) => {
           </div>
 
           {/* <div className="mt-24 text-center">
-            <a href="/case-study" className="inline-block border border-[#1a1a1a] px-8 py-4 rounded-full font-[PPN] uppercase tracking-wider hover:bg-[#1a1a1a] hover:text-[#E9E4D9] transition-all duration-300">
+            <a href="/case-study" className="inline-block border border-[#1a1a1a] px-8 py-4 rounded-full font-abc uppercase tracking-wider hover:bg-[#1a1a1a] hover:text-[#E9E4D9] transition-all duration-300">
               View All Projects
             </a>
           </div> */}

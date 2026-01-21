@@ -135,7 +135,7 @@ const MobileNavbar = ({ onNavigate }) => {
                 >
                   <h2
                     ref={(el) => (itemRefs.current[i] = el)}
-                    className="font-serif text-5xl tracking-tight"
+                    className="font-albra text-5xl tracking-tight"
                     style={{
                       textShadow: "0 0 40px hsla(40,30%,55%,0.15)",
                     }}
