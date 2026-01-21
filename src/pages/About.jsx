@@ -39,11 +39,13 @@ const SplitText = ({ text, className, type = "char", delay = 0 }) => {
     );
 };
 
-const About = () => {
+const About = ({ isPreloading }) => {
     const containerRef = useRef(null);
     const heroRef = useRef(null);
 
     useEffect(() => {
+        if (isPreloading) return; // Wait for preloader
+
         const ctx = gsap.context(() => {
 
             // 1. HERO ANIMATION
@@ -58,16 +60,16 @@ const About = () => {
 
             // Reveal Hero Image
             gsap.from(".hero-img", {
-                scale: 1.4,
+                scale: 1.2,
                 opacity: 0,
                 duration: 1.5,
                 ease: "expo.out",
-                delay: 0.8
+                delay: 0.5
             });
 
             // Parallax effect for video
             gsap.to(".parallax-video-wrapper video", {
-                yPercent: 30,
+                yPercent: 20, // Reduced parallax for better visibility
                 ease: "none",
                 scrollTrigger: {
                     trigger: heroRef.current,
@@ -143,7 +145,7 @@ const About = () => {
         }, containerRef);
 
         return () => ctx.revert();
-    }, []);
+    }, [isPreloading]);
 
     return (
         <>
@@ -180,19 +182,18 @@ const About = () => {
                     </div>
 
                     {/* Video Section (Bottom - Non-overlapping) */}
-                    <div className="parallax-video-wrapper relative w-full flex-grow min-h-[40vh] md:min-h-[50vh] rounded-t-3xl overflow-hidden mt-auto">
+                    <div className="parallax-video-wrapper relative w-full aspect-video rounded-3xl overflow-hidden mt-12 md:mt-0">
                         <div className="absolute inset-0 overflow-hidden">
                             <video
                                 autoPlay
                                 loop
                                 muted
                                 playsInline
-                                className="hero-img w-full h-full object-cover scale-110" // Initial scale for parallax
+                                className="hero-img w-full h-full object-cover scale-105"
                             >
                                 <source src={brandexelVid} type="video/mp4" />
                             </video>
                         </div>
-                        {/* Subtle gradient from bottom to blend if needed, or keeping it clean */}
                     </div>
                 </section>
 
