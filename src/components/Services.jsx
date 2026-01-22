@@ -294,7 +294,7 @@ const Services = ({ isLoading }) => {
       ref={sectionRef}
       className="min-h-screen overflow-hidden relative z-10 py-32 md:py-40"
       style={{
-        backgroundColor: "hsl(0, 0%, 3%)",
+        backgroundColor: "#241D97",
         perspective: "1200px",
         transformStyle: "preserve-3d",
       }}
@@ -329,7 +329,7 @@ const Services = ({ isLoading }) => {
       <div
         ref={overlayRef}
         className="absolute inset-0 pointer-events-none z-20"
-        style={{ backgroundColor: "hsl(0, 0%, 0%)" }}
+        style={{ backgroundColor: "#241D97" }}
       />
 
       <div className="px-8 md:px-16 relative z-10" >
@@ -439,7 +439,7 @@ const Services = ({ isLoading }) => {
                 style={{
                   color: word === "✦" ? "#241D97" : "hsl(0, 0%, 15%)",
                   WebkitTextStroke:
-                    word === "✦" ? "none" : "1px hsl(0, 0%, 25%)",
+                    word === "✦" ? "none" : "1px rgba(255,255,255,0.3)",
                   WebkitTextFillColor:
                     word === "✦" ? "hsl(40, 30%, 55%)" : "transparent",
                 }}
@@ -451,12 +451,12 @@ const Services = ({ isLoading }) => {
         </div>
 
         {/* Services Grid (Shiny Cards) */}
-        <div className="space-y-0 border-b border-[#262626]">
+        <div className="space-y-0 border-b border-white/20">
           {services.map((service, index) => (
             <div
               key={index}
               ref={(el) => (cardsRef.current[index] = el)}
-              className="group border-t border-[#262626] py-10 md:py-16 cursor-pointer relative overflow-hidden"
+              className="group border-t border-white/20 py-10 md:py-16 cursor-pointer relative overflow-hidden"
               onMouseEnter={() => setActiveService(index)}
               onMouseLeave={() => setActiveService(null)}
               onMouseMove={(e) => handleCardMouseMove(e, index)}
@@ -478,26 +478,26 @@ const Services = ({ isLoading }) => {
 
               <div className="grid grid-cols-12 gap-4 md:gap-8 items-center relative z-10 px-4">
                 <div className="col-span-2 md:col-span-1">
-                  <span className={`font-mono text-xs md:text-sm tracking-wider transition-colors duration-500 ${activeService === index ? "text-[hsl(40,30%,65%)]" : "text-[hsl(0,0%,30%)]"}`}>
+                  <span className={`font-mono text-xs md:text-sm tracking-wider transition-colors duration-500 ${activeService === index ? "text-[hsl(40,30%,65%)]" : "text-white/40"}`}>
                     ({service.number})
                   </span>
                 </div>
 
                 <div className="col-span-10 md:col-span-5">
-                  <h3 className={`font-albra text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal leading-none transition-all duration-500 ${activeService === index ? "text-white translate-x-4" : "text-[hsl(0,0%,50%)]"}`}>
+                  <h3 className={`font-albra text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal leading-none transition-all duration-500 ${activeService === index ? "text-white translate-x-4" : "text-white/60"}`}>
                     <ScrambleText text={service.title} isHovered={activeService === index} className="inline-block" />
                   </h3>
                 </div>
 
                 <div className="col-span-12 md:col-span-4 mt-4 md:mt-0">
-                  <p className={`text-sm md:text-base leading-relaxed max-w-sm transition-all duration-500 ${activeService === index ? "text-[hsl(0,0%,70%)] translate-x-3" : "text-[hsl(0,0%,35%)]"}`}>
+                  <p className={`text-sm md:text-base leading-relaxed max-w-sm transition-all duration-500 ${activeService === index ? "text-white/80 translate-x-3" : "text-white/40"}`}>
                     {service.description}
                   </p>
                 </div>
 
                 <div className="hidden md:flex col-span-2 justify-end items-center">
-                  <div className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all duration-500 ${activeService === index ? "border-[hsl(40,30%,55%)] bg-[hsl(40,30%,55%)] scale-110 rotate-0" : "border-[hsl(0,0%,20%)] bg-transparent -rotate-45"}`}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={`transition-colors duration-500 ${activeService === index ? "text-black" : "text-[hsl(0,0%,40%)]"}`}>
+                  <div className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all duration-500 ${activeService === index ? "border-[hsl(40,30%,55%)] bg-[hsl(40,30%,55%)] scale-110 rotate-0" : "border-white/20 bg-transparent -rotate-45"}`}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={`transition-colors duration-500 ${activeService === index ? "text-black" : "text-white/50"}`}>
                       <path d="M7 17L17 7M17 7H7M17 7V17" />
                     </svg>
                   </div>
@@ -511,7 +511,7 @@ const Services = ({ isLoading }) => {
                     {service.details.map((detail, detailIndex) => (
                       <span
                         key={detailIndex}
-                        className="px-6 py-2 rounded-full text-xs md:text-sm border border-[hsl(0,0%,20%)] text-[hsl(0,0%,50%)] relative overflow-hidden group/pill transition-all duration-300 hover:border-[hsl(40,30%,55%)] hover:text-white hover:shadow-[0_0_15px_rgba(207,173,115,0.2)]"
+                        className="px-6 py-2 rounded-full text-xs md:text-sm border border-white/20 text-white/50 relative overflow-hidden group/pill transition-all duration-300 hover:border-[hsl(40,30%,55%)] hover:text-white hover:shadow-[0_0_15px_rgba(207,173,115,0.2)]"
                       >
                         <span className="relative z-10 transition-colors duration-300 group-hover/pill:text-white">
                           {detail}

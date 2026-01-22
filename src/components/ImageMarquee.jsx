@@ -95,7 +95,7 @@ const ImageMarquee = () => {
 
   useGSAP(() => {
     gsap.to(containerRef.current, {
-      backgroundColor: "black",
+      backgroundColor: "#241D97",
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top 50%",
@@ -109,7 +109,7 @@ const ImageMarquee = () => {
     <div
       ref={containerRef}
       className="w-full overflow-hidden py-28 img-marquee"
-      style={{ backgroundColor: "rgb(233, 228, 217)" }}
+      style={{ backgroundColor: "#241D97" }}
     >
       <motion.div
         ref={contentRef}
