@@ -10,6 +10,7 @@ import ClientLogos from "../components/ClientLogos";
 import globe1 from '../assets/globe1.webp'
 import { Link, useLocation } from "react-router-dom";
 // import { fetchAPI, getStrapiMedia } from "../lib/strapi";
+import ScrambleText from "../components/ScrambleText";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -34,6 +35,7 @@ const Home = ({ isPreloading }) => {
 
   // State for navbar dark mode
   const [isNavbarDark, setIsNavbarDark] = useState(false);
+  const [isScrambling, setIsScrambling] = useState(false);
 
   // Hero refs
   const line1Ref = useRef(null);
@@ -456,6 +458,14 @@ const Home = ({ isPreloading }) => {
         });
       }
 
+      // Trigger text scrambling
+      ScrollTrigger.create({
+        trigger: aboutSectionRef.current,
+        start: "top 60%",
+        onEnter: () => setIsScrambling(true),
+        onLeaveBack: () => setIsScrambling(false), // Optional: reset on scroll back?
+      });
+
       return () => {
         window.removeEventListener("mousemove", handleMouseMove);
       };
@@ -561,6 +571,9 @@ const Home = ({ isPreloading }) => {
           {/* Background Gradient Orb */}
           <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[hsl(40,30%,55%)]/10 rounded-full blur-[100px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
+          {/* Technical Grid Overlay */}
+          <div className="absolute inset-0 bg-grid pointer-events-none opacity-60" />
+
           {/* Tech Annotations */}
           <div className="absolute top-10 left-10 text-[10px] uppercase font-mono text-[#1a1a1a]/30 hidden md:block">
             Ref: 2025-BX // V.2.0
@@ -604,7 +617,7 @@ const Home = ({ isPreloading }) => {
                             AND <span className="font-abc font-light italic bg-gradient-to-r from-[#C02FFB] via-[#6B2AD9] to-[#1a1a1a] bg-clip-text text-transparent lowercase tracking-normal">a little magic</span>
                           </>
                         ) : (
-                          text
+                          <ScrambleText text={text} isHovered={isScrambling} className="inline-block" />
                         )}
                       </h1>
                     </div>
@@ -690,6 +703,24 @@ const Home = ({ isPreloading }) => {
             </div>
           </div>
         </section>
+
+        {/* --- ROLLING MARQUEE SEPARATOR --- */}
+        <div className="w-full bg-[#E9E4D9] border-t border-b border-[#1a1a1a]/10 overflow-hidden py-4">
+          <div className="marquee-container">
+            <div className="marquee-content animate-marquee-slower">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="flex items-center">
+                  {["STRATEGY", "DESIGN", "DEVELOPMENT", "MOTION"].map((word, j) => (
+                    <div key={j} className="flex items-center px-8 opacity-40">
+                      <span className="font-albra text-4xl text-[#1a1a1a]">{word}</span>
+                      <span className="ml-8 text-[#C02FFB] text-xl">✦</span>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
 
         {/* SELECTED WORKS SECTION */}
         <section id="selected-works" className="py-32 px-6 md:px-12 lg:px-20 relative z-10 bg-[#E9E4D9]">
