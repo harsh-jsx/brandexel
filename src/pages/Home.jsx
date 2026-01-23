@@ -498,7 +498,7 @@ const Home = ({ isPreloading }) => {
               className=" z-9999 font-albra text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none mt-1 md:mt-2 flex items-center justify-center gap-1 md:gap-2"
             >
               BRANDS
-              <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+              <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-[#C02FFB]">
                 ✦
               </span>
             </h1>

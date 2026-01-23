@@ -144,7 +144,7 @@ const Preloader = ({ onComplete, onStartExit }) => {
   return (
     <div
       ref={preloaderRef}
-      className="fixed inset-0 z-[100] flex items-center justify-center"
+      className="fixed inset-0 z-[9999999] flex items-center justify-center"
       style={{ backgroundColor: "hsl(0, 0%, 0%)" }}
     >
       {/* Overlay for wipe effect */}
