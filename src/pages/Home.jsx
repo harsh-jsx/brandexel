@@ -33,7 +33,7 @@ const Home = ({ isPreloading }) => {
   }, [location]);
 
   // State for navbar dark mode
-  const [isNavbarDark, setIsNavbarDark] = useState(true);
+  const [isNavbarDark, setIsNavbarDark] = useState(false);
 
   // Hero refs
   const line1Ref = useRef(null);
@@ -232,7 +232,7 @@ const Home = ({ isPreloading }) => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(heroSectionRef.current, {
-        backgroundColor: "#241D97", // Deep Blue
+        backgroundColor: "#E9E4D9", // Almond
         ease: "none",
         scrollTrigger: {
           trigger: heroSectionRef.current,
@@ -240,7 +240,7 @@ const Home = ({ isPreloading }) => {
           end: "bottom center",
           scrub: 0.5,
           onUpdate: (self) => {
-            setIsNavbarDark(true); // Always keep navbar compatible with dark/blue theme if needed, or adjust logic
+            setIsNavbarDark(false);
           },
         },
       });
@@ -267,7 +267,7 @@ const Home = ({ isPreloading }) => {
       });
 
       gsap.to(impossibleRef.current, {
-        color: "#ffffff",
+        color: "#1a1a1a",
         ease: "none",
         scrollTrigger: {
           trigger: heroSectionRef.current,
@@ -285,7 +285,7 @@ const Home = ({ isPreloading }) => {
         end: "bottom 60%",
         scrub: 0.5,
         onUpdate: (self) => {
-          setIsNavbarDark(true);
+          setIsNavbarDark(false);
         }
       }
     })
@@ -465,18 +465,18 @@ const Home = ({ isPreloading }) => {
         <section
           ref={heroSectionRef}
           className="min-h-screen overflow-hidden flex items-center justify-center relative z-9999"
-          style={{ background: "radial-gradient(circle at center, #4c1d95 0%, #241D97 100%)" }}
+          style={{ backgroundColor: "#E9E4D9" }}
         >
           <div className="text-center relative z-10 px-4">
             <h1
               ref={line1Ref}
-              className="font-albra z-9999 text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
+              className="font-albra z-9999 text-[#1a1a1a] text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
             >
               CREATING
             </h1>
             <h1
               ref={line2Ref}
-              className=" z-9999 font-albra text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none mt-1 md:mt-2 flex items-center justify-center gap-1 md:gap-2"
+              className=" z-9999 font-albra text-[#1a1a1a] text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none mt-1 md:mt-2 flex items-center justify-center gap-1 md:gap-2"
             >
               BRANDS
               <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
@@ -487,7 +487,7 @@ const Home = ({ isPreloading }) => {
             <div ref={impossibleWrapperRef}>
               <h2
                 ref={impossibleRef}
-                className="bg-gradient-to-r from-[#C02FFB] via-[#6B2AD9] to-[#ffffff] bg-clip-text text-transparent  font-abc text-5xl sm:text-5xl md:text-6xl  lg:text-9xl xl:text-10xl font-black tracking-tighter leading-none py-2 md:py-4 uppercase"
+                className="bg-gradient-to-r from-[#C02FFB] via-[#6B2AD9] to-[#1a1a1a] bg-clip-text text-transparent  font-abc text-5xl sm:text-5xl md:text-6xl  lg:text-9xl xl:text-10xl font-black tracking-tighter leading-none py-2 md:py-4 uppercase"
                 style={{ fontWeight: 900, }}
               >
                 IMPOSSIBLE
@@ -496,7 +496,7 @@ const Home = ({ isPreloading }) => {
 
             <h1
               ref={line3Ref}
-              className="font-albra z-9999 text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
+              className="font-albra z-9999 text-[#1a1a1a] text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
             >
               TO IGNORE
             </h1>
@@ -526,7 +526,7 @@ const Home = ({ isPreloading }) => {
         <section
           ref={aboutSectionRef}
           className="min-h-screen overflow-x-hidden relative z-10 py-24"
-          style={{ backgroundColor: "#241D97" }}
+          style={{ backgroundColor: "#E9E4D9" }}
         >
           <div className="relative z-10 px-6 md:px-12 lg:px-20">
             {/* Header / Top Part */}
@@ -549,7 +549,7 @@ const Home = ({ isPreloading }) => {
               <div className="max-w-4xl relative z-10 mt-16 lg:mt-0">
                 <p
                   ref={subtitleRef}
-                  className="font-abc text-sm tracking-[0.2em] mb-6 lg:mb-10 text-white/70 overflow-hidden"
+                  className="font-abc text-sm tracking-[0.2em] mb-6 lg:mb-10 text-[#1a1a1a]/70 overflow-hidden"
                 >
                   <span className="block">HOWDY, WE'RE ROGUE</span>
                 </p>
@@ -557,10 +557,10 @@ const Home = ({ isPreloading }) => {
                 <div ref={heroTextRef} className="space-y-1">
                   {["MAKING CULTURE VISIBLE", "THROUGH DESIGN, TECH,", "AND A LITTLE MAGIC"].map((text, i) => (
                     <div key={i} className="overflow-hidden">
-                      <h1 className="font-albra text-3xl sm:text-6xl md:text-6xl lg:text-6xl uppercase leading-[0.85]  text-white/90">
+                      <h1 className="font-albra text-3xl sm:text-6xl md:text-6xl lg:text-6xl uppercase leading-[0.85]  text-[#1a1a1a]/90">
                         {text.includes("MAGIC") ? (
                           <>
-                            AND <span className="font-abc font-light italic bg-gradient-to-r from-[#C02FFB] via-[#6B2AD9] to-[#ffffff] bg-clip-text text-transparent lowercase tracking-normal">a little magic</span>
+                            AND <span className="font-abc font-light italic bg-gradient-to-r from-[#C02FFB] via-[#6B2AD9] to-[#1a1a1a] bg-clip-text text-transparent lowercase tracking-normal">a little magic</span>
                           </>
                         ) : (
                           text
@@ -598,9 +598,9 @@ const Home = ({ isPreloading }) => {
 
                   <p
                     ref={descriptionRef}
-                    className="font-abc text-xl md:text-2xl leading-[1] text-white/80 max-w-md"
+                    className="font-abc text-xl md:text-2xl leading-[1] text-[#1a1a1a]/80 max-w-md"
                   >
-                    Infusing <span className="italic text-white font-medium">playfulness</span> into everything we touch, creating distinctive brand solutions with extraordinary outcomes.
+                    Infusing <span className="italic text-[#1a1a1a] font-medium">playfulness</span> into everything we touch, creating distinctive brand solutions with extraordinary outcomes.
                   </p>
                 </div>
 
@@ -650,10 +650,10 @@ const Home = ({ isPreloading }) => {
         </section>
 
         {/* SELECTED WORKS SECTION */}
-        <section id="selected-works" className="py-32 px-6 md:px-12 lg:px-20 relative z-10 bg-[#241D97]">
-          <div className="mb-24 border-b border-white/20 pb-8 flex justify-between items-end">
-            <span className="font-abc uppercase tracking-[0.2em] text-sm text-white/70">Selected Works</span>
-            <span className="font-abc text-sm text-white/60 hidden md:block">2023 — 2025</span>
+        <section id="selected-works" className="py-32 px-6 md:px-12 lg:px-20 relative z-10 bg-[#E9E4D9]">
+          <div className="mb-24 border-b border-[#1a1a1a]/20 pb-8 flex justify-between items-end">
+            <span className="font-abc uppercase tracking-[0.2em] text-sm text-[#1a1a1a]/70">Selected Works</span>
+            <span className="font-abc text-sm text-[#1a1a1a]/60 hidden md:block">2023 — 2025</span>
           </div>
 
           <div className="flex flex-col">
@@ -677,14 +677,14 @@ const Home = ({ isPreloading }) => {
                 };
               })
             ].map((work, i) => (
-              <Link to={work.link} key={i} className="group border-b border-white/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer transition-all duration-500 hover:px-8 hover:bg-white/10">
-                <h3 className="font-albra text-5xl md:text-8xl uppercase text-white transition-all duration-500 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#C02FFB] group-hover:via-[#6B2AD9] group-hover:to-[#ffffff] group-hover:bg-clip-text flex items-center gap-4">
+              <Link to={work.link} key={i} className="group border-b border-[#1a1a1a]/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer transition-all duration-500 hover:px-8 hover:bg-[#1a1a1a]/5">
+                <h3 className="font-albra text-5xl md:text-8xl uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#C02FFB] group-hover:via-[#6B2AD9] group-hover:to-[#1a1a1a] group-hover:bg-clip-text flex items-center gap-4">
                   {work.name}
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-0 group-hover:w-auto overflow-hidden">
-                    <span className="text-2xl md:text-4xl text-white">↗</span>
+                    <span className="text-2xl md:text-4xl text-[#1a1a1a]">↗</span>
                   </div>
                 </h3>
-                <span className="font-abc text-lg text-white/60 group-hover:text-white mt-2 md:mt-0">{work.cat}</span>
+                <span className="font-abc text-lg text-[#1a1a1a]/60 group-hover:text-[#1a1a1a] mt-2 md:mt-0">{work.cat}</span>
 
                 {/* Hover Image Float (Simple version) */}
                 <div className="absolute pointer-events-none opacity-0 group-hover:opacity-10 scale-50 group-hover:scale-100 transition-all duration-500 z-20 w-[300px] h-[200px] right-20 top-1/2 -translate-y-1/2 hidden lg:block rounded- overflow-hidden shadow-2xl rotate-3 group-hover:-rotate-2">
