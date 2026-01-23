@@ -285,7 +285,7 @@ const Home = ({ isPreloading }) => {
         end: "bottom 60%",
         scrub: 0.5,
         onUpdate: (self) => {
-          setIsNavbarDark(false);
+          setIsNavbarDark(true);
         }
       }
     })
@@ -611,11 +611,11 @@ const Home = ({ isPreloading }) => {
                       ref={(el) => (statsRef.current[index] = el)}
                       className="opacity-0 translate-y-8"
                     >
-                      <p className="font-albra text-6xl md:text-7xl text-white leading-none mb-2">
+                      <p className="font-albra text-6xl md:text-7xl text-[#1a1a1a] leading-none mb-2">
                         <span ref={(el) => (statNumberRefs.current[index] = el)}>0</span>
-                        <span className="text-white/60 text-4xl align-top ml-1">{stat.suffix}</span>
+                        <span className="text-[#1a1a1a]/60 text-4xl align-top ml-1">{stat.suffix}</span>
                       </p>
-                      <p className="font-abc text-sm uppercase tracking-wider text-white/50 border-t border-white/20 pt-3 inline-block">
+                      <p className="font-abc text-sm uppercase tracking-wider text-[#1a1a1a]/50 border-t border-[#1a1a1a]/20 pt-3 inline-block">
                         {stat.label}
                       </p>
                     </div>

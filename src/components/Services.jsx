@@ -294,7 +294,7 @@ const Services = ({ isLoading }) => {
       ref={sectionRef}
       className="min-h-screen overflow-hidden relative z-10 py-32 md:py-40"
       style={{
-        backgroundColor: "#241D97",
+        backgroundColor: "#000000",
         perspective: "1200px",
         transformStyle: "preserve-3d",
       }}
@@ -329,7 +329,7 @@ const Services = ({ isLoading }) => {
       <div
         ref={overlayRef}
         className="absolute inset-0 pointer-events-none z-20"
-        style={{ backgroundColor: "#241D97" }}
+        style={{ backgroundColor: "#000000" }}
       />
 
       <div className="px-8 md:px-16 relative z-10" >
@@ -437,7 +437,7 @@ const Services = ({ isLoading }) => {
                 className={`font-[albra] text-6xl sm:text-7xl md:text-8xl lg:text-9xl mx-6 md:mx-10 transition-colors duration-300 ${word === "✦" ? "text-4xl sm:text-5xl md:text-6xl" : ""
                   }`}
                 style={{
-                  color: word === "✦" ? "#241D97" : "hsl(0, 0%, 15%)",
+                  color: word === "✦" ? "#241D97" : "hsl(0, 0%, 95%)",
                   WebkitTextStroke:
                     word === "✦" ? "none" : "1px rgba(255,255,255,0.3)",
                   WebkitTextFillColor:
