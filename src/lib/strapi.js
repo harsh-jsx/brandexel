@@ -36,20 +36,34 @@ export const getStrapiMedia = (media) => {
  * @returns {Promise<any>}
  */
 export const fetchAPI = async (path, options = {}) => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1000); // 1-second timeout
+
     const mergedOptions = {
         headers: {
             "Content-Type": "application/json",
         },
+        signal: controller.signal,
         ...options,
     };
 
-    const requestUrl = getStrapiURL(`/api${path}`);
-    const response = await fetch(requestUrl, mergedOptions);
+    try {
+        const requestUrl = getStrapiURL(`/api${path}`);
+        const response = await fetch(requestUrl, mergedOptions);
+        clearTimeout(timeoutId);
 
-    if (!response.ok) {
-        console.error(response.statusText);
-        throw new Error(`An error occurred please try again`);
+        if (!response.ok) {
+            console.error(response.statusText);
+            // Return null or empty object instead of throwing to prevent app crash/UI lag impact
+            return { data: [] };
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        clearTimeout(timeoutId);
+        console.warn("Strapi fetch failed or timed out:", error);
+        // Fallback to avoid UI breaking
+        return { data: [] };
     }
-    const data = await response.json();
-    return data;
 };
+

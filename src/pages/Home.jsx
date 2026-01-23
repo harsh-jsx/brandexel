@@ -9,7 +9,7 @@ import CustomCursor from "../components/CustomCursor";
 import ClientLogos from "../components/ClientLogos";
 import globe1 from '../assets/globe1.webp'
 import { Link, useLocation } from "react-router-dom";
-import { fetchAPI, getStrapiMedia } from "../lib/strapi";
+// import { fetchAPI, getStrapiMedia } from "../lib/strapi";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -126,19 +126,20 @@ const Home = ({ isPreloading }) => {
   const [caseStudies, setCaseStudies] = useState([]);
 
   // Fetch Case Studies
-  useEffect(() => {
-    const getCaseStudies = async () => {
-      try {
-        const response = await fetchAPI("/case-studies?populate=thumbnail");
-        if (response.data) {
-          setCaseStudies(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching case studies:", error);
-      }
-    };
-    getCaseStudies();
-  }, []);
+  // Fetch Case Studies
+  // useEffect(() => {
+  //   const getCaseStudies = async () => {
+  //     try {
+  //       const response = await fetchAPI("/case-studies?populate=thumbnail");
+  //       if (response.data) {
+  //         setCaseStudies(response.data);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching case studies:", error);
+  //     }
+  //   };
+  //   getCaseStudies();
+  // }, []);
 
   // Hero initial state
   useEffect(() => {
@@ -228,11 +229,28 @@ const Home = ({ isPreloading }) => {
     return () => ctx.revert();
   }, [isPreloading]);
 
+  // Ensure ScrollTrigger refreshes when everything is ready
+  useEffect(() => {
+    if (!isPreloading) {
+      // Multiple refreshes to catch layout shifts
+      const t1 = setTimeout(() => ScrollTrigger.refresh(), 500);
+      const t2 = setTimeout(() => ScrollTrigger.refresh(), 1000);
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+      };
+    }
+  }, [isPreloading]);
+
   // Color transition on scroll
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Initial State: Black background
+      gsap.set(heroSectionRef.current, { backgroundColor: "#000000" });
+
+      // Scroll Transition: Black -> Off-White
       gsap.to(heroSectionRef.current, {
-        backgroundColor: "#E9E4D9", // Almond
+        backgroundColor: "#E9E4D9",
         ease: "none",
         scrollTrigger: {
           trigger: heroSectionRef.current,
@@ -240,6 +258,7 @@ const Home = ({ isPreloading }) => {
           end: "bottom center",
           scrub: 0.5,
           onUpdate: (self) => {
+            // Navbar mode logic can remain or adapt if needed
             setIsNavbarDark(false);
           },
         },
@@ -254,7 +273,7 @@ const Home = ({ isPreloading }) => {
       heroTextElements.forEach((el) => {
         if (el) {
           gsap.to(el, {
-            // color: "hsl(0, 0%, 10%)",
+            color: "#1a1a1a", // Transition to Dark Text
             ease: "none",
             scrollTrigger: {
               trigger: heroSectionRef.current,
@@ -453,7 +472,7 @@ const Home = ({ isPreloading }) => {
 
       <div
         ref={progressBarRef}
-        className="fixed top-0 left-16 right-0 h-[0px] z-[60] origin-left"
+        className="fixed top-0 left-16 right-0 h-0 z-[60] origin-left"
         style={{
           backgroundColor: "hsl(40, 30%, 55%)",
           transform: "scaleX(0)",
@@ -465,18 +484,18 @@ const Home = ({ isPreloading }) => {
         <section
           ref={heroSectionRef}
           className="min-h-screen overflow-hidden flex items-center justify-center relative z-9999"
-          style={{ backgroundColor: "#E9E4D9" }}
+          style={{ backgroundColor: "#000000" }}
         >
           <div className="text-center relative z-10 px-4">
             <h1
               ref={line1Ref}
-              className="font-albra z-9999 text-[#1a1a1a] text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
+              className="font-albra z-9999 text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
             >
               CREATING
             </h1>
             <h1
               ref={line2Ref}
-              className=" z-9999 font-albra text-[#1a1a1a] text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none mt-1 md:mt-2 flex items-center justify-center gap-1 md:gap-2"
+              className=" z-9999 font-albra text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none mt-1 md:mt-2 flex items-center justify-center gap-1 md:gap-2"
             >
               BRANDS
               <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
@@ -496,7 +515,7 @@ const Home = ({ isPreloading }) => {
 
             <h1
               ref={line3Ref}
-              className="font-albra z-9999 text-[#1a1a1a] text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
+              className="font-albra z-9999 text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
             >
               TO IGNORE
             </h1>
@@ -557,7 +576,7 @@ const Home = ({ isPreloading }) => {
                 <div ref={heroTextRef} className="space-y-1">
                   {["MAKING CULTURE VISIBLE", "THROUGH DESIGN, TECH,", "AND A LITTLE MAGIC"].map((text, i) => (
                     <div key={i} className="overflow-hidden">
-                      <h1 className="font-albra text-3xl sm:text-6xl md:text-6xl lg:text-6xl uppercase leading-[0.85]  text-[#1a1a1a]/90">
+                      <h1 className="font-albra text-3xl sm:text-6xl md:text-6xl lg:text-6xl uppercase leading-[0.85]  text-black">
                         {text.includes("MAGIC") ? (
                           <>
                             AND <span className="font-abc font-light italic bg-gradient-to-r from-[#C02FFB] via-[#6B2AD9] to-[#1a1a1a] bg-clip-text text-transparent lowercase tracking-normal">a little magic</span>
@@ -598,9 +617,9 @@ const Home = ({ isPreloading }) => {
 
                   <p
                     ref={descriptionRef}
-                    className="font-abc text-xl md:text-2xl leading-[1] text-[#1a1a1a]/80 max-w-md"
+                    className="font-abc text-xl md:text-2xl leading-[1] text-black max-w-md"
                   >
-                    Infusing <span className="italic text-[#1a1a1a] font-medium">playfulness</span> into everything we touch, creating distinctive brand solutions with extraordinary outcomes.
+                    Infusing <span className="italic text-black font-medium">playfulness</span> into everything we touch, creating distinctive brand solutions with extraordinary outcomes.
                   </p>
                 </div>
 
@@ -667,15 +686,15 @@ const Home = ({ isPreloading }) => {
                 link: "/case-study-static"
               },
               // Dynamic Items
-              ...caseStudies.map(study => {
-                const attributes = study.attributes || study;
-                return {
-                  name: attributes.title || "Untitled Project",
-                  cat: attributes.category || "Case Study",
-                  image: getStrapiMedia(attributes.thumbnail),
-                  link: attributes.slug ? `/case-study/${attributes.slug}` : "#"
-                };
-              })
+              // ...caseStudies.map(study => {
+              //   const attributes = study.attributes || study;
+              //   return {
+              //     name: attributes.title || "Untitled Project",
+              //     cat: attributes.category || "Case Study",
+              //     image: getStrapiMedia(attributes.thumbnail),
+              //     link: attributes.slug ? `/case-study/${attributes.slug}` : "#"
+              //   };
+              // })
             ].map((work, i) => (
               <Link to={work.link} key={i} className="group border-b border-[#1a1a1a]/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer transition-all duration-500 hover:px-8 hover:bg-[#1a1a1a]/5">
                 <h3 className="font-albra text-5xl md:text-8xl uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#C02FFB] group-hover:via-[#6B2AD9] group-hover:to-[#1a1a1a] group-hover:bg-clip-text flex items-center gap-4">

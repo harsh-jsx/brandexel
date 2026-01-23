@@ -11,7 +11,6 @@ const Hero = ({ scrollProgress = 0 }) => {
   useEffect(() => {
     const tl = gsap.timeline();
 
-    // Animate elements on mount
     tl.from(brandRef.current, {
       opacity: 0,
       x: -20,
