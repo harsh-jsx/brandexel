@@ -517,7 +517,7 @@ const Home = ({ isPreloading }) => {
             <div ref={impossibleWrapperRef}>
               <h2
                 ref={impossibleRef}
-                className="bg-gradient-to-r from-[#C02FFB] via-[#6B2AD9] to-[#1a1a1a] bg-clip-text text-transparent  font-abc text-5xl sm:text-5xl md:text-6xl  lg:text-9xl xl:text-10xl font-black tracking-tighter leading-none py-2 md:py-4 uppercase"
+                className="bg-gradient-to-r from-[#C02FFB] via-[#6B2AD9] to-[#6B2AD9] bg-clip-text text-transparent  font-abc text-5xl sm:text-5xl md:text-6xl  lg:text-9xl xl:text-10xl font-black tracking-tighter leading-none py-2 md:py-4 uppercase"
                 style={{ fontWeight: 900, }}
               >
                 IMPOSSIBLE

@@ -338,12 +338,12 @@ const Services = ({ isLoading }) => {
           <div className="flex items-center gap-4 mb-8">
             <div
               className="w-12 h-[1px]"
-              style={{ backgroundColor: "hsl(40, 30%, 55%)" }}
+              style={{ backgroundColor: "#C02FFB" }}
             />
             <p
               ref={subtitleRef}
               className="text-xs uppercase tracking-[0.4em] font-light"
-              style={{ color: "hsl(40, 30%, 55%)" }}
+              style={{ color: "#C02FFB" }}
             >
               WHAT WE DO
             </p>
@@ -472,7 +472,7 @@ const Services = ({ isLoading }) => {
               <div
                 className="absolute inset-x-0 top-0 h-[1px] opacity-0 group-hover:opacity-100"
                 style={{
-                  background: "radial-gradient(400px circle at var(--mouse-x) 0, hsl(40,30%,55%), transparent 40%)"
+                  background: "radial-gradient(400px circle at var(--mouse-x) 0, #C02FFB, transparent 40%)"
                 }}
               />
 
@@ -496,7 +496,7 @@ const Services = ({ isLoading }) => {
                 </div>
 
                 <div className="hidden md:flex col-span-2 justify-end items-center">
-                  <div className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all duration-500 ${activeService === index ? "border-[hsl(40,30%,55%)] bg-[hsl(40,30%,55%)] scale-110 rotate-0" : "border-white/20 bg-transparent -rotate-45"}`}>
+                  <div className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all duration-500 ${activeService === index ? "border-[#C02FFB] bg-[#C02FFB] scale-110 rotate-0" : "border-white/20 bg-transparent -rotate-45"}`}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={`transition-colors duration-500 ${activeService === index ? "text-black" : "text-white/50"}`}>
                       <path d="M7 17L17 7M17 7H7M17 7V17" />
                     </svg>
@@ -511,13 +511,13 @@ const Services = ({ isLoading }) => {
                     {service.details.map((detail, detailIndex) => (
                       <span
                         key={detailIndex}
-                        className="px-6 py-2 rounded-full text-xs md:text-sm border border-white/20 text-white/50 relative overflow-hidden group/pill transition-all duration-300 hover:border-[hsl(40,30%,55%)] hover:text-white hover:shadow-[0_0_15px_rgba(207,173,115,0.2)]"
+                        className="px-6 py-2 rounded-full text-xs md:text-sm border border-white/20 text-white/50 relative overflow-hidden group/pill transition-all duration-300 hover:border-[#C02FFB] hover:text-white hover:shadow-[0_125px_150px_rgba(207,173,115,0.2)]"
                       >
                         <span className="relative z-10 transition-colors duration-300 group-hover/pill:text-white">
                           {detail}
                         </span>
                         {/* Moving Shine - Improved */}
-                        <div className="absolute inset-0 translate-x-[-100%] group-hover/pill:animate-[shine_1s_ease-in-out_infinite] z-0 pointer-events-none bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                        <div className="absolute inset-0 translate-x-[-100%] group-hover/pill:animate-[shine_2s_ease-in-out_infinite] z-0 pointer-events-none bg-gradient-to-r from-transparent via-white/30 to-transparent" />
                       </span>
                     ))}
                   </div>

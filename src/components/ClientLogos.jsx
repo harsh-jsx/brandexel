@@ -219,20 +219,20 @@ export default function ClientLogos({ isLoading }) {
         {/* Divider */}
         <div
           ref={lineRef}
-          className="h-px bg-gradient-to-r from-transparent via-[hsl(40,30%,55%)] to-transparent mb-20 origin-left"
+          className="h-px bg-gradient-to-r from-transparent via-[#C02FFB] to-transparent mb-20 origin-left"
         />
 
         {/* Header */}
         <div className="text-center mb-20">
           <p
             ref={subtitleRef}
-            className="text-[hsl(40,30%,55%)] tracking-[0.3em] uppercase mb-4"
+            className="text-[#C02FFB] font-[abc] tracking-[0.3em] uppercase mb-4"
           >
             Trusted by industry leaders
           </p>
           <h2
             ref={titleRef}
-            className="text-4xl md:text-6xl lg:text-7xl font-serif text-white"
+            className="text-4xl md:text-6xl lg:text-7xl font-[abc] text-white"
           >
             Our Clients
           </h2>
@@ -262,7 +262,7 @@ export default function ClientLogos({ isLoading }) {
 
         {/* CTA */}
         <div className="text-center">
-          <p className="text-white/50 text-lg mb-8">
+          <p className="text-white/50 text-lg mb-8 font-[abc]">
             Ready to join our roster of successful brands?
           </p>
           <a
