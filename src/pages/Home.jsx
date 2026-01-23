@@ -54,6 +54,7 @@ const Home = ({ isPreloading }) => {
   const curatinRef = useRef(null);
   const imagesIntroTl = useRef(null);
   const statNumberRefs = useRef([]);
+  const starRef = useRef(null);
 
 
   const images = [
@@ -169,7 +170,7 @@ const Home = ({ isPreloading }) => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         defaults: { ease: "power3.out" },
-        delay: 0.3 // Ensure the curtain has moved up a bit before we start
+        delay: 1.2 // Wait for preloader wipe (approx 1.2s) to finish
       });
 
       // (Sets moved to initial useEffect for stability)
@@ -445,6 +446,16 @@ const Home = ({ isPreloading }) => {
         ease: "none",
       });
 
+      // Star Animation
+      if (starRef.current) {
+        gsap.to(starRef.current, {
+          rotation: 360,
+          duration: 8,
+          repeat: -1,
+          ease: "none"
+        });
+      }
+
       return () => {
         window.removeEventListener("mousemove", handleMouseMove);
       };
@@ -547,6 +558,17 @@ const Home = ({ isPreloading }) => {
           className="min-h-screen overflow-x-hidden relative z-10 py-24"
           style={{ backgroundColor: "#E9E4D9" }}
         >
+          {/* Background Gradient Orb */}
+          <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[hsl(40,30%,55%)]/10 rounded-full blur-[100px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+
+          {/* Tech Annotations */}
+          <div className="absolute top-10 left-10 text-[10px] uppercase font-mono text-[#1a1a1a]/30 hidden md:block">
+            Ref: 2025-BX // V.2.0
+          </div>
+          <div className="absolute bottom-10 right-10 text-[10px] uppercase font-mono text-[#1a1a1a]/30 hidden md:block">
+            Scroll // Explore
+          </div>
+
           <div className="relative z-10 px-6 md:px-12 lg:px-20">
             {/* Header / Top Part */}
             <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-24 lg:mb-32 relative">
@@ -611,7 +633,7 @@ const Home = ({ isPreloading }) => {
               {/* Left Column */}
               <div className="lg:col-span-5 flex flex-col ">
                 <div>
-                  <div className="w-12 h-12 mb-8 text-[hsl(40,30%,45%)] animate-pulse">
+                  <div ref={starRef} className="w-12 h-12 mb-8 text-[hsl(40,30%,45%)]">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
                   </div>
 
@@ -634,8 +656,9 @@ const Home = ({ isPreloading }) => {
                         <span ref={(el) => (statNumberRefs.current[index] = el)}>0</span>
                         <span className="text-[#1a1a1a]/60 text-4xl align-top ml-1">{stat.suffix}</span>
                       </p>
-                      <p className="font-abc text-sm uppercase tracking-wider text-[#1a1a1a]/50 border-t border-[#1a1a1a]/20 pt-3 inline-block">
+                      <p className="font-abc text-sm uppercase tracking-wider text-[#1a1a1a]/50 pt-3 inline-block relative">
                         {stat.label}
+                        <span className="absolute top-0 left-0 w-full h-[1px] bg-[#1a1a1a]/20 scale-x-0 origin-left transition-transform duration-1000 delay-500 group-hover:scale-x-100" style={{ transform: "scaleX(1)" }} />
                       </p>
                     </div>
                   ))}

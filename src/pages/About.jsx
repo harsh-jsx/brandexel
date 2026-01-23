@@ -6,6 +6,7 @@ import CustomCursor from "../components/CustomCursor";
 import Footer from "../components/Footer";
 import ImageMarquee from "../components/ImageMarquee";
 import brandexelVid from "../assets/brandexel.mp4";
+import ScrambleText from "../components/ScrambleText";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -142,6 +143,22 @@ const About = ({ isPreloading }) => {
                 });
             }
 
+            // 6. DECORATIVE ELEMENTS - Rotate/Float
+            gsap.to(".floating-shape", {
+                rotation: 360,
+                duration: 20,
+                repeat: -1,
+                ease: "none"
+            });
+
+            gsap.to(".floating-shape-2", {
+                y: -30,
+                duration: 2,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            });
+
         }, containerRef);
 
         return () => ctx.revert();
@@ -198,8 +215,9 @@ const About = ({ isPreloading }) => {
                 </section>
 
                 {/* --- MANIFESTO SECTION --- */}
-                <section className="manifesto-section py-32 md:py-56 px-6 md:px-12 lg:px-20 bg-[#E9E4D9] text-[#1a1a1a]">
-                    <div className="max-w-5xl mx-auto">
+                <section className="manifesto-section py-32 md:py-56 px-6 md:px-12 lg:px-20 bg-[#E9E4D9] text-[#1a1a1a] relative overflow-hidden">
+                    <div className="absolute top-10 left-10 w-40 h-40 border border-[#1a1a1a]/10 rounded-full floating-shape pointer-events-none" />
+                    <div className="max-w-5xl mx-auto relative z-10">
                         <p className="font-albra text-4xl md:text-7xl leading-[1.1] uppercase text-center">
                             {/* Manually split for control */}
                             {"Basic exists to be broken. Normal is a curse. We believe that to be seen, you must first have the courage to disappear from the crowd. BrandExel is the glitch in the matrix.".split(" ").map((word, i) => (
@@ -210,11 +228,18 @@ const About = ({ isPreloading }) => {
                 </section>
 
                 {/* --- VALUES GRID --- */}
-                <section className="py-32 px-6 md:px-12 lg:px-20 bg-[#101010]">
-                    <div className="mb-24">
+                <section className="py-32 px-6 md:px-12 lg:px-20 bg-[#101010] relative overflow-hidden">
+                    <div className="mb-24 relative z-10">
                         <span className="font-abc text-[#E9E4D9] uppercase tracking-[0.2em] text-sm opacity-50">Our DNA</span>
-                        <h2 className="font-albra text-[#E9E4D9] text-6xl md:text-8xl mt-4 uppercase">The Code<br />We Live By</h2>
+                        <h2 className="font-albra text-[#E9E4D9] text-6xl md:text-8xl mt-4 uppercase">
+                            <ScrambleText text="The Code" className="block" />
+                            <ScrambleText text="We Live By" className="block" />
+                        </h2>
                     </div>
+
+                    {/* Decorative Background Elements */}
+                    <div className="absolute top-20 right-20 w-32 h-32 border border-[#E9E4D9]/20 rounded-full floating-shape pointer-events-none opacity-50" />
+                    <div className="absolute bottom-40 left-10 w-24 h-24 border border-[#E9E4D9]/20 rotate-45 floating-shape-2 pointer-events-none opacity-50" />
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {[
@@ -225,7 +250,9 @@ const About = ({ isPreloading }) => {
                             <div key={i} className="value-card border border-[#E9E4D9]/20 p-10 hover:bg-[#E9E4D9] hover:text-[#101010] transition-colors duration-500 group min-h-[400px] flex flex-col justify-between cursor-default">
                                 <span className="font-abc text-sm opacity-50">0{i + 1}</span>
                                 <div>
-                                    <h3 className="font-albra text-4xl mb-6 uppercase">{item.title}</h3>
+                                    <h3 className="font-albra text-4xl mb-6 uppercase">
+                                        <ScrambleText text={item.title} />
+                                    </h3>
                                     <p className="font-abc text-lg opacity-70 group-hover:opacity-100">{item.desc}</p>
                                 </div>
                             </div>
