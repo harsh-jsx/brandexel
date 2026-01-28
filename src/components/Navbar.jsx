@@ -136,7 +136,12 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
     >
       {/* Logo */}
       <div className="p-4 flex items-center justify-center cursor-pointer" onClick={handleLogoClick}>
-        <img src={logo} alt="" className="object-contain w-8" />
+        <img
+          src={logo}
+          alt=""
+          className="object-contain w-8 transition-all duration-500"
+          style={{ filter: isDarkMode ? "none" : "invert(1)" }}
+        />
       </div>
 
       {/* Dots Toggle */}

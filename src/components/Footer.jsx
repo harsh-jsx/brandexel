@@ -333,7 +333,7 @@ const Footer = ({ isLoading }) => {
                     ref={(el) => {
                       if (el) charRefs.current[index] = el;
                     }}
-                    className="font-abc text-[12vw] md:text-[11vw] lg:text-[10vw] font-light tracking-[-0.04em] inline-block cursor-default select-none leading-none"
+                    className="font-[druk] text-[12vw] md:text-[11vw] lg:text-[25vw] font-light  cursor-default select-none leading-none"
                     style={{
                       color: "hsl(0, 0%, 92%)",
                       WebkitTextStroke: "1px hsl(0, 0%, 25%)",

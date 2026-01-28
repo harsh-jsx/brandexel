@@ -158,7 +158,7 @@ const Preloader = ({ onComplete, onStartExit }) => {
       <div className="relative z-10 flex flex-col items-center">
         {/* Logo */}
         <div ref={logoRef} className="overflow-hidden mb-8">
-          <h1 className="font-[Albra] text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight">
+          <h1 className="font-[druk] text-6xl sm:text-7xl md:text-8xl lg:text-[12vw] ">
             {logoText.split("").map((letter, i) => (
               <span
                 key={i}

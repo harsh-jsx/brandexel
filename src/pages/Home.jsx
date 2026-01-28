@@ -11,6 +11,7 @@ import globe1 from '../assets/globe1.webp'
 import { Link, useLocation } from "react-router-dom";
 // import { fetchAPI, getStrapiMedia } from "../lib/strapi";
 import ScrambleText from "../components/ScrambleText";
+import brandVideo from '../assets/brandexel.mp4';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -34,7 +35,7 @@ const Home = ({ isPreloading }) => {
   }, [location]);
 
   // State for navbar dark mode
-  const [isNavbarDark, setIsNavbarDark] = useState(false);
+  const [isNavbarDark, setIsNavbarDark] = useState(true);
   const [isScrambling, setIsScrambling] = useState(false);
 
   // Hero refs
@@ -261,8 +262,12 @@ const Home = ({ isPreloading }) => {
           end: "bottom center",
           scrub: 0.5,
           onUpdate: (self) => {
-            // Navbar mode logic can remain or adapt if needed
-            setIsNavbarDark(false);
+            // Navbar mode logic
+            if (self.progress > 0.1) {
+              if (isNavbarDark) setIsNavbarDark(false);
+            } else {
+              if (!isNavbarDark) setIsNavbarDark(true);
+            }
           },
         },
       });
@@ -359,7 +364,7 @@ const Home = ({ isPreloading }) => {
           trigger: aboutSectionRef.current,
           start: "top 65%",
           end: "bottom bottom",
-          toggleActions: "play none none reverse",
+          toggleActions: "play reverse play reverse",
           // markers: true
         }
       });
@@ -510,16 +515,16 @@ const Home = ({ isPreloading }) => {
           <div className="text-center relative z-10 px-4">
             <h1
               ref={line1Ref}
-              className="font-albra z-9999 text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
+              className="font-[Neue-Regular] z-9999 text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
             >
               CREATING
             </h1>
             <h1
               ref={line2Ref}
-              className=" z-9999 font-albra text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none mt-1 md:mt-2 flex items-center justify-center gap-1 md:gap-2"
+              className=" z-9999 font-[Neue-Regular] text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none mt-1 md:mt-2 flex items-center justify-center gap-1 md:gap-2"
             >
               BRANDS
-              <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-[#C02FFB]">
+              <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-[#957E50]">
                 ✦
               </span>
             </h1>
@@ -527,7 +532,7 @@ const Home = ({ isPreloading }) => {
             <div ref={impossibleWrapperRef}>
               <h2
                 ref={impossibleRef}
-                className="bg-gradient-to-r from-[#C02FFB] via-[#6B2AD9] to-[#6B2AD9] bg-clip-text text-transparent  font-abc text-5xl sm:text-5xl md:text-6xl  lg:text-9xl xl:text-10xl font-black tracking-tighter leading-none py-2 md:py-4 uppercase"
+                className="bg-gradient-to-r from-[#957E50] via-[#957E50] to-[#957E50] bg-clip-text text-transparent  font-[druk] text-[19vw]  md:text-6xl  lg:text-9xl xl:text-[12vw] font-black md:py-1 uppercase"
                 style={{ fontWeight: 900, }}
               >
                 IMPOSSIBLE
@@ -536,7 +541,7 @@ const Home = ({ isPreloading }) => {
 
             <h1
               ref={line3Ref}
-              className="font-albra z-9999 text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
+              className="font-[Neue-Regular] z-9999 text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
             >
               TO IGNORE
             </h1>
@@ -568,17 +573,23 @@ const Home = ({ isPreloading }) => {
           className="min-h-screen overflow-x-hidden relative z-10 py-24"
           style={{ backgroundColor: "#E9E4D9" }}
         >
+          {/* Noise Overlay */}
+          <div className="bg-noise" />
+
           {/* Background Gradient Orb */}
           <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[hsl(40,30%,55%)]/10 rounded-full blur-[100px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
-          {/* Technical Grid Overlay */}
-          <div className="absolute inset-0 bg-grid pointer-events-none opacity-60" />
+          {/* Technical Grid Overlay REMOVED for cleaner look */}
+
+          {/* Enhanced Gradient Orbs */}
+          <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-[hsl(40,30%,55%)]/15 rounded-full blur-[100px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+          <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#C02FFB]/5 rounded-full blur-[80px] translate-y-1/4 translate-x-1/4 pointer-events-none" />
 
           {/* Tech Annotations */}
-          <div className="absolute top-10 left-10 text-[10px] uppercase font-mono text-[#1a1a1a]/30 hidden md:block">
+          <div className="absolute top-10 left-10 text-[10px] uppercase font-mono text-[#1a1a1a]/40 hidden md:block tracking-widest">
             Ref: 2025-BX // V.2.0
           </div>
-          <div className="absolute bottom-10 right-10 text-[10px] uppercase font-mono text-[#1a1a1a]/30 hidden md:block">
+          <div className="absolute bottom-10 right-10 text-[10px] uppercase font-mono text-[#1a1a1a]/40 hidden md:block tracking-widest">
             Scroll // Explore
           </div>
 
@@ -608,14 +619,14 @@ const Home = ({ isPreloading }) => {
                   <span className="block">HOWDY, WE'RE ROGUE</span>
                 </p>
 
-                <div ref={heroTextRef} className="space-y-1">
+                <div ref={heroTextRef} className="space-y-2">
                   {["MAKING CULTURE VISIBLE", "THROUGH DESIGN, TECH,", "AND A LITTLE MAGIC"].map((text, i) => (
-                    <div key={i} className="overflow-hidden">
-                      <h1 className="font-albra text-3xl sm:text-6xl md:text-6xl lg:text-6xl uppercase leading-[0.85]  text-black">
+                    <div key={i} className="overflow-hidden pb-4 -mb-4 pr-4 -mr-4">
+                      <h1 className="font-[druk] text-[15vw] sm:text-6xl md:text-6xl lg:text-[7.5vw] uppercase leading-[0.85] text-black">
                         {text.includes("MAGIC") ? (
-                          <>
-                            AND <span className="font-abc font-light italic bg-gradient-to-r from-[#C02FFB] via-[#6B2AD9] to-[#1a1a1a] bg-clip-text text-transparent lowercase tracking-normal">a little magic</span>
-                          </>
+                          <span className="inline-block relative">
+                            AND <span className="font-[druk] font-light italic bg-gradient-to-r from-[#957E50] via-[#957E50] to-[#957E50] bg-clip-text text-transparent lowercase tracking-normal pr-4">a little magic</span>
+                          </span>
                         ) : (
                           <ScrambleText text={text} isHovered={isScrambling} className="inline-block" />
                         )}
@@ -687,43 +698,56 @@ const Home = ({ isPreloading }) => {
                     style={{ transformOrigin: "bottom" }}
                   ></div>
                   <img
-                    ref={imageRef}
-                    src="https://picsum.photos/seed/creative1/1200/1500"
-                    alt="Creative work"
-                    className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[1.5s] ease-out"
-                  />
+                    className="absolute inset-0 bg-[hsl(40,30%,55%)] z-10 curtain-reveal"
+                    style={{ transformOrigin: "bottom" }}
+                  ></div>
+                <video
+                  ref={imageRef}
+                  src={brandVideo}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[1.5s] ease-out"
+                />
 
-                  <div className="absolute bottom-8 left-8 z-20 mix-blend-difference text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <p className="font-albra text-xl tracking-widest uppercase">Latest Work</p>
-                    <p className="font-abc text-sm">Brand Identity 2024</p>
-                  </div>
+                <div className="absolute bottom-8 left-8 z-20 mix-blend-difference text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <p className="font-albra text-xl tracking-widest uppercase">Latest Work</p>
+                  <p className="font-abc text-sm">Brand Identity 2024</p>
                 </div>
               </div>
-
             </div>
-          </div>
-        </section>
 
-        {/* --- ROLLING MARQUEE SEPARATOR --- */}
-        <div className="w-full bg-[#E9E4D9] border-t border-b border-[#1a1a1a]/10 overflow-hidden py-4">
-          <div className="marquee-container">
-            <div className="marquee-content animate-marquee-slower">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="flex items-center">
-                  {["STRATEGY", "DESIGN", "DEVELOPMENT", "MOTION"].map((word, j) => (
-                    <div key={j} className="flex items-center px-8 opacity-40">
-                      <span className="font-albra text-4xl text-[#1a1a1a]">{word}</span>
-                      <span className="ml-8 text-[#C02FFB] text-xl">✦</span>
-                    </div>
-                  ))}
-                </div>
-              ))}
+          </div>
+      </div>
+    </section >
+
+      {/* --- ROLLING MARQUEE SEPARATOR --- */ }
+      < div className = "w-full relative py-12 bg-[#E9E4D9] overflow-hidden" >
+        <div className="absolute inset-0 flex items-center justify-center -rotate-2 scale-110 z-10 pointer-events-none">
+          <div className="w-full bg-[#1a1a1a] py-6 shadow-2xl">
+            <div className="marquee-container">
+              <div className="marquee-content animate-marquee-slower">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="flex items-center">
+                    {["STRATEGY", "DESIGN", "DEVELOPMENT", "MOTION"].map((word, j) => (
+                      <div key={j} className="flex items-center px-12">
+                        <span className="font-[druk] text-6xl lg:text-8xl text-[#E9E4D9] uppercase tracking-wide">{word}</span>
+                        <span className="ml-12 text-[#957E50] text-4xl">★</span>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
+  {/* Spacer to maintain height given that the marquee is absolute/rotated (optional, or just let it float) */ }
+  <div className="h-32 md:h-48 w-full"></div>
+        </div >
 
-        {/* SELECTED WORKS SECTION */}
-        <section id="selected-works" className="py-32 px-6 md:px-12 lg:px-20 relative z-10 bg-[#E9E4D9]">
+  {/* SELECTED WORKS SECTION */ }
+  < section id = "selected-works" className = "py-32 px-6 md:px-12 lg:px-20 relative z-10 bg-[#E9E4D9]" >
           <div className="mb-24 border-b border-[#1a1a1a]/20 pb-8 flex justify-between items-end">
             <span className="font-abc uppercase tracking-[0.2em] text-sm text-[#1a1a1a]/70">Selected Works</span>
             <span className="font-abc text-sm text-[#1a1a1a]/60 hidden md:block">2023 — 2025</span>
@@ -767,20 +791,20 @@ const Home = ({ isPreloading }) => {
             ))}
           </div>
 
-          {/* <div className="mt-24 text-center">
+{/* <div className="mt-24 text-center">
             <a href="/case-study" className="inline-block border border-[#1a1a1a] px-8 py-4 rounded-full font-abc uppercase tracking-wider hover:bg-[#1a1a1a] hover:text-[#E9E4D9] transition-all duration-300">
               View All Projects
             </a>
           </div> */}
 
-        </section>
-      </div>
+        </section >
+      </div >
 
-      <div className="nav-dark" ref={darkNavbarContainerRef}>
-        <ImageMarquee />
-        <Services />
-        <ClientLogos />
-      </div>
+  <div className="nav-dark" ref={darkNavbarContainerRef}>
+    <ImageMarquee />
+    <Services />
+    <ClientLogos />
+  </div>
     </>
   );
 };
