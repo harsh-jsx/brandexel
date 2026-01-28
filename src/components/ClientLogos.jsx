@@ -219,14 +219,14 @@ export default function ClientLogos({ isLoading }) {
         {/* Divider */}
         <div
           ref={lineRef}
-          className="h-px bg-gradient-to-r from-transparent via-[#C02FFB] to-transparent mb-20 origin-left"
+          className="h-px bg-gradient-to-r from-transparent via-[#AF986A] to-transparent mb-20 origin-left"
         />
 
         {/* Header */}
         <div className="text-center mb-20">
           <p
             ref={subtitleRef}
-            className="text-[#C02FFB] font-[abc] tracking-[0.3em] uppercase mb-4"
+            className="text-[#AF986A] font-[abc] tracking-[0.3em] uppercase mb-4"
           >
             Trusted by industry leaders
           </p>

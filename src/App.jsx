@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import PageTransition from "./components/PageTransition";
 import CaseStudyDuo from "./pages/CaseStudyDuo";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import CaseStudyDispo from "./pages/CaseStudyDispo";
 
 const App = () => {
   /* ---------------- Preloader State ---------------- */
@@ -64,6 +65,7 @@ const App = () => {
             <Route path="/about" element={<PageTransition><About isPreloading={!contentVisible} /></PageTransition>} />
             <Route path="/case-study-static" element={<PageTransition><CaseStudyStatic /></PageTransition>} />
             <Route path="/case-study-duo" element={<PageTransition><CaseStudyDuo /></PageTransition>} />
+            <Route path="/case-study-disposek" element={<PageTransition><CaseStudyDispo /></PageTransition>} />
             <Route path="/case-study/:slug" element={<PageTransition><CaseStudy /></PageTransition>} />
             <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
           </Routes>

@@ -84,11 +84,11 @@ const CaseStudyDispo = () => {
     }, []);
 
     const project = {
-        title: "Duo Glam",
-        client: "Duo Glam",
-        services: "Brand Identity, Visual Direction, Web Design",
+        title: "Disposek",
+        client: "Disposek",
+        services: "Brand Identity, Packaging Design, Web Design",
         year: "2025",
-        description: "A CONTEMPORARY TAKE ON GLAMOUR DESIGNED FOR BOLD, FAST-MOVING FASHION. DUO GLAM BALANCES MINIMALISM WITH STATEMENT, LETTING FORM, TEXTURE, AND ATTITUDE LEAD. THE IDENTITY IS CLEAN, CONFIDENT, AND BUILT TO FEEL LUXURIOUS WITHOUT EXCESS."
+        description: "A FUNCTION-FIRST BRAND FOR MODERN DISPOSABLE PRODUCTS. DISPOSEK REDEFINES SINGLE-USE ITEMS THROUGH CLARITY, SIMPLICITY, AND PURPOSE-DRIVEN DESIGN. THE VISUAL LANGUAGE IS DIRECT, PRACTICAL, AND BUILT FOR SCALE."
     };
 
     return (
@@ -145,7 +145,7 @@ const CaseStudyDispo = () => {
                             {project.description}
                         </p>
                         <p className="font-abc text-lg max-w-2xl leading-relaxed opacity-75 ">
-                            The objective was not decoration, but direction. Every visual decision was driven by ease of recognition, legibility, and mass applicability. The identity system was designed to work seamlessly across packaging, logistics, and digital platforms—clear, efficient, and built to perform in high-volume, real-world environments.
+                            The identity focuses on legibility and consistency across packaging and digital platforms. Every element is designed to perform in real-world, high-volume environments while maintaining a clear and trustworthy presence.
                         </p>
                     </div>
                 </section>

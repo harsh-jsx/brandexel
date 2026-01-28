@@ -607,66 +607,51 @@ const Home = ({ isPreloading }) => {
             Scroll // Explore
           </div>
 
-          <div className="relative z-10 px-6 md:px-12 lg:px-20">
-            {/* Parallax Video Background */}
-            <div className="absolute inset-0 w-full h-full -z-10 overflow-hidden">
-              <video
-                ref={imageRef}
-                src={brandVideo}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-[120%] object-cover opacity-30 object-center"
-                style={{ y: -50 }} // Initial offset for parallax
-              />
-            </div>
+          <div className="relative z-10 px-6 md:px-12 lg:px-20 pb-20">
+            {/* Header / Top Part */}
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 relative">
 
-            <div className="relative z-10 px-6 md:px-12 lg:px-20">
-              {/* Header / Top Part */}
-              <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 relative">
+              {/* Rotating Badge */}
+              <div
+                ref={globeBadgeRef}
+                className="absolute -top-10 right-0 lg:top-0 lg:right-10 w-24 h-24 lg:w-32 lg:h-32 rounded-full border border-neutral-400 flex items-center justify-center bg-[#E9E4D9]/80 backdrop-blur-sm z-20"
+              >
+                <div className="text-center">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                  </svg>
+                </div>
+              </div>
 
-                {/* Rotating Badge */}
-                <div
-                  ref={globeBadgeRef}
-                  className="absolute -top-10 right-0 lg:top-0 lg:right-10 w-24 h-24 lg:w-32 lg:h-32 rounded-full border border-neutral-400 flex items-center justify-center bg-[#E9E4D9]/80 backdrop-blur-sm z-20"
+              {/* Text Blocks */}
+              <div className="max-w-4xl relative z-10 mt-16 lg:mt-0">
+                <p
+                  ref={subtitleRef}
+                  className="font-abc text-sm tracking-[0.2em] mb-6 lg:mb-10 text-[#1a1a1a]/70 overflow-hidden"
                 >
-                  <div className="text-center">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                    </svg>
-                  </div>
+                  <span className="block">HOWDY, WE'RE ROGUE</span>
+                </p>
+
+                <div ref={heroTextRef} className="space-y-2">
+                  {["MAKING CULTURE VISIBLE", "THROUGH DESIGN, TECH,", "AND A LITTLE MAGIC"].map((text, i) => (
+                    <div key={i} className="overflow-hidden pb-4 -mb-4 pr-4 -mr-4">
+                      <h1 className="font-[druk] text-[15vw] sm:text-6xl md:text-6xl lg:text-[7.5vw] uppercase leading-[0.85] text-black mix-blend-multiply">
+                        {text.includes("MAGIC") ? (
+                          <span className="inline-block relative">
+                            AND <span className="font-[druk] font-light italic bg-gradient-to-r from-[#957E50] via-[#957E50] to-[#957E50] bg-clip-text text-transparent lowercase tracking-normal pr-4">a little magic</span>
+                          </span>
+                        ) : (
+                          <ScrambleText text={text} isHovered={isScrambling} className="inline-block" />
+                        )}
+                      </h1>
+                    </div>
+                  ))}
                 </div>
+              </div>
 
-                {/* Text Blocks */}
-                <div className="max-w-4xl relative z-10 mt-16 lg:mt-0">
-                  <p
-                    ref={subtitleRef}
-                    className="font-abc text-sm tracking-[0.2em] mb-6 lg:mb-10 text-[#1a1a1a]/70 overflow-hidden"
-                  >
-                    <span className="block">HOWDY, WE'RE ROGUE</span>
-                  </p>
-
-                  <div ref={heroTextRef} className="space-y-2">
-                    {["MAKING CULTURE VISIBLE", "THROUGH DESIGN, TECH,", "AND A LITTLE MAGIC"].map((text, i) => (
-                      <div key={i} className="overflow-hidden pb-4 -mb-4 pr-4 -mr-4">
-                        <h1 className="font-[druk] text-[15vw] sm:text-6xl md:text-6xl lg:text-[7.5vw] uppercase leading-[0.85] text-black mix-blend-multiply">
-                          {text.includes("MAGIC") ? (
-                            <span className="inline-block relative">
-                              AND <span className="font-[druk] font-light italic bg-gradient-to-r from-[#957E50] via-[#957E50] to-[#957E50] bg-clip-text text-transparent lowercase tracking-normal pr-4">a little magic</span>
-                            </span>
-                          ) : (
-                            <ScrambleText text={text} isHovered={isScrambling} className="inline-block" />
-                          )}
-                        </h1>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Magnetic Globe */}
-                {/* <div
+              {/* Magnetic Globe */}
+              {/* <div
                 ref={globeRef}
                 className="hidden lg:block absolute top-0 right-[20%] w-[350px] pointer-events-none mix-blend-multiply"
               >
@@ -678,50 +663,63 @@ const Home = ({ isPreloading }) => {
          mix-blend-multiply"
                 />
               </div> */}
+            </div>
+
+            {/* Content & Stats stacked */}
+            <div className="flex flex-col lg:flex-row gap-16 lg:gap-32 items-start mt-12">
+              {/* Description */}
+              <div className="lg:w-1/2">
+                <div ref={starRef} className="w-12 h-12 mb-8 text-[hsl(40,30%,45%)]">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
+                </div>
+
+                <p
+                  ref={descriptionRef}
+                  className="font-abc text-xl md:text-2xl leading-[1] text-black max-w-lg font-medium"
+                >
+                  Infusing <span className="italic text-black font-semibold">playfulness</span> into everything we touch, creating distinctive brand solutions with extraordinary outcomes.
+                </p>
               </div>
 
-              {/* Content & Stats stacked */}
-              <div className="flex flex-col lg:flex-row gap-16 lg:gap-32 items-start mt-12">
-                {/* Description */}
-                <div className="lg:w-1/2">
-                  <div ref={starRef} className="w-12 h-12 mb-8 text-[hsl(40,30%,45%)]">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
-                  </div>
-
-                  <p
-                    ref={descriptionRef}
-                    className="font-abc text-xl md:text-2xl leading-[1] text-black max-w-lg font-medium"
+              {/* Stats Grid */}
+              <div className="lg:w-1/2 grid grid-cols-2 gap-x-8 gap-y-12">
+                {stats.map((stat, index) => (
+                  <div
+                    key={index}
+                    ref={(el) => (statsRef.current[index] = el)}
+                    className="opacity-0 translate-y-8"
                   >
-                    Infusing <span className="italic text-black font-semibold">playfulness</span> into everything we touch, creating distinctive brand solutions with extraordinary outcomes.
-                  </p>
-                </div>
-
-                {/* Stats Grid */}
-                <div className="lg:w-1/2 grid grid-cols-2 gap-x-8 gap-y-12">
-                  {stats.map((stat, index) => (
-                    <div
-                      key={index}
-                      ref={(el) => (statsRef.current[index] = el)}
-                      className="opacity-0 translate-y-8"
-                    >
-                      <p className="font-albra text-6xl md:text-7xl text-[#1a1a1a] leading-none mb-2">
-                        <span ref={(el) => (statNumberRefs.current[index] = el)}>0</span>
-                        <span className="text-[#1a1a1a]/60 text-4xl align-top ml-1">{stat.suffix}</span>
-                      </p>
-                      <p className="font-abc text-sm uppercase tracking-wider text-[#1a1a1a]/60 pt-3 inline-block relative font-bold">
-                        {stat.label}
-                        <span className="absolute top-0 left-0 w-full h-[1px] bg-[#1a1a1a]/30 scale-x-0 origin-left transition-transform duration-1000 delay-500 group-hover:scale-x-100" style={{ transform: "scaleX(1)" }} />
-                      </p>
-                    </div>
-                  ))}
-                </div>
+                    <p className="font-albra text-6xl md:text-7xl text-[#1a1a1a] leading-none mb-2">
+                      <span ref={(el) => (statNumberRefs.current[index] = el)}>0</span>
+                      <span className="text-[#1a1a1a]/60 text-4xl align-top ml-1">{stat.suffix}</span>
+                    </p>
+                    <p className="font-abc text-sm uppercase tracking-wider text-[#1a1a1a]/60 pt-3 inline-block relative font-bold">
+                      {stat.label}
+                      <span className="absolute top-0 left-0 w-full h-[1px] bg-[#1a1a1a]/30 scale-x-0 origin-left transition-transform duration-1000 delay-500 group-hover:scale-x-100" style={{ transform: "scaleX(1)" }} />
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-        </section>
+
+          {/* Full Screen Parallax Video Block (Below Text) */}
+          <div className="w-full h-[85vh] relative overflow-hidden">
+            <video
+              ref={imageRef}
+              src={brandVideo}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-[120%] object-cover object-center"
+              style={{ top: "-10%" }}
+            />
+          </div>
+        </section >
 
         {/* --- ROLLING MARQUEE SEPARATOR --- */}
-        <div className="w-full relative py-12 bg-[#E9E4D9] overflow-hidden">
+        < div className="w-full relative py-12 bg-[#E9E4D9] overflow-hidden" >
           <div className="absolute inset-0 flex items-center justify-center -rotate-2 scale-110 z-10 pointer-events-none">
             <div className="w-full bg-[#1a1a1a] py-6 shadow-2xl">
               <div className="marquee-container">
@@ -756,10 +754,15 @@ const Home = ({ isPreloading }) => {
             {[
               // Static Item
               {
-                name: "Neo Tokyo",
+                name: "Disposek",
                 cat: "Identity / Motion",
                 image: "https://picsum.photos/seed/neotokyo/800/600",
-                link: "/case-study-static"
+                link: "/case-study-disposek"
+              }, {
+                name: "Duo Glam",
+                cat: "Identity / Design",
+                image: "https://picsum.photos/seed/neotokyo/800/600",
+                link: "/case-study-duo"
               },
               // Dynamic Items
               // ...caseStudies.map(study => {

@@ -338,12 +338,12 @@ const Services = ({ isLoading }) => {
           <div className="flex items-center gap-4 mb-8">
             <div
               className="w-12 h-[1px]"
-              style={{ backgroundColor: "#C02FFB" }}
+              style={{ backgroundColor: "#AF986A" }}
             />
             <p
               ref={subtitleRef}
               className="text-xs uppercase tracking-[0.4em] font-light"
-              style={{ color: "#C02FFB" }}
+              style={{ color: "#AF986A" }}
             >
               WHAT WE DO
             </p>
@@ -472,7 +472,7 @@ const Services = ({ isLoading }) => {
               <div
                 className="absolute inset-x-0 top-0 h-[1px] opacity-0 group-hover:opacity-100"
                 style={{
-                  background: "radial-gradient(400px circle at var(--mouse-x) 0, #C02FFB, transparent 40%)"
+                  background: "radial-gradient(400px circle at var(--mouse-x) 0, #AF986A, transparent 40%)"
                 }}
               />
 
@@ -496,7 +496,7 @@ const Services = ({ isLoading }) => {
                 </div>
 
                 <div className="hidden md:flex col-span-2 justify-end items-center">
-                  <div className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all duration-500 ${activeService === index ? "border-[#C02FFB] bg-[#C02FFB] scale-110 rotate-0" : "border-white/20 bg-transparent -rotate-45"}`}>
+                  <div className={`w-14 h-14 rounded-full border-2 flex items-center justify-center transition-all duration-500 ${activeService === index ? "border-[#AF986A] bg-[#AF986A] scale-110 rotate-0" : "border-white/20 bg-transparent -rotate-45"}`}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={`transition-colors duration-500 ${activeService === index ? "text-black" : "text-white/50"}`}>
                       <path d="M7 17L17 7M17 7H7M17 7V17" />
                     </svg>
@@ -511,7 +511,7 @@ const Services = ({ isLoading }) => {
                     {service.details.map((detail, detailIndex) => (
                       <span
                         key={detailIndex}
-                        className="px-6 py-2 rounded-full text-xs md:text-sm border border-white/20 text-white/50 relative overflow-hidden group/pill transition-all duration-300 hover:border-[#C02FFB] hover:text-white hover:shadow-[0_125px_150px_rgba(207,173,115,0.2)]"
+                        className="px-6 py-2 rounded-full text-xs md:text-sm border border-white/20 text-white/50 relative overflow-hidden group/pill transition-all duration-300 hover:border-[#AF986A] hover:text-white hover:shadow-[0_125px_150px_rgba(207,173,115,0.2)]"
                       >
                         <span className="relative z-10 transition-colors duration-300 group-hover/pill:text-white">
                           {detail}
@@ -536,8 +536,8 @@ const Services = ({ isLoading }) => {
 
           <MagneticButton
             onClick={() => window.location.href = "/contact"}
-            className="px-10 py-5 border border-white/20 hover:border-[#C02FFB]/50 transition-colors duration-300"
-            fillColor="#C02FFB"
+            className="px-10 py-5 border border-white/20 hover:border-[#AF986A]/50 transition-colors duration-300"
+            fillColor="#AF986A"
           >
             <div className="flex items-center gap-4">
               <span className="text-sm uppercase tracking-[0.15em] font-medium transition-colors duration-300 text-white group-hover:text-white">
