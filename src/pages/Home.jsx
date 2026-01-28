@@ -463,6 +463,20 @@ const Home = ({ isPreloading }) => {
         });
       }
 
+      // Parallax Video Effect
+      if (imageRef.current) {
+        gsap.to(imageRef.current, {
+          yPercent: 20,
+          ease: "none",
+          scrollTrigger: {
+            trigger: aboutSectionRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          }
+        });
+      }
+
       // Trigger text scrambling
       ScrollTrigger.create({
         trigger: aboutSectionRef.current,
@@ -594,50 +608,65 @@ const Home = ({ isPreloading }) => {
           </div>
 
           <div className="relative z-10 px-6 md:px-12 lg:px-20">
-            {/* Header / Top Part */}
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-24 lg:mb-32 relative">
+            {/* Parallax Video Background */}
+            <div className="absolute inset-0 w-full h-full -z-10 overflow-hidden">
+              <video
+                ref={imageRef}
+                src={brandVideo}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-[120%] object-cover opacity-30 object-center"
+                style={{ y: -50 }} // Initial offset for parallax
+              />
+            </div>
 
-              {/* Rotating Badge */}
-              <div
-                ref={globeBadgeRef}
-                className="absolute -top-10 right-0 lg:top-0 lg:right-10 w-24 h-24 lg:w-32 lg:h-32 rounded-full border border-neutral-400 flex items-center justify-center bg-[#E9E4D9] z-20"
-              >
-                <div className="text-center">
-                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                  </svg>
-                </div>
-              </div>
+            <div className="relative z-10 px-6 md:px-12 lg:px-20">
+              {/* Header / Top Part */}
+              <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 relative">
 
-              {/* Text Blocks */}
-              <div className="max-w-4xl relative z-10 mt-16 lg:mt-0">
-                <p
-                  ref={subtitleRef}
-                  className="font-abc text-sm tracking-[0.2em] mb-6 lg:mb-10 text-[#1a1a1a]/70 overflow-hidden"
+                {/* Rotating Badge */}
+                <div
+                  ref={globeBadgeRef}
+                  className="absolute -top-10 right-0 lg:top-0 lg:right-10 w-24 h-24 lg:w-32 lg:h-32 rounded-full border border-neutral-400 flex items-center justify-center bg-[#E9E4D9]/80 backdrop-blur-sm z-20"
                 >
-                  <span className="block">HOWDY, WE'RE ROGUE</span>
-                </p>
-
-                <div ref={heroTextRef} className="space-y-2">
-                  {["MAKING CULTURE VISIBLE", "THROUGH DESIGN, TECH,", "AND A LITTLE MAGIC"].map((text, i) => (
-                    <div key={i} className="overflow-hidden pb-4 -mb-4 pr-4 -mr-4">
-                      <h1 className="font-[druk] text-[15vw] sm:text-6xl md:text-6xl lg:text-[7.5vw] uppercase leading-[0.85] text-black">
-                        {text.includes("MAGIC") ? (
-                          <span className="inline-block relative">
-                            AND <span className="font-[druk] font-light italic bg-gradient-to-r from-[#957E50] via-[#957E50] to-[#957E50] bg-clip-text text-transparent lowercase tracking-normal pr-4">a little magic</span>
-                          </span>
-                        ) : (
-                          <ScrambleText text={text} isHovered={isScrambling} className="inline-block" />
-                        )}
-                      </h1>
-                    </div>
-                  ))}
+                  <div className="text-center">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                    </svg>
+                  </div>
                 </div>
-              </div>
 
-              {/* Magnetic Globe */}
-              {/* <div
+                {/* Text Blocks */}
+                <div className="max-w-4xl relative z-10 mt-16 lg:mt-0">
+                  <p
+                    ref={subtitleRef}
+                    className="font-abc text-sm tracking-[0.2em] mb-6 lg:mb-10 text-[#1a1a1a]/70 overflow-hidden"
+                  >
+                    <span className="block">HOWDY, WE'RE ROGUE</span>
+                  </p>
+
+                  <div ref={heroTextRef} className="space-y-2">
+                    {["MAKING CULTURE VISIBLE", "THROUGH DESIGN, TECH,", "AND A LITTLE MAGIC"].map((text, i) => (
+                      <div key={i} className="overflow-hidden pb-4 -mb-4 pr-4 -mr-4">
+                        <h1 className="font-[druk] text-[15vw] sm:text-6xl md:text-6xl lg:text-[7.5vw] uppercase leading-[0.85] text-black mix-blend-multiply">
+                          {text.includes("MAGIC") ? (
+                            <span className="inline-block relative">
+                              AND <span className="font-[druk] font-light italic bg-gradient-to-r from-[#957E50] via-[#957E50] to-[#957E50] bg-clip-text text-transparent lowercase tracking-normal pr-4">a little magic</span>
+                            </span>
+                          ) : (
+                            <ScrambleText text={text} isHovered={isScrambling} className="inline-block" />
+                          )}
+                        </h1>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Magnetic Globe */}
+                {/* <div
                 ref={globeRef}
                 className="hidden lg:block absolute top-0 right-[20%] w-[350px] pointer-events-none mix-blend-multiply"
               >
@@ -649,27 +678,26 @@ const Home = ({ isPreloading }) => {
          mix-blend-multiply"
                 />
               </div> */}
-            </div>
+              </div>
 
-            {/* Grid Content */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
-
-              {/* Left Column */}
-              <div className="lg:col-span-5 flex flex-col ">
-                <div>
+              {/* Content & Stats stacked */}
+              <div className="flex flex-col lg:flex-row gap-16 lg:gap-32 items-start mt-12">
+                {/* Description */}
+                <div className="lg:w-1/2">
                   <div ref={starRef} className="w-12 h-12 mb-8 text-[hsl(40,30%,45%)]">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
                   </div>
 
                   <p
                     ref={descriptionRef}
-                    className="font-abc text-xl md:text-2xl leading-[1] text-black max-w-md"
+                    className="font-abc text-xl md:text-2xl leading-[1] text-black max-w-lg font-medium"
                   >
-                    Infusing <span className="italic text-black font-medium">playfulness</span> into everything we touch, creating distinctive brand solutions with extraordinary outcomes.
+                    Infusing <span className="italic text-black font-semibold">playfulness</span> into everything we touch, creating distinctive brand solutions with extraordinary outcomes.
                   </p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-x-8 gap-y-12 mt-20">
+                {/* Stats Grid */}
+                <div className="lg:w-1/2 grid grid-cols-2 gap-x-8 gap-y-12">
                   {stats.map((stat, index) => (
                     <div
                       key={index}
@@ -680,74 +708,44 @@ const Home = ({ isPreloading }) => {
                         <span ref={(el) => (statNumberRefs.current[index] = el)}>0</span>
                         <span className="text-[#1a1a1a]/60 text-4xl align-top ml-1">{stat.suffix}</span>
                       </p>
-                      <p className="font-abc text-sm uppercase tracking-wider text-[#1a1a1a]/50 pt-3 inline-block relative">
+                      <p className="font-abc text-sm uppercase tracking-wider text-[#1a1a1a]/60 pt-3 inline-block relative font-bold">
                         {stat.label}
-                        <span className="absolute top-0 left-0 w-full h-[1px] bg-[#1a1a1a]/20 scale-x-0 origin-left transition-transform duration-1000 delay-500 group-hover:scale-x-100" style={{ transform: "scaleX(1)" }} />
+                        <span className="absolute top-0 left-0 w-full h-[1px] bg-[#1a1a1a]/30 scale-x-0 origin-left transition-transform duration-1000 delay-500 group-hover:scale-x-100" style={{ transform: "scaleX(1)" }} />
                       </p>
                     </div>
                   ))}
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
 
-              {/* Right Column: Image Reveal */}
-              <div className="lg:col-span-7 relative pt-12 lg:pt-0">
-                <div className="relative w-full aspect-[4/5] overflow-hidden rounded-sm group">
-                  <div
-                    ref={curatinRef}
-                    className="absolute inset-0 bg-[hsl(40,30%,55%)] z-10 curtain-reveal"
-                    style={{ transformOrigin: "bottom" }}
-                  ></div>
-                  <img
-                    className="absolute inset-0 bg-[hsl(40,30%,55%)] z-10 curtain-reveal"
-                    style={{ transformOrigin: "bottom" }}
-                  ></div>
-                <video
-                  ref={imageRef}
-                  src={brandVideo}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[1.5s] ease-out"
-                />
-
-                <div className="absolute bottom-8 left-8 z-20 mix-blend-difference text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <p className="font-albra text-xl tracking-widest uppercase">Latest Work</p>
-                  <p className="font-abc text-sm">Brand Identity 2024</p>
+        {/* --- ROLLING MARQUEE SEPARATOR --- */}
+        <div className="w-full relative py-12 bg-[#E9E4D9] overflow-hidden">
+          <div className="absolute inset-0 flex items-center justify-center -rotate-2 scale-110 z-10 pointer-events-none">
+            <div className="w-full bg-[#1a1a1a] py-6 shadow-2xl">
+              <div className="marquee-container">
+                <div className="marquee-content animate-marquee-slower">
+                  {[...Array(4)].map((_, i) => (
+                    <div key={i} className="flex items-center">
+                      {["STRATEGY", "DESIGN", "DEVELOPMENT", "MOTION"].map((word, j) => (
+                        <div key={j} className="flex items-center px-12">
+                          <span className="font-[druk] text-6xl lg:text-8xl text-[#E9E4D9] uppercase tracking-wide">{word}</span>
+                          <span className="ml-12 text-[#957E50] text-4xl">★</span>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-
           </div>
-      </div>
-    </section >
-
-      {/* --- ROLLING MARQUEE SEPARATOR --- */ }
-      < div className = "w-full relative py-12 bg-[#E9E4D9] overflow-hidden" >
-        <div className="absolute inset-0 flex items-center justify-center -rotate-2 scale-110 z-10 pointer-events-none">
-          <div className="w-full bg-[#1a1a1a] py-6 shadow-2xl">
-            <div className="marquee-container">
-              <div className="marquee-content animate-marquee-slower">
-                {[...Array(4)].map((_, i) => (
-                  <div key={i} className="flex items-center">
-                    {["STRATEGY", "DESIGN", "DEVELOPMENT", "MOTION"].map((word, j) => (
-                      <div key={j} className="flex items-center px-12">
-                        <span className="font-[druk] text-6xl lg:text-8xl text-[#E9E4D9] uppercase tracking-wide">{word}</span>
-                        <span className="ml-12 text-[#957E50] text-4xl">★</span>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-  {/* Spacer to maintain height given that the marquee is absolute/rotated (optional, or just let it float) */ }
-  <div className="h-32 md:h-48 w-full"></div>
+          {/* Spacer to maintain height given that the marquee is absolute/rotated (optional, or just let it float) */}
+          <div className="h-32 md:h-48 w-full"></div>
         </div >
 
-  {/* SELECTED WORKS SECTION */ }
-  < section id = "selected-works" className = "py-32 px-6 md:px-12 lg:px-20 relative z-10 bg-[#E9E4D9]" >
+        {/* SELECTED WORKS SECTION */}
+        < section id="selected-works" className="py-32 px-6 md:px-12 lg:px-20 relative z-10 bg-[#E9E4D9]" >
           <div className="mb-24 border-b border-[#1a1a1a]/20 pb-8 flex justify-between items-end">
             <span className="font-abc uppercase tracking-[0.2em] text-sm text-[#1a1a1a]/70">Selected Works</span>
             <span className="font-abc text-sm text-[#1a1a1a]/60 hidden md:block">2023 — 2025</span>
@@ -791,7 +789,7 @@ const Home = ({ isPreloading }) => {
             ))}
           </div>
 
-{/* <div className="mt-24 text-center">
+          {/* <div className="mt-24 text-center">
             <a href="/case-study" className="inline-block border border-[#1a1a1a] px-8 py-4 rounded-full font-abc uppercase tracking-wider hover:bg-[#1a1a1a] hover:text-[#E9E4D9] transition-all duration-300">
               View All Projects
             </a>
@@ -800,11 +798,11 @@ const Home = ({ isPreloading }) => {
         </section >
       </div >
 
-  <div className="nav-dark" ref={darkNavbarContainerRef}>
-    <ImageMarquee />
-    <Services />
-    <ClientLogos />
-  </div>
+      <div className="nav-dark" ref={darkNavbarContainerRef}>
+        <ImageMarquee />
+        <Services />
+        <ClientLogos />
+      </div>
     </>
   );
 };

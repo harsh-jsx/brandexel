@@ -11,6 +11,7 @@ import CaseStudy from "./pages/CaseStudy";
 import CaseStudyStatic from "./pages/CaseStudyStatic";
 import NotFound from "./pages/NotFound";
 import PageTransition from "./components/PageTransition";
+import CaseStudyDuo from "./pages/CaseStudyDuo";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -62,6 +63,7 @@ const App = () => {
             <Route path="/collaborate" element={<PageTransition><Collaborate /></PageTransition>} />
             <Route path="/about" element={<PageTransition><About isPreloading={!contentVisible} /></PageTransition>} />
             <Route path="/case-study-static" element={<PageTransition><CaseStudyStatic /></PageTransition>} />
+            <Route path="/case-study-duo" element={<PageTransition><CaseStudyDuo /></PageTransition>} />
             <Route path="/case-study/:slug" element={<PageTransition><CaseStudy /></PageTransition>} />
             <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
           </Routes>
