@@ -262,12 +262,9 @@ const Home = ({ isPreloading }) => {
           end: "bottom center",
           scrub: 0.5,
           onUpdate: (self) => {
-            // Navbar mode logic
-            if (self.progress > 0.1) {
-              if (isNavbarDark) setIsNavbarDark(false);
-            } else {
-              if (!isNavbarDark) setIsNavbarDark(true);
-            }
+            // Navbar mode logic - User requested Black Navbar on About section too.
+            // Keeping it true (Black) for now as per specific request.
+            if (!isNavbarDark) setIsNavbarDark(true);
           },
         },
       });
@@ -467,6 +464,7 @@ const Home = ({ isPreloading }) => {
       if (imageRef.current) {
         gsap.to(imageRef.current, {
           yPercent: 20,
+          scale: 1.15, // Parallax Size Increase
           ease: "none",
           scrollTrigger: {
             trigger: aboutSectionRef.current,
@@ -682,20 +680,19 @@ const Home = ({ isPreloading }) => {
               </div>
 
               {/* Stats Grid */}
-              <div className="lg:w-1/2 grid grid-cols-2 gap-x-8 gap-y-12">
+              <div className="lg:w-1/2 grid grid-cols-2 gap-x-12 gap-y-16">
                 {stats.map((stat, index) => (
                   <div
                     key={index}
                     ref={(el) => (statsRef.current[index] = el)}
-                    className="opacity-0 translate-y-8"
+                    className="opacity-0 translate-y-8 group/stat cursor-pointer border-b border-[#1a1a1a]/10 pb-6 hover:border-[#1a1a1a] transition-colors duration-500"
                   >
-                    <p className="font-albra text-6xl md:text-7xl text-[#1a1a1a] leading-none mb-2">
+                    <p className="font-albra text-6xl md:text-7xl text-[#1a1a1a] leading-none mb-2 transition-transform duration-500 group-hover/stat:-translate-y-2">
                       <span ref={(el) => (statNumberRefs.current[index] = el)}>0</span>
-                      <span className="text-[#1a1a1a]/60 text-4xl align-top ml-1">{stat.suffix}</span>
+                      <span className="text-[#1a1a1a]/60 text-4xl align-top ml-1 group-hover/stat:text-[#1a1a1a] transition-colors">{stat.suffix}</span>
                     </p>
-                    <p className="font-abc text-sm uppercase tracking-wider text-[#1a1a1a]/60 pt-3 inline-block relative font-bold">
+                    <p className="font-abc text-sm uppercase tracking-wider text-[#1a1a1a]/60 pt-3 inline-block relative font-bold group-hover/stat:text-[#1a1a1a] transition-colors">
                       {stat.label}
-                      <span className="absolute top-0 left-0 w-full h-[1px] bg-[#1a1a1a]/30 scale-x-0 origin-left transition-transform duration-1000 delay-500 group-hover:scale-x-100" style={{ transform: "scaleX(1)" }} />
                     </p>
                   </div>
                 ))}
