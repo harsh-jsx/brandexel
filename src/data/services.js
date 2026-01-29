@@ -13,22 +13,22 @@ export const services = [
       "UI/UX Design for Web & Mobile",
     ],
   },
+  // {
+  //   number: "02",
+  //   title: "Video Editing",
+  //   description:
+  //     "Professional video editing solutions crafted to engage audiences and elevate brand storytelling.",
+  //   details: [
+  //     "Professional Editing for Ads & Promos",
+  //     "Event & Wedding Video Editing",
+  //     "YouTube & Social Media Videos",
+  //     "Corporate Films Editing",
+  //     "Short Films & Documentary Editing",
+  //     "VFX, Transitions & Color Grading",
+  //   ],
+  // },
   {
     number: "02",
-    title: "Video Editing",
-    description:
-      "Professional video editing solutions crafted to engage audiences and elevate brand storytelling.",
-    details: [
-      "Professional Editing for Ads & Promos",
-      "Event & Wedding Video Editing",
-      "YouTube & Social Media Videos",
-      "Corporate Films Editing",
-      "Short Films & Documentary Editing",
-      "VFX, Transitions & Color Grading",
-    ],
-  },
-  {
-    number: "03",
     title: "Motion Graphics",
     description:
       "Dynamic motion-driven visuals that bring ideas to life and enhance digital communication.",
@@ -42,7 +42,7 @@ export const services = [
     ],
   },
   {
-    number: "04",
+    number: "03 ",
     title: "Website Development",
     description:
       "Building responsive, high-performance websites tailored to business goals and user experience.",
@@ -57,7 +57,7 @@ export const services = [
     ],
   },
   {
-    number: "05",
+    number: "04",
     title: "Digital Marketing",
     description:
       "Data-driven marketing strategies designed to grow visibility, traffic, and conversions.",
@@ -72,7 +72,7 @@ export const services = [
     ],
   },
   {
-    number: "06",
+    number: "05",
     title: "Selling Platforms Onboarding & Management",
     description:
       "End-to-end onboarding and management services for e-commerce and quick-commerce platforms.",
@@ -88,7 +88,7 @@ export const services = [
   },
 
   {
-    number: "07",
+    number: "06",
     title: "Influencer Marketing",
     description:
       "Strategic connecting brands with influential voices to amplify reach and authentic engagement.",
@@ -102,12 +102,13 @@ export const services = [
     ],
   },
   {
-    number: "08",
+    number: "07",
     title: "Other Services",
     description:
       "High-quality visual production tailored for brands, events, and digital platforms to enhance storytelling.",
     details: [
-      "Photography & Videography",
+      "Photography",
+      "Videography",
       "Corporate & Business Shoots",
       "E-Commerce Product Photography",
       "Event Coverage (Photo & Video)",

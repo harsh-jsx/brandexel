@@ -818,7 +818,7 @@ const Home = ({ isPreloading }) => {
               // })
             ].map((work, i) => (
               <Link to={work.link} key={i} className="group border-b border-[#1a1a1a]/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer transition-all duration-500 hover:px-8 hover:bg-[#1a1a1a]/5">
-                <h3 className="font-albra text-5xl md:text-8xl uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#957E50] group-hover:via-[#957E50] group-hover:to-[#957E50] group-hover:bg-clip-text flex items-center gap-4">
+                <h3 className="font-[druk] text-5xl md:text-[8vw] uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#957E50] group-hover:via-[#957E50] group-hover:to-[#957E50] group-hover:bg-clip-text flex items-center gap-4">
                   {work.name}
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-0 group-hover:w-auto overflow-hidden">
                     <span className="text-2xl md:text-4xl text-[#1a1a1a]">↗</span>
