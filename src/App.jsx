@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Preloader from "./components/Preloader";
 import { ReactLenis, useLenis } from "lenis/react";
 import Footer from "./components/Footer";
@@ -33,6 +35,21 @@ const App = () => {
   });
 
   /* ---------------- Disable Lenis during preload ---------------- */
+  const lenisRef = useRef();
+
+  useEffect(() => {
+    function update(time) {
+      lenisRef.current?.lenis?.raf(time * 1000);
+    }
+
+    gsap.ticker.add(update);
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      gsap.ticker.remove(update);
+    };
+  }, []);
+
   useEffect(() => {
     if (!lenis) return;
 
@@ -55,7 +72,7 @@ const App = () => {
       )}
 
       {/* Main Content */}
-      <ReactLenis root>
+      <ReactLenis root ref={lenisRef} autoRaf={false}>
         <Router>
           <Routes>
             <Route path="/" element={<PageTransition><Home isPreloading={!contentVisible} /></PageTransition>} />

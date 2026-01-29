@@ -78,8 +78,28 @@
   animation: marquee 12s linear infinite;
 }
 
+/* Pause on hover (New) */
+.group:hover .animate-marquee-paused {
+  animation-play-state: paused;
+}
+
 .animate-marquee-slower {
   animation: marquee 30s linear infinite;
+}
+
+/* Navbar specific text styles */
+.nav-item-text {
+  color: hsl(0, 0%, 50%);
+  -webkit-text-stroke: 1px hsl(0, 0%, 50%);
+  -webkit-text-fill-color: transparent;
+  transition: all 0.4s ease;
+}
+
+.group:hover .nav-item-text {
+  color: hsl(40, 30%, 55%);
+  -webkit-text-stroke: 1px hsl(40, 30%, 55%);
+  -webkit-text-fill-color: hsl(40, 30%, 55%);
+  text-shadow: 0 0 15px rgba(149, 126, 80, 0.4);
 }
 
 /* Keyframes */

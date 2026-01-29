@@ -253,7 +253,7 @@ export default function ClientLogos({ isLoading }) {
               <img
                 src={client.logo}
                 alt={client.name}
-                className="logo-img max-h-18 md:max-h-28 opacity-70 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
+                className="logo-img max-h-28 md:max-h-38 opacity-70 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
                 draggable={false}
               />
             </div>

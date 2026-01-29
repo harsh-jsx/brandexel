@@ -28,6 +28,7 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
   const contentRef = useRef(null);
   const dotsRef = useRef([]);
   const navigate = useNavigate();
+  const tlRef = useRef(null);
   const location = useLocation();
 
   const navItems = [
@@ -73,44 +74,70 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
   };
 
   useEffect(() => {
+    if (!menuRef.current || !contentRef.current) return;
+
+    // Kill previous timeline
+    if (tlRef.current) {
+      tlRef.current.kill();
+    }
+
+    const tl = gsap.timeline({
+      defaults: { ease: "power3.inOut" }
+    });
+
+    tlRef.current = tl;
+
     if (isOpen) {
-      // EXPAND
-      gsap.to(menuRef.current, {
-        width: "40vw",
-        duration: 0.6,
-        ease: "power3.inOut",
-      });
-      gsap.to(contentRef.current, { opacity: 1, duration: 0.4, delay: 0.3 });
+      // ===== OPEN SEQUENCE =====
+      tl
+        // Expand container
+        .to(menuRef.current, {
+          width: "40vw",
+          duration: 0.6
+        })
+        // Fade dots out
+        .to(
+          dotsRef.current,
+          {
+            opacity: 0,
+            scale: 0,
+            stagger: 0.05,
+            duration: 0.25
+          },
+          "-=0.4"
+        )
+        // Fade content in
+        .fromTo(
+          contentRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.4 },
+          "-=0.2"
+        );
 
-      // Animate dots OUT (Hide them so they don't overlap)
-      gsap.to(dotsRef.current, {
-        opacity: 0,
-        scale: 0,
-        duration: 0.3,
-        stagger: 0.05,
-        ease: "back.in(2)"
-      });
     } else {
-      // COLLAPSE
-      gsap.to(contentRef.current, { opacity: 0, duration: 0.2 });
-      gsap.to(menuRef.current, {
-        width: "60px",
-        duration: 0.5,
-        ease: "power3.inOut",
-        delay: 0.1,
-      });
-
-      // Animate dots to "Collapsed" state (some hidden/faded)
-      dotsRef.current.forEach((dot, i) => {
-        if (dot) {
-          // Keep top 2 dots visible (as logo/indicator), hide others
-          if (i >= 2) {
-            gsap.to(dot, { opacity: 0, scale: 0, duration: 0.2 });
-          } else {
-            gsap.to(dot, { opacity: 0.6, scale: 1, duration: 0.2 });
-          }
-        }
-      });
+      // ===== CLOSE SEQUENCE =====
+      tl
+        // Fade content out first
+        .to(contentRef.current, {
+          opacity: 0,
+          duration: 0.25
+        })
+        // Collapse container
+        .to(menuRef.current, {
+          width: "60px",
+          duration: 0.5
+        })
+        // Restore dots
+        .to(
+          dotsRef.current,
+          {
+            opacity: (i) => (i < 2 ? 0.6 : 0),
+            scale: (i) => (i < 2 ? 1 : 0),
+            duration: 0.25,
+            stagger: 0.05
+          },
+          "-=0.3"
+        );
     }
   }, [isOpen]);
 
@@ -246,19 +273,14 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
               style={{ borderColor: "hsl(0, 0%, 80%)" }}
             >
               <div className="marquee-container">
-                <div className="marquee-content animate-marquee-slow group-hover:animate-marquee">
+                <div className="marquee-content animate-marquee-slow group-hover:animate-marquee-paused">
                   {[...Array(6)].map((_, i) => (
                     <span
                       key={i}
                       className="flex items-center gap-3 mr-6 whitespace-nowrap"
                     >
                       <span
-                        className="font-albra text-3xl md:text-5xl font-light"
-                        style={{
-                          color: "hsl(0, 0%, 50%)",
-                          WebkitTextStroke: "1px hsl(0, 0%, 50%)",
-                          WebkitTextFillColor: "transparent",
-                        }}
+                        className="font-albra text-3xl md:text-5xl font-light nav-item-text"
                       >
                         {item.label}
                       </span>
@@ -271,8 +293,7 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
                       </span>
                       <span style={{ color: "hsl(0, 0%, 60%)" }}>✦</span>
                       <span
-                        className="font-albra text-3xl md:text-5xl font-bold"
-                        style={{ color: "hsl(0, 0%, 20%)" }}
+                        className="font-albra text-3xl md:text-5xl font-bold nav-item-text"
                       >
                         {item.label}
                       </span>

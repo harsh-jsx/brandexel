@@ -171,10 +171,15 @@ const Home = ({ isPreloading }) => {
     imagesIntroTl.current = gsap.timeline();
 
     const ctx = gsap.context(() => {
+      // Create the timeline and assign to ref
       const tl = gsap.timeline({
         defaults: { ease: "power3.out" },
-        delay: 1.2 // Wait for preloader wipe (approx 1.2s) to finish
+        delay: 1.2, // Wait for preloader wipe
+        onComplete: () => {
+          // Ensure we don't double-trigger if forced
+        }
       });
+      imagesIntroTl.current = tl;
 
       // (Sets moved to initial useEffect for stability)
 
@@ -205,26 +210,48 @@ const Home = ({ isPreloading }) => {
           },
           "-=0.3"
         )
-        .to({}, { duration: 0.8 })
+        // Ensure we explicitly set the state before transferring valid control
+        .addLabel("complete")
         .add(() => {
+          // Determine where we are starting from.
+          // If we arrived here naturally, images are at 'finalPositions'.
+          // If we skipped, they should also be at 'finalPositions' due to the tween completing.
+
           initialPositions.forEach((pos, i) => {
+            // Create the scroll-driven tween
+            // We use immediateRender: false to prevent it from seizing control 
+            // before the scroll actually happens (though scrub:1 makes it reactive).
             gsap.to(imagesRef.current[i], {
               x: pos.x,
               y: pos.y,
               rotate: pos.rotate,
               duration: 1.2,
-              delay: i * 0.05,
               ease: "power2.out",
               scrollTrigger: {
                 trigger: heroSectionRef.current,
                 start: "top top",
                 end: "bottom center",
                 scrub: 1,
+                invalidateOnRefresh: true, // Handle resize better
               }
             });
           });
           ScrollTrigger.refresh();
         });
+
+      // Setup a listener to skip intro on scroll
+      ScrollTrigger.create({
+        trigger: document.body,
+        start: 0,
+        end: "max",
+        onUpdate: (self) => {
+          if (imagesIntroTl.current && imagesIntroTl.current.isActive() && self.scroll() > 5) {
+            // Force completion if user scrolls
+            imagesIntroTl.current.progress(1);
+          }
+        }
+      });
+
     }, heroSectionRef);
 
     // Force refresh to ensure ScrollTrigger picks up the layout
@@ -233,12 +260,30 @@ const Home = ({ isPreloading }) => {
     return () => ctx.revert();
   }, [isPreloading]);
 
+  // Image loading tracking
+  const loadedImagesCount = useRef(0);
+  const totalImages = images.length;
+
+  const handleImageLoad = () => {
+    loadedImagesCount.current++;
+    if (loadedImagesCount.current === totalImages) {
+      ScrollTrigger.refresh();
+    }
+  };
+
+
   // Ensure ScrollTrigger refreshes when everything is ready
   useEffect(() => {
     if (!isPreloading) {
       // Multiple refreshes to catch layout shifts
       const t1 = setTimeout(() => ScrollTrigger.refresh(), 500);
       const t2 = setTimeout(() => ScrollTrigger.refresh(), 1000);
+
+      // Force a refresh immediately in case images are already cached/loaded
+      if (loadedImagesCount.current === totalImages) {
+        ScrollTrigger.refresh();
+      }
+
       return () => {
         clearTimeout(t1);
         clearTimeout(t2);
@@ -461,19 +506,19 @@ const Home = ({ isPreloading }) => {
       }
 
       // Parallax Video Effect
-      if (imageRef.current) {
-        gsap.to(imageRef.current, {
-          yPercent: 20,
-          scale: 1.15, // Parallax Size Increase
-          ease: "none",
-          scrollTrigger: {
-            trigger: aboutSectionRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          }
-        });
-      }
+      // if (imageRef.current) {
+      //   gsap.to(imageRef.current, {
+      //     yPercent: 20,
+      //     scale: 1.15, // Parallax Size Increase
+      //     ease: "none",
+      //     scrollTrigger: {
+      //       trigger: aboutSectionRef.current,
+      //       start: "top bottom",
+      //       end: "bottom top",
+      //       scrub: true,
+      //     }
+      //   });
+      // }
 
       // Trigger text scrambling
       ScrollTrigger.create({
@@ -773,7 +818,7 @@ const Home = ({ isPreloading }) => {
               // })
             ].map((work, i) => (
               <Link to={work.link} key={i} className="group border-b border-[#1a1a1a]/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer transition-all duration-500 hover:px-8 hover:bg-[#1a1a1a]/5">
-                <h3 className="font-albra text-5xl md:text-8xl uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#C02FFB] group-hover:via-[#6B2AD9] group-hover:to-[#1a1a1a] group-hover:bg-clip-text flex items-center gap-4">
+                <h3 className="font-albra text-5xl md:text-8xl uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#957E50] group-hover:via-[#957E50] group-hover:to-[#957E50] group-hover:bg-clip-text flex items-center gap-4">
                   {work.name}
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-0 group-hover:w-auto overflow-hidden">
                     <span className="text-2xl md:text-4xl text-[#1a1a1a]">↗</span>
