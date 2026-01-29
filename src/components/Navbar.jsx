@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import MobileNavbar from "./MobileNavbar";
 import logo from "../assets/logo.png";
+
 import { useLocation, useNavigate } from "react-router-dom";
 
 gsap.registerPlugin(ScrollToPlugin);
@@ -197,27 +198,27 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
       <div
         className={`pb-8 flex justify-center cursor-pointer relative z-50 transition-opacity duration-300 ${isOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}
         onClick={() => navigate("/contact")}
-        onMouseMove={(e) => {
-          const btn = e.currentTarget;
-          const rect = btn.getBoundingClientRect();
-          const x = e.clientX - rect.left - rect.width / 2;
-          const y = e.clientY - rect.top - rect.height / 2;
+      // onMouseMove={(e) => {
+      //   const btn = e.currentTarget;
+      //   const rect = btn.getBoundingClientRect();
+      //   const x = e.clientX - rect.left - rect.width / 2;
+      //   const y = e.clientY - rect.top - rect.height / 2;
 
-          // Move button
-          gsap.to(btn, { x: x * 0.4, y: y * 0.4, duration: 0.5, ease: "power2.out" });
+      //   // Move button
+      //   gsap.to(btn, { x: x * 0.4, y: y * 0.4, duration: 0.5, ease: "power2.out" });
 
-          // Move dot
-          const dot = btn.querySelector('.nav-dot');
-          if (dot) gsap.to(dot, { x: x * 0.2, y: y * 0.2, duration: 0.5, ease: "power2.out" });
-        }}
-        onMouseLeave={(e) => {
-          gsap.to([e.currentTarget, e.currentTarget.querySelector('.nav-dot')], {
-            x: 0,
-            y: 0,
-            duration: 0.8,
-            ease: "elastic.out(1, 0.3)"
-          });
-        }}
+      //   // Move dot
+      //   const dot = btn.querySelector('.nav-dot');
+      //   if (dot) gsap.to(dot, { x: x * 0.2, y: y * 0.2, duration: 0.5, ease: "power2.out" });
+      // }}
+      // onMouseLeave={(e) => {
+      //   gsap.to([e.currentTarget, e.currentTarget.querySelector('.nav-dot')], {
+      //     x: 0,
+      //     y: 0,
+      //     duration: 0.8,
+      //     ease: "elastic.out(1, 0.3)"
+      //   });
+      // }}
       >
         <span
           className="text-xs tracking-widest uppercase flex items-center gap-2 group"

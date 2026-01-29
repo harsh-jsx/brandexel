@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { FaInstagram, FaTwitter } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -418,16 +419,21 @@ const Footer = ({ isLoading }) => {
                   Socials
                 </p>
                 <div className="flex flex-wrap gap-x-4 gap-y-1">
-                  {["Ig", "Tw", "Li", "Be"].map((social) => (
-                    <a
-                      key={social}
-                      href="#"
-                      className="text-sm md:text-base transition-colors duration-300 hover:text-[hsl(40,30%,55%)]"
-                      style={{ color: "hsl(0, 0%, 70%)" }}
-                    >
-                      {social}
-                    </a>
-                  ))}
+                  <a
+                    href="#"
+                    className="text-sm md:text-base transition-colors duration-300 hover:text-[hsl(40,30%,55%)]"
+                    style={{ color: "hsl(0, 0%, 70%)" }}
+                  >
+                    <FaInstagram />
+                  </a>
+                  <a
+                    href="#"
+                    className="text-sm md:text-base transition-colors duration-300 hover:text-[hsl(40,30%,55%)]"
+                    style={{ color: "hsl(0, 0%, 70%)" }}
+                  >
+                    <FaTwitter />
+                  </a>
+
                 </div>
               </div>
 
