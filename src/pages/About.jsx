@@ -171,16 +171,27 @@ const About = ({ isPreloading }) => {
 
                     {/* Text Section */}
                     <div className="relative z-10 flex flex-col items-center justify-center text-center w-full">
-                        <div className="font-[druk] md:text-[16vw] text-[18vw] leading-[0.8] uppercase tracking-tighter text-[#E9E4D9] mix-blend-difference">
-                            <div className="overflow-hidden flex items-center justify-center gap-4">
-                                <SplitText text="WE" delay={0.1} />
-                                <span className="w-[12vw] h-[12vw] md:w-[10vw] md:h-[10vw] rounded-full bg-[#E9E4D9] text-[#101010] flex items-center justify-center rotate-12 shrink-0">
-                                    <span className="font-[druk] text-[2vw] tracking-widest">EST.23</span>
-                                </span>
-                                <SplitText text="CRAFT" delay={0.1} />
+                        <div className="flex flex-col items-center justify-center leading-[0.8] tracking-tighter text-[#E9E4D9]">
+                            {/* Line 1: WE (Circle) CRAFT */}
+                            <div className="flex items-center justify-center gap-2 md:gap-6 w-full">
+                                <span className="font-[druk] text-[18vw] md:text-[16vw] uppercase inline-block"><SplitText text="WE" delay={0.1} /></span>
+
+                                <div className="w-[12vw] h-[12vw] md:w-[10vw] md:h-[10vw] rounded-full bg-[#E9E4D9] text-[#101010] flex items-center justify-center rotate-12 shrink-0 mt-[1vw]">
+                                    <span className="font-[druk] text-[3vw] md:text-[2.5vw] tracking-widest">EST.23</span>
+                                </div>
+
+                                <span className="font-[druk] text-[18vw] md:text-[16vw] uppercase inline-block"><SplitText text="CRAFT" delay={0.1} /></span>
                             </div>
-                            <div className="overflow-hidden"><SplitText text="DIGITAL" delay={0.2} /></div>
-                            <div className="overflow-hidden text-outline-white text-transparent"><SplitText text="LEGACIES" delay={0.3} /></div>
+
+                            {/* Line 2: DIGITAL */}
+                            <div className="font-[druk] text-[18vw] md:text-[16vw] uppercase overflow-hidden mt-[-1vw] z-10">
+                                <SplitText text="DIGITAL" delay={0.2} />
+                            </div>
+
+                            {/* Line 3: LEGACIES (Outlined) */}
+                            <div className="font-[druk] text-[18vw] md:text-[16vw] uppercase overflow-hidden text-outline-white text-transparent mt-[-1vw] pb-[2vw]">
+                                <SplitText text="LEGACIES" delay={0.3} />
+                            </div>
                         </div>
 
                         <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-4xl mt-16 md:mt-24 pt-8 border-t border-[#E9E4D9]/20">
