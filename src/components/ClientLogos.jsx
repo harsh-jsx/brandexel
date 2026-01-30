@@ -232,7 +232,7 @@ export default function ClientLogos({ isLoading }) {
           </p>
           <h2
             ref={titleRef}
-            className="text-4xl md:text-6xl lg:text-7xl font-[abc] text-white"
+            className="text-[10vw] lg:text-[10vw] font-[druk] text-white"
           >
             Our Clients
           </h2>

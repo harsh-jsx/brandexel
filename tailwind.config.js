@@ -5,6 +5,7 @@ module.exports = {
       fontFamily: {
         albra: ["Albra", "sans-serif"],
         abc: ["ABC", "monospace"],
+        druk: ["Druk", "sans-serif"],
       },
       transitionTimingFunction: {
         "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
