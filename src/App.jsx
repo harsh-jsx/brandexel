@@ -79,7 +79,7 @@ const App = () => {
             <Route path="/careers" element={<PageTransition><Careers /></PageTransition>} />
             <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
             <Route path="/collaborate" element={<PageTransition><Collaborate /></PageTransition>} />
-            <Route path="/about" element={<PageTransition><About isPreloading={!contentVisible} /></PageTransition>} />
+            <Route path="/about" element={<PageTransition><About isPreloading={showPreloader} /></PageTransition>} />
             <Route path="/case-study-static" element={<PageTransition><CaseStudyStatic /></PageTransition>} />
             <Route path="/case-study-duo" element={<PageTransition><CaseStudyDuo /></PageTransition>} />
             <Route path="/case-study-disposek" element={<PageTransition><CaseStudyDispo /></PageTransition>} />
