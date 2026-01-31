@@ -274,7 +274,7 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
               style={{ borderColor: "hsl(0, 0%, 80%)" }}
             >
               <div className="marquee-container">
-                <div className="marquee-content animate-marquee-slow group-hover:animate-marquee-paused">
+                <div className="marquee-content animate-marquee-slow animate-marquee-paused">
                   {[...Array(6)].map((_, i) => (
                     <span
                       key={i}

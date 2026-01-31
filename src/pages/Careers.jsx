@@ -278,7 +278,7 @@ const Careers = () => {
 
     const values = [
         { title: "Chaos & Order", desc: "We embrace the messiness of creativity but deliver with surgical precision." },
-        { title: "Ego Death", desc: "The best idea wins. Hierarchy is for corporations, not collectives." },
+        { title: "Ego Down", desc: "The best idea wins. Hierarchy is for corporations, not collectives." },
         { title: "Unreasonable", desc: "We set standards that seem impossible to others. Then we meet them." },
         { title: "Play Serious", desc: "We take our fun seriously. Boredom is the enemy of innovation." }
     ];

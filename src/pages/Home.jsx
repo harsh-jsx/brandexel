@@ -58,6 +58,7 @@ const Home = ({ isPreloading }) => {
   const imagesIntroTl = useRef(null);
   const statNumberRefs = useRef([]);
   const starRef = useRef(null);
+  const aboutContentRef = useRef(null);
 
 
   const images = [
@@ -403,10 +404,10 @@ const Home = ({ isPreloading }) => {
       // Main Timeline
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: aboutSectionRef.current,
-          start: "top 65%",
-          end: "bottom bottom",
-          toggleActions: "play reverse play reverse",
+          trigger: aboutContentRef.current, // Changed trigger to content
+          start: "top 80%", // Trigger a bit earlier
+          end: "bottom center",
+          toggleActions: "play none none reverse",
           // markers: true
         }
       });
@@ -650,123 +651,112 @@ const Home = ({ isPreloading }) => {
             Scroll // Explore
           </div>
 
-          <div className="w-full h-[85vh] relative overflow-hidden">
-            <video
-              ref={imageRef}
-              src={brandVideo}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 w-full h-[120%] object-cover object-center"
-              style={{ top: "-10%" }}
-            />
-          </div>
+          <div className="relative z-10  lg: pb-20">
+            {/* Full Screen Parallax Video Block (Above Text) */}
+            <div className="w-full h-[100vh] relative overflow-hidden mb-16 rounded-xl">
+              <video
+                ref={imageRef}
+                src={brandVideo}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-[120%] object-cover object-center"
+                style={{ top: "-10%" }}
+              />
+            </div>
 
-          <div className="relative z-10 px-6 md:px-12 lg:px-20 pb-20">
-            {/* Header / Top Part */}
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 relative">
+            {/* Content Wrapper for ScrollTrigger */}
+            <div ref={aboutContentRef}>
+              {/* Header / Top Part */}
+              <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 relative">
 
-              {/* Rotating Badge */}
-              <div
-                ref={globeBadgeRef}
-                className="absolute -top-10 right-0 lg:top-0 lg:right-10 w-24 h-24 lg:w-32 lg:h-32 rounded-full border border-neutral-400 flex items-center justify-center bg-[#E9E4D9]/80 backdrop-blur-sm z-20"
-              >
-                <div className="text-center">
-                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                  </svg>
+                {/* Rotating Badge */}
+                <div
+                  ref={globeBadgeRef}
+                  className="absolute -top-10 right-0 lg:top-0 lg:right-10 w-24 h-24 lg:w-32 lg:h-32 rounded-full border border-neutral-400 flex items-center justify-center bg-[#E9E4D9]/80 backdrop-blur-sm z-20"
+                >
+                  <div className="text-center">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10 15.3 15.3 0 0 1 4-10z" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Text Blocks */}
+                <div className="max-w-4xl px-20 relative z-10 mt-16 lg:mt-0">
+                  <p
+                    ref={subtitleRef}
+                    className="font-abc text-sm tracking-[0.2em] mb-6 lg:mb-10 text-[#1a1a1a]/70 overflow-hidden"
+                  >
+                    <span className="block">HOWDY, WE'RE ROGUE</span>
+                  </p>
+
+                  <div ref={heroTextRef} className="space-y-2">
+                    {["MAKING CULTURE VISIBLE", "THROUGH DESIGN, TECH,", "AND A LITTLE MAGIC"].map((text, i) => (
+                      <div key={i} className="overflow-hidden pb-4 -mb-4 pr-4 -mr-4">
+                        <h1 className="font-[druk] text-[15vw] sm:text-6xl md:text-6xl lg:text-[7.5vw] uppercase leading-[0.85] text-black mix-blend-multiply">
+                          {text.includes("MAGIC") ? (
+                            <span className="inline-block relative">
+                              AND <span className="font-[druk] font-light italic bg-gradient-to-r from-[#957E50] via-[#957E50] to-[#957E50] bg-clip-text text-transparent lowercase tracking-normal pr-4">a little magic</span>
+                            </span>
+                          ) : (
+                            <ScrambleText text={text} isHovered={isScrambling} className="inline-block" />
+                          )}
+                        </h1>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
+              {/* Content & Stats */}
+              <div className="flex flex-col gap-24 mt-20">
+                {/* Description */}
+                <div className="lg:w-2/3">
+                  <div ref={starRef} className="w-12 h-12 mb-8 text-[hsl(40,30%,45%)]">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
+                  </div>
 
-              {/* Text Blocks */}
-              <div className="max-w-4xl relative z-10 mt-16 lg:mt-10">
-                <p
-                  ref={subtitleRef}
-                  className="font-abc text-sm tracking-[0.2em] mb-6 lg:mb-10 text-[#1a1a1a]/70 overflow-hidden"
-                >
-                  <span className="block">HOWDY, WE'RE ROGUE</span>
-                </p>
+                  <p
+                    ref={descriptionRef}
+                    className="font-abc text-2xl md:text-3xl leading-[1.2] text-black font-medium"
+                  >
+                    Infusing <span className="italic text-black font-semibold">playfulness</span> into everything we touch, creating distinctive brand solutions with extraordinary outcomes.
+                  </p>
+                </div>
 
-                <div ref={heroTextRef} className="space-y-2">
-                  {["MAKING CULTURE VISIBLE", "THROUGH DESIGN, TECH,", "AND A LITTLE MAGIC"].map((text, i) => (
-                    <div key={i} className="overflow-hidden pb-4 -mb-4 pr-4 -mr-4">
-                      <h1 className="font-[druk] text-[15vw] sm:text-6xl md:text-6xl lg:text-[7.5vw] uppercase leading-[0.85] text-black mix-blend-multiply">
-                        {text.includes("MAGIC") ? (
-                          <span className="inline-block relative">
-                            AND <span className="font-[druk] font-light italic bg-gradient-to-r from-[#957E50] via-[#957E50] to-[#957E50] bg-clip-text text-transparent lowercase tracking-normal pr-4">a little magic</span>
-                          </span>
-                        ) : (
-                          <ScrambleText text={text} isHovered={isScrambling} className="inline-block" />
-                        )}
-                      </h1>
+                {/* Stats Grid - Now 4 columns */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 border-t border-[#1a1a1a]/10 pt-12">
+                  {stats.map((stat, index) => (
+                    <div
+                      key={index}
+                      ref={(el) => (statsRef.current[index] = el)}
+                      className="opacity-0 translate-y-8 group/stat cursor-pointer hover:bg-[#1a1a1a]/5 p-4 rounded-lg transition-colors duration-500"
+                    >
+                      <p className="font-albra text-6xl md:text-7xl text-[#1a1a1a] leading-none mb-3 transition-transform duration-500 group-hover/stat:-translate-y-2 flex items-baseline">
+                        <span ref={(el) => (statNumberRefs.current[index] = el)}>0</span>
+                        <span className="text-[#1a1a1a]/60 text-4xl ml-1 group-hover/stat:text-[#1a1a1a] transition-colors">{stat.suffix}</span>
+                      </p>
+                      <p className="font-abc text-sm uppercase tracking-wider text-[#1a1a1a]/60 inline-block relative font-bold group-hover/stat:text-[#1a1a1a] transition-colors">
+                        {stat.label}
+                      </p>
+                      {stat.description && (
+                        <p className="font-abc text-xs text-[#1a1a1a]/40 mt-2">{stat.description}</p>
+                      )}
                     </div>
                   ))}
                 </div>
               </div>
-
-              {/* Magnetic Globe */}
-              {/* <div
-                ref={globeRef}
-                className="hidden lg:block absolute top-0 right-[20%] w-[350px] pointer-events-none mix-blend-multiply"
-              >
-                <img
-                  src={globe1}
-                  alt="Globe"
-                  className="w-full h-auto object-contain
-         invert brightness-110 contrast-125
-         mix-blend-multiply"
-                />
-              </div> */}
-            </div>
-
-            {/* Content & Stats stacked */}
-            <div className="flex flex-col lg:flex-row gap-16 lg:gap-32 items-start mt-12">
-              {/* Description */}
-              <div className="lg:w-1/2">
-                <div ref={starRef} className="w-12 h-12 mb-8 text-[hsl(40,30%,45%)]">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
-                </div>
-
-                <p
-                  ref={descriptionRef}
-                  className="font-abc text-xl md:text-2xl leading-[1] text-black max-w-lg font-medium"
-                >
-                  Infusing <span className="italic text-black font-semibold">playfulness</span> into everything we touch, creating distinctive brand solutions with extraordinary outcomes.
-                </p>
-              </div>
-
-              {/* Stats Grid */}
-              <div className="lg:w-1/2 grid grid-cols-2 gap-x-12 gap-y-16">
-                {stats.map((stat, index) => (
-                  <div
-                    key={index}
-                    ref={(el) => (statsRef.current[index] = el)}
-                    className="opacity-0 translate-y-8 group/stat cursor-pointer border-b border-[#1a1a1a]/10 pb-6 hover:border-[#1a1a1a] transition-colors duration-500"
-                  >
-                    <p className="font-albra text-6xl md:text-7xl text-[#1a1a1a] leading-none mb-2 transition-transform duration-500 group-hover/stat:-translate-y-2">
-                      <span ref={(el) => (statNumberRefs.current[index] = el)}>0</span>
-                      <span className="text-[#1a1a1a]/60 text-4xl align-top ml-1 group-hover/stat:text-[#1a1a1a] transition-colors">{stat.suffix}</span>
-                    </p>
-                    <p className="font-abc text-sm uppercase tracking-wider text-[#1a1a1a]/60 pt-3 inline-block relative font-bold group-hover/stat:text-[#1a1a1a] transition-colors">
-                      {stat.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
-
-          {/* Full Screen Parallax Video Block (Below Text) */}
-
         </section >
 
         {/* --- ROLLING MARQUEE SEPARATOR --- */}
         < div className="w-full relative py-12 bg-[#E9E4D9] overflow-hidden" >
-          <div className="absolute inset-0 flex items-center justify-center -rotate-2 scale-110 z-10 pointer-events-none">
-            <div className="w-full bg-[#1a1a1a] py-6 shadow-2xl">
+          <div className="absolute inset-0 flex items-center justify-center  scale-110 z-10 pointer-events-none">
+            <div className="w-full bg-[#957E50] py-6 shadow-2xl">
               <div className="marquee-container">
                 <div className="marquee-content animate-marquee-slower">
                   {[...Array(4)].map((_, i) => (
@@ -774,7 +764,7 @@ const Home = ({ isPreloading }) => {
                       {["STRATEGY", "DESIGN", "DEVELOPMENT", "MOTION"].map((word, j) => (
                         <div key={j} className="flex items-center px-12">
                           <span className="font-[druk] text-6xl lg:text-8xl text-[#E9E4D9] uppercase tracking-wide">{word}</span>
-                          <span className="ml-12 text-[#957E50] text-4xl">★</span>
+                          <span className="ml-12 text-[#000000] text-4xl">★</span>
                         </div>
                       ))}
                     </div>
