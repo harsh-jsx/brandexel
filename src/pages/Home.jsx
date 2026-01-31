@@ -650,6 +650,19 @@ const Home = ({ isPreloading }) => {
             Scroll // Explore
           </div>
 
+          <div className="w-full h-[85vh] relative overflow-hidden">
+            <video
+              ref={imageRef}
+              src={brandVideo}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-[120%] object-cover object-center"
+              style={{ top: "-10%" }}
+            />
+          </div>
+
           <div className="relative z-10 px-6 md:px-12 lg:px-20 pb-20">
             {/* Header / Top Part */}
             <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 relative">
@@ -667,8 +680,9 @@ const Home = ({ isPreloading }) => {
                 </div>
               </div>
 
+
               {/* Text Blocks */}
-              <div className="max-w-4xl relative z-10 mt-16 lg:mt-0">
+              <div className="max-w-4xl relative z-10 mt-16 lg:mt-10">
                 <p
                   ref={subtitleRef}
                   className="font-abc text-sm tracking-[0.2em] mb-6 lg:mb-10 text-[#1a1a1a]/70 overflow-hidden"
@@ -746,18 +760,7 @@ const Home = ({ isPreloading }) => {
           </div>
 
           {/* Full Screen Parallax Video Block (Below Text) */}
-          <div className="w-full h-[85vh] relative overflow-hidden">
-            <video
-              ref={imageRef}
-              src={brandVideo}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 w-full h-[120%] object-cover object-center"
-              style={{ top: "-10%" }}
-            />
-          </div>
+
         </section >
 
         {/* --- ROLLING MARQUEE SEPARATOR --- */}
