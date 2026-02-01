@@ -1,16 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const NAV_ITEMS = [
-  { label: "WORK", count: "(15)", id: "work" },
-  { label: "ABOUT", count: "(01)", id: "about" },
-  { label: "SERVICES", count: "(08)", id: "services" },
-  { label: "CLIENTS", count: "(12)", id: "clients" },
-  { label: "CONTACT", count: "", id: "contact" },
-];
-
-const MobileNavbar = ({ onNavigate }) => {
+const MobileNavbar = ({ onNavigate, navItems }) => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // We use a container ref for GSAP context scoping
   const containerRef = useRef(null);
@@ -75,10 +70,13 @@ const MobileNavbar = ({ onNavigate }) => {
     };
   }, [open]);
 
-  const closeMenu = () => {
+  const closeMenu = (callback) => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
-        onComplete: () => setOpen(false),
+        onComplete: () => {
+          setOpen(false);
+          if (callback) callback();
+        },
       });
 
       tl.to(itemRefs.current, {
@@ -101,11 +99,31 @@ const MobileNavbar = ({ onNavigate }) => {
     }, containerRef);
   };
 
-  const handleClick = (id) => {
-    closeMenu();
-    if (onNavigate) {
-      setTimeout(() => onNavigate(id), 700);
-    }
+  const handleNavClick = (sectionId) => {
+    if (!sectionId) return;
+
+    closeMenu(() => {
+      setTimeout(() => {
+        if (sectionId.startsWith("/")) {
+          // Route
+          navigate(sectionId);
+        } else {
+          // Section
+          if (location.pathname !== "/") {
+            navigate("/", { state: { scrollTo: sectionId } });
+          } else {
+            // If already on home, we might need to handle scrolling
+            // If passed onNavigate prop handles it (from parent)
+            if (onNavigate) {
+              onNavigate(sectionId);
+            } else {
+              const el = document.getElementById(sectionId);
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }
+      }, 300); // Wait for close animation
+    });
   };
 
   return (
@@ -130,23 +148,23 @@ const MobileNavbar = ({ onNavigate }) => {
         >
           {/* Close Button - Now correctly clickable on top of everything */}
           <button
-            onClick={closeMenu}
+            onClick={() => closeMenu()}
             className="absolute top-6 right-6 w-10 h-10 rounded flex items-center justify-center z-[101]"
           >
             ✕
           </button>
 
           {/* Menu */}
-          <nav className="space-y-2">
-            {NAV_ITEMS.map((item, i) => (
+          <nav className="space-y-1">
+            {navItems && navItems.map((item, i) => (
               <div key={item.label}>
                 <div
-                  className="flex items-center  justify-between cursor-pointer"
-                  onClick={() => handleClick(item.id)}
+                  className="flex items-center justify-between cursor-pointer py-2"
+                  onClick={() => handleNavClick(item.sectionId)}
                 >
                   <h2
                     ref={(el) => (itemRefs.current[i] = el)}
-                    className="font-[druk] text-[19vw] tracking-tight leading-[0.8]"
+                    className="font-[druk] text-[15vw] tracking-tight leading-[0.85] uppercase"
                     style={{
                       textShadow: "0 0 40px hsla(40,30%,55%,0.15)",
                     }}
@@ -158,7 +176,7 @@ const MobileNavbar = ({ onNavigate }) => {
 
                 <div
                   ref={(el) => (lineRefs.current[i] = el)}
-                  className="h-px bg-white/20 mt-4 origin-left"
+                  className="h-px bg-white/20 origin-left"
                 />
               </div>
             ))}

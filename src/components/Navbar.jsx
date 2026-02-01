@@ -148,7 +148,7 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
   const closedBorderColor = isDarkMode ? "hsl(0, 0%, 20%)" : "hsl(0, 0%, 80%)";
 
   if (isMobile) {
-    return <MobileNavbar onScrollToSection={onScrollToSection} />;
+    return <MobileNavbar onScrollToSection={onScrollToSection} navItems={navItems} />;
   }
 
   return (
