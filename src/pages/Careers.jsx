@@ -68,6 +68,16 @@ const InlineSelect = ({ options, value, onChange, index, placeholder, handleInpu
     </span>
 );
 
+const SplitText = ({ children, className = "" }) => (
+    <span className={`inline-block ${className}`}>
+        {children.split("").map((char, i) => (
+            <span key={i} className="char inline-block whitespace-pre">
+                {char}
+            </span>
+        ))}
+    </span>
+);
+
 const Careers = () => {
     const containerRef = useRef(null);
     const heroRef = useRef(null);
@@ -206,24 +216,32 @@ const Careers = () => {
                 }
             });
 
-            // 2. Hero Text Reveal (Masked Slide Up)
-            // We target the inner spans/divs to slide up
-            const heroLines = heroTextRef.current.querySelectorAll(".hero-line-inner");
-            gsap.from(heroLines, {
-                yPercent: 120,
-                rotate: 5,
-                duration: 1.5,
-                stagger: 0.15,
-                ease: "power4.out",
-                delay: 0.2
-            });
+            // 2. Hero Text Reveal (Split Text Animation)
+            // Target the individual characters created by SplitText
+            const chars = heroTextRef.current.querySelectorAll(".char");
+            gsap.fromTo(chars,
+                {
+                    yPercent: 120,
+                    rotate: 10,
+                    opacity: 0
+                },
+                {
+                    yPercent: 0,
+                    rotate: 0,
+                    opacity: 1,
+                    duration: 1.2,
+                    stagger: 0.04,
+                    ease: "power4.out",
+                    delay: 0.2
+                }
+            );
 
             // Hero Description Fade
             gsap.from(".hero-desc", {
                 opacity: 0,
                 y: 20,
                 duration: 1,
-                delay: 1,
+                delay: 1.2,
                 ease: "power2.out"
             });
 
@@ -306,20 +324,20 @@ const Careers = () => {
                     <div ref={heroTextRef} className="mb-12">
                         {/* Line 1 */}
                         <div className="overflow-hidden">
-                            <h1 className="hero-line-inner font-albra text-[17vw] md:text-[13vw] leading-[0.9] uppercase tracking-normal">
-                                Join The
+                            <h1 className="hero-line-inner font-[druk] text-[17vw] md:text-[15vw] leading-[0.9] uppercase tracking-wide">
+                                <SplitText>Join The</SplitText>
                             </h1>
                         </div>
                         {/* Line 2 */}
                         <div className="overflow-hidden">
-                            <h1 className="hero-line-inner font-albra text-[17vw] md:text-[13vw] leading-[0.9] uppercase tracking-normal text-[hsl(40,30%,55%)]">
-                                Rogue
+                            <h1 className="hero-line-inner font-[druk] text-[17vw] md:text-[15vw] leading-[0.9] uppercase tracking-wide text-[hsl(40,30%,55%)]">
+                                <SplitText>Rogue</SplitText>
                             </h1>
                         </div>
                         {/* Line 3 */}
                         <div className="overflow-hidden">
-                            <h1 className="hero-line-inner font-albra text-[17vw] md:text-[13vw] leading-[0.9] uppercase tracking-normal">
-                                Movement
+                            <h1 className="hero-line-inner font-[druk] text-[17vw] md:text-[15vw] leading-[0.9] uppercase tracking-wide">
+                                <SplitText>Movement</SplitText>
                             </h1>
                         </div>
                     </div>

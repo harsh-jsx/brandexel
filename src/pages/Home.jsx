@@ -12,6 +12,11 @@ import { Link, useLocation } from "react-router-dom";
 // import { fetchAPI, getStrapiMedia } from "../lib/strapi";
 import ScrambleText from "../components/ScrambleText";
 import brandVideo from '../assets/brandexel.mp4';
+import h1 from '../assets/h1.webp'
+import h2 from '../assets/h2.webp'
+import h3 from '../assets/h3.webp'
+import h4 from '../assets/h4.webp'
+import h5 from '../assets/h5.webp'
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -63,31 +68,31 @@ const Home = ({ isPreloading }) => {
 
   const images = [
     {
-      src: "https://picsum.photos/seed/portrait1/400/600",
+      src: h1,
       alt: "Portrait 1",
       width: "w-40 md:w-56 lg:w-64",
       height: "h-52 md:h-72 lg:h-80",
     },
     {
-      src: "https://picsum.photos/seed/portrait2/350/500",
+      src: h2,
       alt: "Portrait 2",
       width: "w-36 md:w-44 lg:w-52",
       height: "h-48 md:h-56 lg:h-64",
     },
     {
-      src: "https://picsum.photos/seed/portrait3/400/550",
+      src: h3,
       alt: "Portrait 3",
       width: "w-32 md:w-44 lg:w-52",
       height: "h-44 md:h-60 lg:h-72",
     },
     {
-      src: "https://picsum.photos/seed/album1/400/400",
+      src: h4,
       alt: "Album Cover",
       width: "w-28 md:w-40 lg:w-48",
       height: "h-28 md:h-40 lg:h-48",
     },
     {
-      src: "https://picsum.photos/seed/vintage1/350/350",
+      src: h5,
       alt: "Vintage Cover",
       width: "w-24 md:w-36 lg:w-40",
       height: "h-24 md:h-36 lg:h-40",
@@ -573,16 +578,16 @@ const Home = ({ isPreloading }) => {
           <div className="text-center relative z-10 px-4">
             <h1
               ref={line1Ref}
-              className="font-[Neue-Regular] z-9999 text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
+              className="font-[Neue-Regular] z-9999 text-white text-6xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
             >
               CREATING
             </h1>
             <h1
               ref={line2Ref}
-              className=" z-9999 font-[Neue-Regular] text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none mt-1 md:mt-2 flex items-center justify-center gap-1 md:gap-2"
+              className=" z-9999 font-[Neue-Regular] text-white text-6xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none mt-1 md:mt-2 flex items-center justify-center gap-1 md:gap-2"
             >
               BRANDS
-              <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-[#957E50]">
+              <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-[#957E50]">
                 ✦
               </span>
             </h1>
@@ -590,7 +595,7 @@ const Home = ({ isPreloading }) => {
             <div ref={impossibleWrapperRef}>
               <h2
                 ref={impossibleRef}
-                className="bg-gradient-to-r from-[#957E50] via-[#957E50] to-[#957E50] bg-clip-text text-transparent  font-[druk] text-[19vw]  md:text-6xl  lg:text-9xl xl:text-[12vw] font-black md:py-1 uppercase"
+                className="bg-gradient-to-r from-[#957E50] via-[#957E50] to-[#957E50] bg-clip-text text-transparent  font-[druk] text-[20vw]  md:text-6xl  lg:text-9xl xl:text-[12vw] font-black md:py-1 uppercase"
                 style={{ fontWeight: 900, }}
               >
                 IMPOSSIBLE
@@ -599,7 +604,7 @@ const Home = ({ isPreloading }) => {
 
             <h1
               ref={line3Ref}
-              className="font-[Neue-Regular] z-9999 text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
+              className="font-[Neue-Regular] z-9999 text-white text-6xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal tracking-tight leading-none"
             >
               TO IGNORE
             </h1>
@@ -685,7 +690,7 @@ const Home = ({ isPreloading }) => {
                 </div>
 
                 {/* Text Blocks */}
-                <div className="max-w-4xl px-20 relative z-10 mt-16 lg:mt-0">
+                <div className="max-w-4xl px-6 md:px-20 relative z-10 mt-16 lg:mt-0">
                   <p
                     ref={subtitleRef}
                     className="font-abc text-sm tracking-[0.2em] mb-6 lg:mb-10 text-[#1a1a1a]/70 overflow-hidden"
@@ -696,7 +701,7 @@ const Home = ({ isPreloading }) => {
                   <div ref={heroTextRef} className="space-y-2">
                     {["MAKING CULTURE VISIBLE", "THROUGH DESIGN, TECH,", "AND A LITTLE MAGIC"].map((text, i) => (
                       <div key={i} className="overflow-hidden pb-4 -mb-4 pr-4 -mr-4">
-                        <h1 className="font-[druk] text-[15vw] sm:text-6xl md:text-6xl lg:text-[7.5vw] uppercase leading-[0.85] text-black mix-blend-multiply">
+                        <h1 className="font-[druk] text-[13vw] sm:text-6xl md:text-6xl lg:text-[7.5vw] uppercase leading-[1.1] md:leading-[0.85] text-black mix-blend-multiply">
                           {text.includes("MAGIC") ? (
                             <span className="inline-block relative">
                               AND <span className="font-[druk] font-light italic bg-gradient-to-r from-[#957E50] via-[#957E50] to-[#957E50] bg-clip-text text-transparent lowercase tracking-normal pr-4">a little magic</span>
@@ -712,7 +717,7 @@ const Home = ({ isPreloading }) => {
               </div>
 
               {/* Content & Stats */}
-              <div className="flex flex-col gap-24 mt-20">
+              <div className="flex flex-col gap-24 px-6 md:px-0 mt-20">
                 {/* Description */}
                 <div className="lg:w-2/3">
                   <div ref={starRef} className="w-12 h-12 mb-8 text-[hsl(40,30%,45%)]">
@@ -780,7 +785,7 @@ const Home = ({ isPreloading }) => {
         {/* SELECTED WORKS SECTION */}
         < section id="selected-works" className="py-32 px-6 md:px-12 lg:px-20 relative z-10 bg-[#E9E4D9]" >
           <div className="mb-24 border-b border-[#1a1a1a]/20 pb-8 flex justify-between items-end">
-            <span className="font-abc uppercase tracking-[0.2em] text-sm text-[#1a1a1a]/70">Selected Works</span>
+            <span className="font-abc md:px-10 uppercase tracking-[0.2em] text-sm text-[#1a1a1a]/70">Selected Works</span>
             <span className="font-abc text-sm text-[#1a1a1a]/60 hidden md:block">2023 — 2025</span>
           </div>
 
@@ -810,8 +815,8 @@ const Home = ({ isPreloading }) => {
               //   };
               // })
             ].map((work, i) => (
-              <Link to={work.link} key={i} className="group border-b border-[#1a1a1a]/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer transition-all duration-500 hover:px-8 hover:bg-[#1a1a1a]/5">
-                <h3 className="font-[druk] text-5xl md:text-[8vw] uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#957E50] group-hover:via-[#957E50] group-hover:to-[#957E50] group-hover:bg-clip-text flex items-center gap-4">
+              <Link to={work.link} key={i} className="group border-b md:px-10 border-[#1a1a1a]/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer transition-all duration-500 hover:px-8 hover:bg-[#1a1a1a]/5">
+                <h3 className="font-[druk] text-7xl md:text-[8vw] uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#957E50] group-hover:via-[#957E50] group-hover:to-[#957E50] group-hover:bg-clip-text flex items-center gap-4">
                   {work.name}
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-0 group-hover:w-auto overflow-hidden">
                     <span className="text-2xl md:text-4xl text-[#1a1a1a]">↗</span>

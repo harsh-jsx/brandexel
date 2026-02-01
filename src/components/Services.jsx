@@ -351,7 +351,7 @@ const Services = ({ isLoading }) => {
 
           {/* SplitText Title */}
           <div ref={titleRef} className="max-w-5xl overflow-hidden" id="services1">
-            <h2 className="font-[Albra] text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl font-normal leading-[0.95] tracking-tight">
+            <h2 className="font-[Albra] text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl font-normal leading-[0.95] tracking-tight">
               {"SERVICES".split("").map((char, i) => (
                 <span
                   key={`s1-${i}`}
@@ -368,7 +368,7 @@ const Services = ({ isLoading }) => {
                 </span>
               ))}
             </h2>
-            <h2 className="font-[Albra] text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl font-normal leading-[0.95] tracking-tight mt-2">
+            <h2 className="font-[Albra] text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl font-normal leading-[0.95] tracking-tight mt-2">
               {"THAT MAKE".split("").map((char, i) => (
                 <span
                   key={`s2-${i}`}
@@ -385,7 +385,7 @@ const Services = ({ isLoading }) => {
                 </span>
               ))}
             </h2>
-            <h2 className="font-[Albra] text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl italic leading-[0.95] tracking-tight mt-2">
+            <h2 className="font-[Albra] text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl italic leading-[0.95] tracking-tight mt-2">
               {"BRANDS".split("").map((char, i) => (
                 <span
                   key={`s3-${i}`}

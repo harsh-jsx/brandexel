@@ -17,6 +17,8 @@ import CaseStudyDuo from "./pages/CaseStudyDuo";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CaseStudyDispo from "./pages/CaseStudyDispo";
 
+import ScrollToTop from "./components/ScrollToTop";
+
 const App = () => {
   /* ---------------- Preloader State ---------------- */
   const [showPreloader, setShowPreloader] = useState(true);
@@ -74,6 +76,7 @@ const App = () => {
       {/* Main Content */}
       <ReactLenis root ref={lenisRef} autoRaf={false}>
         <Router>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<PageTransition><Home isPreloading={!contentVisible} /></PageTransition>} />
             <Route path="/careers" element={<PageTransition><Careers /></PageTransition>} />

@@ -89,7 +89,6 @@ const Contact = () => {
   const subheadRef = useRef(null);
   const formLinesRef = useRef([]);
   const inputRefs = useRef([]);
-  const magnetRef = useRef(null);
   const footerRef = useRef(null);
   const contactInfoRef = useRef(null);
 
@@ -239,19 +238,6 @@ const Contact = () => {
         });
       });
 
-      // Magnetic submit button
-      tl.from(
-        magnetRef.current,
-        {
-          opacity: 0,
-          scale: 0.5,
-          rotation: -20,
-          duration: 1,
-          ease: "elastic.out(1, 0.5)",
-        },
-        "-=0.3"
-      );
-
       // Contact info
       if (contactInfoRef.current) {
         const infoItems = contactInfoRef.current.querySelectorAll(".info-item");
@@ -309,62 +295,7 @@ const Contact = () => {
     return () => ctx.revert();
   }, [formType]); // Re-run animation when form type changes
 
-  // Magnetic button effect (Parallax)
-  useEffect(() => {
-    const btn = magnetRef.current;
-    if (!btn) return;
 
-    const inner = btn.querySelector(".center-circle");
-    const textRing = btn.querySelector("svg"); // The rotating text svg
-
-    const handleMouseMove = (e) => {
-      const rect = btn.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-
-      gsap.to(btn, {
-        x: x * 0.2,
-        y: y * 0.2,
-        duration: 0.5,
-        ease: "power2.out",
-      });
-
-      if (inner) {
-        gsap.to(inner, {
-          x: x * 0.3,
-          y: y * 0.3,
-          duration: 0.5,
-          ease: "power2.out",
-        });
-      }
-
-      if (textRing) {
-        gsap.to(textRing, {
-          x: x * 0.1,
-          y: y * 0.1,
-          duration: 0.5,
-          ease: "power2.out",
-        });
-      }
-    };
-
-    const handleMouseLeave = () => {
-      gsap.to([btn, inner, textRing], {
-        x: 0,
-        y: 0,
-        duration: 1,
-        ease: "elastic.out(1, 0.3)",
-      });
-    };
-
-    btn.addEventListener("mousemove", handleMouseMove);
-    btn.addEventListener("mouseleave", handleMouseLeave);
-
-    return () => {
-      btn.removeEventListener("mousemove", handleMouseMove);
-      btn.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, []);
 
   // Input focus animation
   const handleInputFocus = (index) => {
@@ -411,12 +342,6 @@ const Contact = () => {
   return (
     <>
       <CustomCursor />
-
-      {/* Reveal overlay - Handled globaly */}
-      {/* <div
-        ref={revealRef}
-        className="fixed inset-0 z-[100] bg-secondary pointer-events-none text-white"
-      /> */}
 
       {/* Back button */}
       <button
@@ -791,96 +716,55 @@ const Contact = () => {
             )}
 
             {/* Submit section */}
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12">
-              {/* Magnetic submit button */}
+            <div className="flex flex-col md:flex-row items-center justify-center mt-20">
               <button
-                ref={magnetRef}
                 type="submit"
                 disabled={isSubmitting}
-                className="group relative w-44 h-44 md:w-52 md:h-52"
+                className="group relative px-12 py-5 bg-white rounded-full overflow-hidden transition-transform duration-300 hover:scale-105"
               >
-                {/* Rotating text */}
-                <svg
-                  className="absolute inset-0 w-full h-full animate-spin"
-                  style={{ animationDuration: "25s" }}
-                  viewBox="0 0 200 200"
-                >
-                  <defs>
-                    <path
-                      id="circlePath"
-                      d="M 100, 100 m -80, 0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0"
-                    />
-                  </defs>
-                  <text className="fill-white/80 text-[11px] uppercase tracking-[0.5em] font-light">
-                    <textPath href="#circlePath">
-                      {formType === "client"
-                        ? "Send Inquiry • Start Project • Let's Create •"
-                        : "Join Team • Submit Application • Work With Us •"}
-                    </textPath>
-                  </text>
-                </svg>
+                {/* Hover fill effect */}
+                <div className="absolute inset-0 bg-secondary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)]" />
 
-                {/* Center circle */}
-                <div
-                  className="center-circle absolute inset-10 md:inset-12 rounded-full bg-secondary 
-                  flex items-center justify-center overflow-hidden
-                  group-hover:scale-110 transition-transform duration-700 ease-out
-                  shadow-[0_0_40px_rgba(var(--secondary-rgb),0.3)]"
-                >
-                  {isSubmitting ? (
-                    <div
-                      className="w-6 h-6 border-2 border-background border-t-transparent 
-                      rounded-full animate-spin"
-                    />
-                  ) : (
-                    <svg
-                      width="28"
-                      height="28"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      className="text-background transform group-hover:translate-x-1 
-                        group-hover:-translate-y-1 transition-transform duration-500"
-                    >
-                      <path d="M7 17L17 7M17 7H7M17 7V17" />
-                    </svg>
-                  )}
+                <div className="relative z-10 flex items-center gap-4">
+                  <span className="font-[PPE] text-lg uppercase tracking-wider text-black group-hover:text-white transition-colors duration-300">
+                    {isSubmitting ? "Sending..." : "Submit Inquiry"}
+                  </span>
+                  <div className="w-2 h-2 rounded-full bg-black group-hover:bg-white transition-colors duration-300" />
                 </div>
               </button>
+            </div>
 
-              {/* Contact info */}
-              <div ref={contactInfoRef} className="flex flex-col gap-6">
-                <div className="info-item">
-                  <p className="info-label text-white/40 text-xs tracking-[0.2em] uppercase mb-1">
-                    Email
-                  </p>
-                  <a
-                    href="mailto:hello@brandexel.com"
-                    className="info-value text-white hover:text-secondary transition-colors duration-300 text-lg font-serif"
-                  >
-                    hello@brandexel.com
-                  </a>
-                </div>
-                <div className="info-item">
-                  <p className="info-label text-white/40 text-xs tracking-[0.2em] uppercase mb-1">
-                    Phone
-                  </p>
-                  <a
-                    href="tel:+12345678901"
-                    className="info-value text-white hover:text-secondary transition-colors duration-300 text-lg font-serif"
-                  >
-                    +1 (234) 567-8901
-                  </a>
-                </div>
-                <div className="info-item">
-                  <p className="info-label text-white/40 text-xs tracking-[0.2em] uppercase mb-1">
-                    Address
-                  </p>
-                  <p className="info-value text-white/70 text-lg font-serif">
-                    123 Creative Ave, NYC
-                  </p>
-                </div>
+            {/* Contact info */}
+            <div ref={contactInfoRef} className="flex flex-col md:flex-row justify-between gap-12 border-t border-white/10 pt-12 mt-20">
+              <div className="info-item">
+                <p className="info-label text-white/40 text-xs tracking-[0.2em] uppercase mb-2">
+                  Email
+                </p>
+                <a
+                  href="mailto:hello@brandexel.com"
+                  className="info-value text-white hover:text-secondary transition-colors duration-300 text-xl font-serif"
+                >
+                  hello@brandexel.com
+                </a>
+              </div>
+              <div className="info-item">
+                <p className="info-label text-white/40 text-xs tracking-[0.2em] uppercase mb-2">
+                  Phone
+                </p>
+                <a
+                  href="tel:+12345678901"
+                  className="info-value text-white hover:text-secondary transition-colors duration-300 text-xl font-serif"
+                >
+                  +1 (234) 567-8901
+                </a>
+              </div>
+              <div className="info-item">
+                <p className="info-label text-white/40 text-xs tracking-[0.2em] uppercase mb-2">
+                  Address
+                </p>
+                <p className="info-value text-white/70 text-xl font-serif">
+                  123 Creative Ave, NYC
+                </p>
               </div>
             </div>
           </form>

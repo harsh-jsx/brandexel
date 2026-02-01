@@ -226,13 +226,13 @@ export default function ClientLogos({ isLoading }) {
         <div className="text-center mb-20">
           <p
             ref={subtitleRef}
-            className="text-[#AF986A] font-[abc] tracking-[0.3em] uppercase mb-4"
+            className="text-[#AF986A] font-[abc] tracking-[0.2em] uppercase mb-4"
           >
             Trusted by industry leaders
           </p>
           <h2
             ref={titleRef}
-            className="text-[10vw] lg:text-[10vw] font-[druk] text-white"
+            className="text-[15vw] lg:text-[10vw] font-[druk] text-white"
           >
             Our Clients
           </h2>
