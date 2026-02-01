@@ -163,7 +163,7 @@ const About = ({ isPreloading }) => {
 
                 {/* --- HERO SECTION --- */}
                 {/* --- HERO SECTION --- */}
-                <section ref={heroRef} className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-20 overflow-hidden bg-[#101010]">
+                <section ref={heroRef} className="relative pt-20 md:pt-0 min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-20 overflow-hidden bg-[#101010]">
 
                     {/* Background Elements */}
                     <div className="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] rounded-full border border-[#E9E4D9]/5 animate-spin-slow opacity-30 pointer-events-none"></div>
@@ -280,7 +280,7 @@ const About = ({ isPreloading }) => {
                 {/* --- TEAM HORIZONTAL --- */}
                 <section className="team-section h-screen bg-[#101010] text-[#E9E4D9] overflow-hidden flex flex-col justify-center">
                     <div className="px-6 md:px-12 lg:px-20 mb-12">
-                        <h2 className="font-[druk] md:text-[8vw] text-[12vw] uppercase leading-none">The<br />Outlaws</h2>
+                        <h2 className="font-[druk] md:text-[8vw] text-[15vw] uppercase leading-none">The<br />Outlaws</h2>
                     </div>
 
                     <div className="team-track flex gap-10 px-6 md:px-12 lg:px-20 w-fit">

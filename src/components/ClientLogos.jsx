@@ -239,7 +239,7 @@ export default function ClientLogos({ isLoading }) {
         </div>
 
         {/* Logos */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-28">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:px-12 md:gap-8 mb-28">
           {clients.map((client, index) => (
             <div
               key={client.name}

@@ -12,6 +12,8 @@ const NAV_ITEMS = [
 const MobileNavbar = ({ onNavigate }) => {
   const [open, setOpen] = useState(false);
 
+  // We use a container ref for GSAP context scoping
+  const containerRef = useRef(null);
   const overlayRef = useRef(null);
   const itemRefs = useRef([]);
   const lineRefs = useRef([]);
@@ -25,69 +27,78 @@ const MobileNavbar = ({ onNavigate }) => {
 
     document.body.style.overflow = "hidden";
 
-    const tl = gsap.timeline();
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline();
 
-    tl.set(overlayRef.current, { yPercent: 100 })
-      .to(overlayRef.current, {
+      // Ensure initial state
+      gsap.set(overlayRef.current, { yPercent: 100 });
+      gsap.set(itemRefs.current, { yPercent: 120, opacity: 0 });
+      gsap.set(lineRefs.current, { scaleX: 0 });
+      gsap.set(footerRef.current, { opacity: 0, y: 30 });
+
+      tl.to(overlayRef.current, {
         yPercent: 0,
         duration: 0.9,
         ease: "power4.inOut",
       })
-      .fromTo(
-        lineRefs.current,
-        { scaleX: 0 },
-        {
-          scaleX: 1,
-          duration: 0.8,
-          stagger: 0.08,
-          ease: "power2.out",
-        },
-        "-=0.4"
-      )
-      .fromTo(
-        itemRefs.current,
-        { yPercent: 120, opacity: 0 },
-        {
-          yPercent: 0,
-          opacity: 1,
-          duration: 1,
-          stagger: 0.08,
-          ease: "power4.out",
-        },
-        "-=0.6"
-      )
-      .fromTo(
-        footerRef.current,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8 },
-        "-=0.5"
-      );
+        .to(
+          lineRefs.current,
+          {
+            scaleX: 1,
+            duration: 0.8,
+            stagger: 0.08,
+            ease: "power2.out",
+          },
+          "-=0.4" // Overlap with overlay movement
+        )
+        .to(
+          itemRefs.current,
+          {
+            yPercent: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.08,
+            ease: "power4.out",
+          },
+          "-=0.8" // Start appearing while lines are drawing
+        )
+        .to(
+          footerRef.current,
+          { opacity: 1, y: 0, duration: 0.8 },
+          "-=0.6"
+        );
+    }, containerRef);
 
     return () => {
       document.body.style.overflow = "";
+      ctx.revert();
     };
   }, [open]);
 
   const closeMenu = () => {
-    const tl = gsap.timeline({
-      onComplete: () => setOpen(false),
-    });
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        onComplete: () => setOpen(false),
+      });
 
-    tl.to(itemRefs.current, {
-      yPercent: 120,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.05,
-      ease: "power3.in",
-    }).to(
-      overlayRef.current,
-      {
-        yPercent: 100,
-        duration: 0.8,
-        ease: "power4.inOut",
-      },
-      "-=0.3"
-    );
+      tl.to(itemRefs.current, {
+        yPercent: 120,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.05,
+        ease: "power3.in",
+      })
+        .to(footerRef.current, { opacity: 0, duration: 0.4 }, "<") // Fade out footer with items
+        .to(
+          overlayRef.current,
+          {
+            yPercent: 100,
+            duration: 0.8,
+            ease: "power4.inOut",
+          },
+          "-=0.3"
+        );
+    }, containerRef);
   };
 
   const handleClick = (id) => {
@@ -98,9 +109,9 @@ const MobileNavbar = ({ onNavigate }) => {
   };
 
   return (
-    <>
-      {/* Top Bar */}
-      <div className="fixed top-0 left-0 right-0 z-[99999] flex justify-between items-center px-5 py-4 bg-black">
+    <div ref={containerRef}>
+      {/* Top Bar - Z-Index 99 to serve as base, but Overlay will be higher */}
+      <div className="fixed top-0 left-0 right-0 z-[99] flex justify-between items-center px-5 py-4 bg-black">
         <button className="text-white text-lg">◔</button>
         <span className="text-white tracking-[0.3em] text-xs">BRANDEXEL</span>
         <button
@@ -111,31 +122,31 @@ const MobileNavbar = ({ onNavigate }) => {
         </button>
       </div>
 
-      {/* Overlay */}
+      {/* Overlay - Z-Index 100 to cover the Top Bar */}
       {open && (
         <div
           ref={overlayRef}
-          className="fixed inset-0 z-[100] bg-black text-white px-6 pt-24"
+          className="fixed inset-0 z-[100] bg-black text-white px-6 pt-14"
         >
-          {/* Close */}
+          {/* Close Button - Now correctly clickable on top of everything */}
           <button
             onClick={closeMenu}
-            className="absolute top-6 right-6 w-10 h-10   rounded flex items-center justify-center"
+            className="absolute top-6 right-6 w-10 h-10 rounded flex items-center justify-center z-[101]"
           >
             ✕
           </button>
 
           {/* Menu */}
-          <nav className="space-y-6">
+          <nav className="space-y-2">
             {NAV_ITEMS.map((item, i) => (
               <div key={item.label}>
                 <div
-                  className="flex items-center justify-between cursor-pointer"
+                  className="flex items-center  justify-between cursor-pointer"
                   onClick={() => handleClick(item.id)}
                 >
                   <h2
                     ref={(el) => (itemRefs.current[i] = el)}
-                    className="font-albra text-5xl tracking-tight"
+                    className="font-[druk] text-[19vw] tracking-tight leading-[0.8]"
                     style={{
                       textShadow: "0 0 40px hsla(40,30%,55%,0.15)",
                     }}
@@ -167,13 +178,13 @@ const MobileNavbar = ({ onNavigate }) => {
               <span>Instagram</span>
             </div>
 
-            <div className="border border-white/30 py-4 text-center tracking-[0.3em] text-xs uppercase" onClick={() => window.location.href = "/contact"}>
+            <div className="border border-white/30 py-4 text-center tracking-[0.3em] text-xs uppercase cursor-pointer hover:bg-white hover:text-black transition-colors duration-300" onClick={() => window.location.href = "/contact"}>
               START A PROJECT →
             </div>
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

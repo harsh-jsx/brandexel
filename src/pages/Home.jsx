@@ -717,7 +717,7 @@ const Home = ({ isPreloading }) => {
               </div>
 
               {/* Content & Stats */}
-              <div className="flex flex-col gap-24 px-6 md:px-0 mt-20">
+              <div className="flex flex-col gap-24 px-6 md:px-22  overflow-hidden mt-20">
                 {/* Description */}
                 <div className="lg:w-2/3">
                   <div ref={starRef} className="w-12 h-12 mb-8 text-[hsl(40,30%,45%)]">
