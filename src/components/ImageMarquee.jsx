@@ -14,7 +14,6 @@ import creative1 from "../assets/creative1.jpeg";
 import creative2 from "../assets/creative2.jpeg";
 import creative3 from "../assets/creative3.jpeg";
 import creative4 from "../assets/creative4.jpeg";
-import creative5 from "../assets/creative5.jpeg";
 import creative6 from "../assets/creative6.jpeg";
 import creative7 from "../assets/creative7.jpeg";
 import creative8 from "../assets/creative8.jpeg";
