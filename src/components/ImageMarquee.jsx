@@ -31,7 +31,6 @@ const ImageMarquee = () => {
   const images = [
     creative3,
     creative4,
-    creative5,
     creative6,
     creative7,
     creative8,
