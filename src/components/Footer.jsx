@@ -31,11 +31,11 @@ const Footer = ({ isLoading }) => {
         hour: "2-digit",
         minute: "2-digit",
         hour12: false,
-        timeZone: "UTC",
+        timeZone: "Asia/Kolkata",
       });
       if (timeRef.current) {
 
-        timeRef.current.textContent = `${timeString} UTC`;
+        timeRef.current.textContent = `${timeString} IST`;
       }
     };
     updateTime();
@@ -468,7 +468,7 @@ const Footer = ({ isLoading }) => {
                   className="text-sm md:text-base font-mono"
                   style={{ color: "hsl(0, 0%, 70%)" }}
                 >
-                  00:00 UTC
+                  00:00 IST
                 </p>
               </div>
             </div>
