@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import CustomCursor from "../components/CustomCursor";
+import Footer from "../components/Footer";
 
 gsap.registerPlugin(SplitText);
 
@@ -778,6 +779,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
