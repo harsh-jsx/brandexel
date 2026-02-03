@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaInstagram, FaTwitter, FaFacebook, FaLinkedin, FaBehance } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -420,18 +420,32 @@ const Footer = ({ isLoading }) => {
                 </p>
                 <div className="flex flex-wrap gap-x-4 gap-y-1">
                   <a
-                    href="#"
+                    href="https://www.instagram.com/brandexel"
+                    target="_blank"
                     className="text-sm md:text-base transition-colors duration-300 hover:text-[hsl(40,30%,55%)]"
                     style={{ color: "hsl(0, 0%, 70%)" }}
                   >
                     <FaInstagram />
                   </a>
                   <a
-                    href="#"
+                    href="https://x.com/brandexel15290"
+                    target="_blank"
                     className="text-sm md:text-base transition-colors duration-300 hover:text-[hsl(40,30%,55%)]"
                     style={{ color: "hsl(0, 0%, 70%)" }}
                   >
                     <FaTwitter />
+                  </a>
+                  <a href="https://www.facebook.com/people/Brandexel/61580043770902/?rdid=kGzRXtzwinOfV4tJ&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F17N27FyxnC%2F" target="_blank" className="text-sm md:text-base transition-colors duration-300 hover:text-[hsl(40,30%,55%)]"
+                    style={{ color: "hsl(0, 0%, 70%)" }}>
+                    <FaFacebook />
+                  </a>
+                  <a href="https://www.linkedin.com/in/brandexel-%E2%84%A2-874337380/" target="_blank" className="text-sm md:text-base transition-colors duration-300 hover:text-[hsl(40,30%,55%)]"
+                    style={{ color: "hsl(0, 0%, 70%)" }}>
+                    <FaLinkedin />
+                  </a>
+                  <a href="https://www.behance.net/brandexelwork" target="_blank" className="text-sm md:text-base transition-colors duration-300 hover:text-[hsl(40,30%,55%)]"
+                    style={{ color: "hsl(0, 0%, 70%)" }}>
+                    <FaBehance />
                   </a>
 
                 </div>
