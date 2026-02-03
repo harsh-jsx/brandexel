@@ -20,6 +20,7 @@ import creative8 from "../assets/creative8.jpeg";
 import creative9 from "../assets/creative9.jpeg";
 import creative10 from "../assets/creative10.jpeg";
 import ScrollTrigger from "gsap/ScrollTrigger";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const ImageMarquee = () => {

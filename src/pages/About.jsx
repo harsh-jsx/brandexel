@@ -280,7 +280,7 @@ const About = ({ isPreloading }) => {
                 {/* --- TEAM HORIZONTAL --- */}
                 <section className="team-section h-screen bg-[#101010] text-[#E9E4D9] overflow-hidden flex flex-col justify-center">
                     <div className="px-6 md:px-12 lg:px-20 mb-12">
-                        <h2 className="font-[druk] md:text-[8vw] text-[15vw] uppercase leading-none">The<br />Outlaws</h2>
+                        <h2 className="font-[druk] md:text-[8vw] text-[15vw] uppercase leading-none pt-12">The<br />Outlaws</h2>
                     </div>
 
                     <div className="team-track flex gap-10 px-6 md:px-12 lg:px-20 w-fit">
