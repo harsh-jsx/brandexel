@@ -368,16 +368,19 @@ const Navbar = ({ isDarkMode = true, onScrollToSection }) => {
             className="flex items-center gap-6 text-xs uppercase tracking-widest"
             style={{ color: "hsl(0, 0%, 40%)" }}
           >
-            <a href="#" className="hover:opacity-70 transition-opacity">
-              DRIBBBLE
+            <a href="https://www.linkedin.com/in/brandexel-%E2%84%A2-874337380/" target="_blank" className="hover:opacity-70 transition-opacity">
+              LINKEDIN
             </a>
-            <a href="#" className="hover:opacity-70 transition-opacity">
+            <a href="https://www.behance.net/brandexelwork" target="_blank" className="hover:opacity-70 transition-opacity">
               BEHANCE
             </a>
-            <a href="#" className="hover:opacity-70 transition-opacity">
+            <a href="https://x.com/brandexel15290" target="_blank" className="hover:opacity-70 transition-opacity">
               TWITTER
             </a>
-            <a href="#" className="hover:opacity-70 transition-opacity">
+            <a href="https://www.facebook.com/people/Brandexel/61580043770902/?rdid=kGzRXtzwinOfV4tJ&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F17N27FyxnC%2F" target="_blank" className="hover:opacity-70 transition-opacity">
+              FACEBOOK
+            </a>
+            <a href="https://www.instagram.com/brandexel" target="_blank" className="hover:opacity-70 transition-opacity">
               INSTAGRAM
             </a>
           </div>
