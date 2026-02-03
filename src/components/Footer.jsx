@@ -501,10 +501,13 @@ const Footer = ({ isLoading }) => {
       </div>
 
       {/* Decorative vertical line */}
-      <div
-        className="absolute left-16 top-0 bottom-0 w-[1px]"
-        style={{ backgroundColor: "hsl(0, 0%, 10%)" }}
-      />
+      <div className="hidden md:block">
+
+        <div
+          className="absolute left-16 top-0 bottom-0 w-[1px]"
+          style={{ backgroundColor: "hsl(0, 0%, 10%)" }}
+        />
+      </div>
     </footer>
   );
 };
