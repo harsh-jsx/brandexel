@@ -561,7 +561,7 @@ const Home = ({ isPreloading }) => {
 
       <div
         ref={progressBarRef}
-        className="fixed top-0 left-16 right-0 h-0 z-[60] origin-left"
+        className="fixed top-0 left-16 right-0 h-0 z-[60] origin-left "
         style={{
           backgroundColor: "hsl(40, 30%, 55%)",
           transform: "scaleX(0)",
@@ -633,7 +633,7 @@ const Home = ({ isPreloading }) => {
         {/* ABOUT SECTION (ENHANCED) */}
         <section
           ref={aboutSectionRef}
-          className="min-h-screen overflow-x-hidden relative z-10 py-24"
+          className="min-h-screen overflow-x-hidden relative z-10 py-24 overflow-hidden"
           style={{ backgroundColor: "#E9E4D9" }}
         >
           {/* Noise Overlay */}
@@ -656,7 +656,7 @@ const Home = ({ isPreloading }) => {
             Scroll // Explore
           </div>
 
-          <div className="relative z-10  lg: pb-20">
+          <div className="relative z-10  lg: pb-20 overflow-hidden">
             {/* Full Screen Parallax Video Block (Above Text) */}
             <div className="w-full h-[100vh] relative overflow-hidden mb-16 rounded-xl">
               <video

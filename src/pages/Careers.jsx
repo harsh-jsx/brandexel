@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "../components/Navbar";
 import CustomCursor from "../components/CustomCursor";
 import MagneticButton from "../components/MagneticButton";
+import Footer from "../components/Footer";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -487,6 +488,7 @@ const Careers = () => {
                     </div>
                 </section>
 
+                <Footer />
             </div>
         </>
     );
