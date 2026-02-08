@@ -17,6 +17,7 @@ import h2 from '../assets/h2.webp'
 import h3 from '../assets/h3.webp'
 import h4 from '../assets/h4.webp'
 import h5 from '../assets/h5.webp'
+import Globe from "../components/Globe";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -303,9 +304,9 @@ const Home = ({ isPreloading }) => {
       // Initial State: Black background
       gsap.set(heroSectionRef.current, { backgroundColor: "#000000" });
 
-      // Scroll Transition: Black -> Off-White
+      // Scroll Transition: Black -> White/Purple
       gsap.to(heroSectionRef.current, {
-        backgroundColor: "#E9E4D9",
+        backgroundColor: "#ffffff", // Transition to white base
         ease: "none",
         scrollTrigger: {
           trigger: heroSectionRef.current,
@@ -634,31 +635,31 @@ const Home = ({ isPreloading }) => {
         <section
           ref={aboutSectionRef}
           className="min-h-screen overflow-x-hidden relative z-10 py-24 overflow-hidden"
-          style={{ backgroundColor: "#E9E4D9" }}
+          style={{ background: "linear-gradient(to bottom, #ffffff, #E6E6FA)" }} // White to Lavender gradient
         >
           {/* Noise Overlay */}
-          <div className="bg-noise" />
+          <div className="bg-noise opacity-30 mix-blend-multiply" />
 
           {/* Background Gradient Orb */}
           <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[hsl(40,30%,55%)]/10 rounded-full blur-[100px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
           {/* Technical Grid Overlay REMOVED for cleaner look */}
 
-          {/* Enhanced Gradient Orbs */}
-          <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-[hsl(40,30%,55%)]/15 rounded-full blur-[100px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
-          <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#C02FFB]/5 rounded-full blur-[80px] translate-y-1/4 translate-x-1/4 pointer-events-none" />
+          {/* Enhanced Gradient Orbs for Light Theme */}
+          <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-[#957E50]/10 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+          <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#C02FFB]/10 rounded-full blur-[100px] translate-y-1/4 translate-x-1/4 pointer-events-none" />
 
           {/* Tech Annotations */}
-          <div className="absolute top-10 left-10 text-[10px] uppercase font-mono text-[#1a1a1a]/40 hidden md:block tracking-widest">
+          <div className="absolute top-28 left-10 text-[10px] uppercase font-mono text-black/40 hidden md:block tracking-widest z-20">
             Ref: 2025-BX // V.2.0
           </div>
-          <div className="absolute bottom-10 right-10 text-[10px] uppercase font-mono text-[#1a1a1a]/40 hidden md:block tracking-widest">
+          <div className="absolute bottom-10 right-10 text-[10px] uppercase font-mono text-black/20 hidden md:block tracking-widest">
             Scroll // Explore
           </div>
 
           <div className="relative z-10  lg: pb-20 overflow-hidden">
             {/* Full Screen Parallax Video Block (Above Text) */}
-            <div className="w-full h-[100vh] relative overflow-hidden mb-16 rounded-xl">
+            <div className="w-full h-[100vh]  relative overflow-hidden mb-16 rounded-xl">
               <video
                 ref={imageRef}
                 src={brandVideo}
@@ -676,24 +677,19 @@ const Home = ({ isPreloading }) => {
               {/* Header / Top Part */}
               <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 relative">
 
-                {/* Rotating Badge */}
+                {/* Rotating Globe (Replaces Badge) */}
                 <div
-                  ref={globeBadgeRef}
-                  className="absolute -top-10 right-0 lg:top-0 lg:right-10 w-24 h-24 lg:w-32 lg:h-32 rounded-full border border-neutral-400 flex items-center justify-center bg-[#E9E4D9]/80 backdrop-blur-sm z-20"
+                  ref={globeRef}
+                  className="absolute -top-20 right-0 lg:-top-10 lg:right-0 w-64 h-64 lg:w-[500px] lg:h-[500px] z-20 pointer-events-none mix-blend-multiply opacity-80"
                 >
-                  <div className="text-center">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10 15.3 15.3 0 0 1 4-10z" />
-                    </svg>
-                  </div>
+                  <Globe />
                 </div>
 
                 {/* Text Blocks */}
                 <div className="max-w-4xl px-6 md:px-20 relative z-10 mt-16 lg:mt-0">
                   <p
                     ref={subtitleRef}
-                    className="font-abc text-sm tracking-[0.2em] mb-6 lg:mb-10 text-[#1a1a1a]/70 overflow-hidden"
+                    className="font-abc text-sm tracking-[0.2em] mb-6 lg:mb-10 text-black/50 overflow-hidden"
                   >
                     <span className="block">HOWDY, WE'RE ROGUE</span>
                   </p>
@@ -701,10 +697,10 @@ const Home = ({ isPreloading }) => {
                   <div ref={heroTextRef} className="space-y-2">
                     {["MAKING CULTURE VISIBLE", "THROUGH DESIGN, TECH,", "AND A LITTLE MAGIC"].map((text, i) => (
                       <div key={i} className="overflow-hidden pb-4 -mb-4 pr-4 -mr-4">
-                        <h1 className="font-[druk] text-[13vw] sm:text-6xl md:text-6xl lg:text-[7.5vw] uppercase leading-[1.1] md:leading-[0.85] text-black mix-blend-multiply">
+                        <h1 className="font-[druk] text-[13vw] sm:text-6xl md:text-6xl lg:text-[7.5vw] uppercase leading-[1.1] md:leading-[0.85] text-black">
                           {text.includes("MAGIC") ? (
                             <span className="inline-block relative">
-                              AND <span className="font-[druk] font-light italic bg-gradient-to-r from-[#957E50] via-[#957E50] to-[#957E50] bg-clip-text text-transparent lowercase tracking-normal pr-4">a little magic</span>
+                              AND <span className="font-[druk] font-light italic bg-gradient-to-r from-[#8A2BE2] via-[#9370DB] to-[#8A2BE2] bg-clip-text text-transparent lowercase tracking-normal pr-4">a little magic</span>
                             </span>
                           ) : (
                             <ScrambleText text={text} isHovered={isScrambling} className="inline-block" />
@@ -720,35 +716,35 @@ const Home = ({ isPreloading }) => {
               <div className="flex flex-col gap-24 px-6 md:px-22  overflow-hidden mt-20">
                 {/* Description */}
                 <div className="lg:w-2/3">
-                  <div ref={starRef} className="w-12 h-12 mb-8 text-[hsl(40,30%,45%)]">
+                  <div ref={starRef} className="w-12 h-12 mb-8 text-[#8A2BE2]">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
                   </div>
 
                   <p
                     ref={descriptionRef}
-                    className="font-abc text-2xl md:text-3xl leading-[1.2] text-black font-medium"
+                    className="font-abc text-2xl md:text-3xl leading-[1.2] text-black/80 font-medium"
                   >
                     Infusing <span className="italic text-black font-semibold">playfulness</span> into everything we touch, creating distinctive brand solutions with extraordinary outcomes.
                   </p>
                 </div>
 
                 {/* Stats Grid - Now 4 columns */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 border-t border-[#1a1a1a]/10 pt-12">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 border-t border-black/10 pt-12">
                   {stats.map((stat, index) => (
                     <div
                       key={index}
                       ref={(el) => (statsRef.current[index] = el)}
-                      className="opacity-0 translate-y-8 group/stat cursor-pointer hover:bg-[#1a1a1a]/5 p-4 rounded-lg transition-colors duration-500"
+                      className="opacity-0 translate-y-8 group/stat cursor-pointer hover:bg-black/5 p-4 rounded-lg transition-colors duration-500"
                     >
-                      <p className="font-albra text-6xl md:text-7xl text-[#1a1a1a] leading-none mb-3 transition-transform duration-500 group-hover/stat:-translate-y-2 flex items-baseline">
+                      <p className="font-albra text-6xl md:text-7xl text-black leading-none mb-3 transition-transform duration-500 group-hover/stat:-translate-y-2 flex items-baseline">
                         <span ref={(el) => (statNumberRefs.current[index] = el)}>0</span>
-                        <span className="text-[#1a1a1a]/60 text-4xl ml-1 group-hover/stat:text-[#1a1a1a] transition-colors">{stat.suffix}</span>
+                        <span className="text-black/60 text-4xl ml-1 group-hover/stat:text-black transition-colors">{stat.suffix}</span>
                       </p>
-                      <p className="font-abc text-sm uppercase tracking-wider text-[#1a1a1a]/60 inline-block relative font-bold group-hover/stat:text-[#1a1a1a] transition-colors">
+                      <p className="font-abc text-sm uppercase tracking-wider text-black/60 inline-block relative font-bold group-hover/stat:text-black transition-colors">
                         {stat.label}
                       </p>
                       {stat.description && (
-                        <p className="font-abc text-xs text-[#1a1a1a]/40 mt-2">{stat.description}</p>
+                        <p className="font-abc text-xs text-black/40 mt-2">{stat.description}</p>
                       )}
                     </div>
                   ))}
@@ -759,17 +755,17 @@ const Home = ({ isPreloading }) => {
         </section >
 
         {/* --- ROLLING MARQUEE SEPARATOR --- */}
-        < div className="w-full relative py-12 bg-[#E9E4D9] overflow-hidden" >
+        < div className="w-full relative py-12 bg-[#E6E6FA] overflow-hidden" >
           <div className="absolute inset-0 flex items-center justify-center  scale-110 z-10 pointer-events-none">
-            <div className="w-full bg-[#957E50] py-6 shadow-2xl">
+            <div className="w-full bg-[#8A2BE2] py-6 shadow-2xl">
               <div className="marquee-container">
                 <div className="marquee-content animate-marquee-slower">
                   {[...Array(4)].map((_, i) => (
                     <div key={i} className="flex items-center">
                       {["STRATEGY", "DESIGN", "DEVELOPMENT", "MOTION"].map((word, j) => (
                         <div key={j} className="flex items-center px-12">
-                          <span className="font-[druk] text-6xl lg:text-8xl text-[#E9E4D9] uppercase tracking-wide">{word}</span>
-                          <span className="ml-12 text-[#000000] text-4xl">★</span>
+                          <span className="font-[druk] text-6xl lg:text-8xl text-[#ffffff] uppercase tracking-wide">{word}</span>
+                          <span className="ml-12 text-[#ffffff] text-4xl">★</span>
                         </div>
                       ))}
                     </div>
