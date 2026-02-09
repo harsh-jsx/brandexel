@@ -402,10 +402,7 @@ const Home = ({ isPreloading }) => {
       gsap.set(statsRef.current, { opacity: 0, y: 40 });
 
       // Image Curtain Setup
-      const curtain = curatinRef.current;
-      const mainImg = imageRef.current;
-      if (curtain) gsap.set(curtain, { scaleY: 1 });
-      if (mainImg) gsap.set(mainImg, { scale: 1.2 });
+
 
       // Main Timeline
       const tl = gsap.timeline({
@@ -596,7 +593,7 @@ const Home = ({ isPreloading }) => {
             <div ref={impossibleWrapperRef}>
               <h2
                 ref={impossibleRef}
-                className="bg-gradient-to-r from-[#957E50] via-[#957E50] to-[#957E50] bg-clip-text text-transparent  font-[druk] text-[20vw]  md:text-6xl  lg:text-9xl xl:text-[12vw] font-black md:py-1 uppercase"
+                className="bg-gradient-to-r from-[#957E50] via-[#FAE1AE] to-[#957E50] bg-clip-text text-transparent  font-[druk] text-[20vw]  md:text-6xl  lg:text-9xl xl:text-[12vw] font-black md:py-1 uppercase"
                 style={{ fontWeight: 900, }}
               >
                 IMPOSSIBLE
@@ -634,8 +631,8 @@ const Home = ({ isPreloading }) => {
         {/* ABOUT SECTION (ENHANCED) */}
         <section
           ref={aboutSectionRef}
-          className="min-h-screen overflow-x-hidden relative z-10 py-24 overflow-hidden"
-          style={{ background: "linear-gradient(to bottom, #ffffff, #E6E6FA)" }} // White to Lavender gradient
+          className="min-h-screen overflow-x-hidden relative z-10 py-24 overflow-hidden md:pl-[60px]"
+          style={{ background: "linear-gradient(to bottom, #ffffff, #D4C1EC)" }} // White to Lavender gradient
         >
           {/* Noise Overlay */}
           <div className="bg-noise opacity-30 mix-blend-multiply" />
@@ -646,8 +643,8 @@ const Home = ({ isPreloading }) => {
           {/* Technical Grid Overlay REMOVED for cleaner look */}
 
           {/* Enhanced Gradient Orbs for Light Theme */}
-          <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-[#957E50]/10 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
-          <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#C02FFB]/10 rounded-full blur-[100px] translate-y-1/4 translate-x-1/4 pointer-events-none" />
+          <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-[#957E50]/20 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+          <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#C02FFB]/30 rounded-full blur-[100px] translate-y-1/4 translate-x-1/4 pointer-events-none" />
 
           {/* Tech Annotations */}
           <div className="absolute top-28 left-10 text-[10px] uppercase font-mono text-black/40 hidden md:block tracking-widest z-20">
@@ -658,8 +655,8 @@ const Home = ({ isPreloading }) => {
           </div>
 
           <div className="relative z-10  lg: pb-20 overflow-hidden">
-            {/* Full Screen Parallax Video Block (Above Text) */}
-            <div className="w-full h-[100vh]  relative overflow-hidden mb-16 rounded-xl">
+            {/* Full Screen Video Block (Always Visible) */}
+            <div className="w-screen h-screen relative left-1/2 -ml-[50vw] mb-16 bg-black">
               <video
                 ref={imageRef}
                 src={brandVideo}
@@ -667,8 +664,7 @@ const Home = ({ isPreloading }) => {
                 muted
                 loop
                 playsInline
-                className="absolute inset-0 w-full h-[120%] object-cover object-center"
-                style={{ top: "-10%" }}
+                className="w-full h-full object-contain"
               />
             </div>
 
