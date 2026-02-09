@@ -450,9 +450,7 @@ const Home = ({ isPreloading }) => {
         // Stats Stagger
         .to(statsRef.current, { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 }, "-=0.8")
 
-        // Image Curtain Reveal
-        .to(curtain, { scaleY: 0, duration: 1.4, ease: "power4.inOut" }, "-=1")
-        .to(mainImg, { scale: 1, duration: 1.4, ease: "power2.out" }, "<")
+
 
         // Number Counter Trigger
         .add(() => {
@@ -656,7 +654,7 @@ const Home = ({ isPreloading }) => {
 
           <div className="relative z-10  lg: pb-20 overflow-hidden">
             {/* Full Screen Video Block (Always Visible) */}
-            <div className="w-screen h-screen relative left-1/2 -ml-[50vw] mb-16 bg-black">
+            <div className="w-screen h-[85vh] relative left-1/2 -ml-[50vw] mb-16 bg-black">
               <video
                 ref={imageRef}
                 src={brandVideo}
