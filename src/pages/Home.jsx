@@ -66,6 +66,10 @@ const Home = ({ isPreloading }) => {
   const starRef = useRef(null);
   const aboutContentRef = useRef(null);
 
+  // Selected Works Refs
+  const workListRef = useRef(null);
+  const floatingImageRef = useRef(null);
+  const worksHeaderRef = useRef(null);
 
   const images = [
     {
@@ -539,6 +543,86 @@ const Home = ({ isPreloading }) => {
     return () => ctx.revert();
   }, []);
 
+  // Selected Works Animation Logic
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header Reveal
+      const headerSpans = worksHeaderRef.current?.querySelectorAll("span > span");
+      if (headerSpans && headerSpans.length > 0) {
+        gsap.fromTo(headerSpans,
+          { yPercent: 100, opacity: 0 },
+          {
+            yPercent: 0,
+            opacity: 1,
+            duration: 1.2,
+            stagger: 0.1,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: worksHeaderRef.current,
+              start: "top 85%", // Trigger earlier
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      }
+
+      // List Items Reveal
+      const workItems = workListRef.current?.querySelectorAll(".work-item");
+      if (workItems && workItems.length > 0) {
+        gsap.fromTo(workItems,
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: workListRef.current,
+              start: "top 75%", // Trigger earlier
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      }
+
+      // Mouse Follow Logic
+      const moveImage = (e) => {
+        if (floatingImageRef.current) {
+          gsap.to(floatingImageRef.current, {
+            x: e.clientX,
+            y: e.clientY,
+            duration: 0.4,
+            ease: "power2.out",
+          });
+        }
+      };
+
+      window.addEventListener("mousemove", moveImage);
+
+      return () => window.removeEventListener("mousemove", moveImage);
+
+    }, workListRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const handleWorkHover = (image) => {
+    if (floatingImageRef.current) {
+      const imgEl = floatingImageRef.current.querySelector("img");
+      if (imgEl && imgEl.src !== image) {
+        imgEl.src = image;
+      }
+      gsap.to(floatingImageRef.current, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" });
+    }
+  };
+
+  const handleWorkLeave = () => {
+    if (floatingImageRef.current) {
+      gsap.to(floatingImageRef.current, { scale: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
+    }
+  };
+
   const scrollToSection = (sectionId) => {
     const targetRef = sectionId === "hero" ? heroSectionRef : aboutSectionRef;
     if (targetRef.current) {
@@ -772,61 +856,78 @@ const Home = ({ isPreloading }) => {
           <div className="h-32 md:h-48 w-full"></div>
         </div >
 
-        {/* SELECTED WORKS SECTION */}
-        < section id="selected-works" className="py-32 px-6 md:px-12 lg:px-20 relative z-10 bg-[#E9E4D9]" >
-          <div className="mb-24 border-b border-[#1a1a1a]/20 pb-8 flex justify-between items-end">
-            <span className="font-abc md:px-10 uppercase tracking-[0.2em] text-sm text-[#1a1a1a]/70">Selected Works</span>
-            <span className="font-abc text-sm text-[#1a1a1a]/60 hidden md:block">2023 — 2025</span>
+        {/* SELECTED WORKS SECTION - PREMIUM WHITE */}
+        <section
+          id="selected-works"
+          ref={workListRef}
+          className="py-32 px-6 md:px-12 lg:px-20 relative z-10 bg-white text-[#1a1a1a] overflow-hidden"
+        >
+          {/* Noise Overlay - Multiply for light bg */}
+          <div className="bg-noise opacity-30 mix-blend-multiply pointer-events-none" />
+
+          {/* Floating Image Container (Fixed to Viewport or Absolute to Section) */}
+          <div
+            ref={floatingImageRef}
+            className="fixed top-0 left-0 w-[400px] h-[300px] pointer-events-none z-50 opacity-0 scale-0 origin-center rounded-lg overflow-hidden shadow-2xl mix-blend-normal"
+            style={{ transform: "translate(-50%, -50%)" }}
+          >
+            <img src="" alt="Project Preview" className="w-full h-full object-cover" />
+            {/* Optional: Add an overlay or filter */}
+            <div className="absolute inset-0 bg-black/10" />
           </div>
 
-          <div className="flex flex-col">
+          <div
+            ref={worksHeaderRef}
+            className="mb-24 border-b border-[#1a1a1a]/20 pb-8 flex justify-between items-end relative z-10"
+          >
+            <span className="font-abc md:px-10 uppercase tracking-[0.2em] text-sm text-[#1a1a1a]/70 block overflow-hidden">
+              <span className="block">Selected Works</span>
+            </span>
+            <span className="font-abc text-sm text-[#1a1a1a]/60 hidden md:block overflow-hidden">
+              <span className="block">2023 — 2025</span>
+            </span>
+          </div>
+
+          <div className="flex flex-col relative z-20">
             {/* Combine Static + Dynamic Data */}
             {[
-              // Static Item
               {
                 name: "Disposek",
                 cat: "Identity / Motion",
-                image: "https://picsum.photos/seed/neotokyo/800/600",
-                link: "/case-study-disposek"
+                image: "https://fastly.picsum.photos/id/421/1920/1080.jpg?hmac=Gnli2YQHiOKz_MtRW--3GUsvc7Hg_8ICnqBrQKBj5-8",
+                link: "/case-study-disposek",
+                year: "2024"
               }, {
                 name: "Duo Glam",
                 cat: "Identity / Design",
-                image: "https://picsum.photos/seed/neotokyo/800/600",
-                link: "/case-study-duo"
+                image: "https://fastly.picsum.photos/id/421/1920/1080.jpg?hmac=Gnli2YQHiOKz_MtRW--3GUsvc7Hg_8ICnqBrQKBj5-8",
+                link: "/case-study-duo",
+                year: "2023"
               },
-              // Dynamic Items
-              // ...caseStudies.map(study => {
-              //   const attributes = study.attributes || study;
-              //   return {
-              //     name: attributes.title || "Untitled Project",
-              //     cat: attributes.category || "Case Study",
-              //     image: getStrapiMedia(attributes.thumbnail),
-              //     link: attributes.slug ? `/case-study/${attributes.slug}` : "#"
-              //   };
-              // })
-            ].map((work, i) => (
-              <Link to={work.link} key={i} className="group border-b md:px-10 border-[#1a1a1a]/20 py-12 flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer transition-all duration-500 hover:px-8 hover:bg-[#1a1a1a]/5">
-                <h3 className="font-[druk] text-7xl md:text-[8vw] uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#957E50] group-hover:via-[#957E50] group-hover:to-[#957E50] group-hover:bg-clip-text flex items-center gap-4">
-                  {work.name}
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-0 group-hover:w-auto overflow-hidden">
-                    <span className="text-2xl md:text-4xl text-[#1a1a1a]">↗</span>
-                  </div>
-                </h3>
-                <span className="font-abc text-lg text-[#1a1a1a]/60 group-hover:text-[#1a1a1a] mt-2 md:mt-0">{work.cat}</span>
 
-                {/* Hover Image Float (Simple version) */}
-                <div className="absolute pointer-events-none opacity-0 group-hover:opacity-10 scale-50 group-hover:scale-100 transition-all duration-500 z-20 w-[300px] h-[200px] right-20 top-1/2 -translate-y-1/2 hidden lg:block rounded- overflow-hidden shadow-2xl rotate-3 group-hover:-rotate-2">
-                  {work.image && <img src={work.image} alt={work.name} className="w-full h-full object-cover" />}
+            ].map((work, i) => (
+              <Link
+                to={work.link}
+                key={i}
+                className="work-item group border-b md:px-10 border-[#1a1a1a]/10 py-16 flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer transition-all duration-500 hover:bg-[#1a1a1a]/5"
+                onMouseEnter={() => handleWorkHover(work.image)}
+                onMouseLeave={handleWorkLeave}
+              >
+                <div className="flex items-center gap-8 transition-transform duration-500 group-hover:translate-x-4">
+                  <h3 className="font-[druk] text-7xl md:text-[7vw] uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#C02FFB] group-hover:to-[#957E50] group-hover:bg-clip-text">
+                    {work.name}
+                  </h3>
+                </div>
+
+                <div className="flex flex-col md:items-end mt-4 md:mt-0 opacity-60 group-hover:opacity-100 transition-opacity duration-500">
+                  <span className="font-abc text-sm uppercase tracking-wider mb-1 text-[#1a1a1a]">{work.cat}</span>
+                  <span className="font-mono text-xs text-[#1a1a1a]/40">{work.year}</span>
                 </div>
               </Link>
             ))}
           </div>
 
-          {/* <div className="mt-24 text-center">
-            <a href="/case-study" className="inline-block border border-[#1a1a1a] px-8 py-4 rounded-full font-abc uppercase tracking-wider hover:bg-[#1a1a1a] hover:text-[#E9E4D9] transition-all duration-300">
-              View All Projects
-            </a>
-          </div> */}
+
 
         </section >
       </div >
