@@ -3,53 +3,121 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Globe({ className }) {
     const canvasRef = useRef();
-    const [isHovered, setIsHovered] = useState(false);
+    const pointerInteracting = useRef(null);
+    const pointerInteractionMovement = useRef(0);
+    const [r, setR] = useState(0);
+
+    const locationRef = useRef([0, 0]); // To store current cursor location on globe [lat, lon]
+    const onRenderRef = useRef(null); // To store the update function if needed
 
     useEffect(() => {
         let phi = 0;
+        let width = 0;
+        const onResize = () => canvasRef.current && (width = canvasRef.current.offsetWidth);
+        window.addEventListener('resize', onResize);
+        onResize();
 
         const globe = createGlobe(canvasRef.current, {
             devicePixelRatio: 2,
-            width: 600 * 2,
-            height: 600 * 2,
+            width: width * 2,
+            height: width * 2,
             phi: 0,
             theta: 0,
             dark: 1,
             diffuse: 1.2,
             mapSamples: 16000,
-            mapBrightness: 10,
-            baseColor: [1, 1, 1], // Pure White
-            markerColor: isHovered ? [0.1, 0.8, 1] : [0.8, 0.8, 0.9], // Blue on hover, Soft silver otherwise
-            glowColor: isHovered ? [0.1, 0.5, 1] : [1, 1, 1], // Blue glow on hover
-            scale: 1.1,
-            opacity: 1,
+            mapBrightness: 6,
+            baseColor: [0.3, 0.3, 0.3],
+            markerColor: [0.1, 0.8, 1],
+            glowColor: [1, 1, 1],
+            scale: 1,
             markers: [
                 { location: [37.7595, -122.4367], size: 0.03 },
                 { location: [40.7128, -74.006], size: 0.03 },
-                { location: [51.5074, -0.1278], size: 0.03 }, // London
-                { location: [35.6762, 139.6503], size: 0.03 }, // Tokyo
-                { location: [28.6139, 77.2090], size: 0.03 }, // New Delhi
             ],
             onRender: (state) => {
-                state.phi = phi;
-                phi += 0.003; // Slower rotation
+                // Rotation
+                state.phi = phi + r;
+                phi += 0.003;
+
+                // Add cursor marker if interacting
+                if (pointerInteracting.current !== null) {
+                    const [cx, cy] = pointerInteracting.current;
+                    // Calculate vector from center
+                    // Canvas is square based on width
+                    const size = width;
+                    const x = (cx - size / 2) / (size / 2);
+                    const y = (cy - size / 2) / (size / 2);
+
+                    // Check if inside sphere
+                    if (x * x + y * y < 1) {
+                        const z = Math.sqrt(1 - x * x - y * y);
+                        // Rotate "back" by phi to find fixed location
+                        // Rotation around Y axis (phi)
+                        // We want the point on the sphere that is currently at (x, y, z)
+                        // The globe rotates by state.phi.
+                        // So we rotate (x, y, z) by -state.phi
+
+                        const r = state.phi;
+                        const x1 = x * Math.cos(r) - z * Math.sin(r);
+                        const z1 = x * Math.sin(r) + z * Math.cos(r);
+                        const y1 = y;
+
+                        const lat = Math.asin(y1) * (180 / Math.PI);
+                        const lon = Math.atan2(x1, z1) * (180 / Math.PI) - 90; // Adjustment might be needed
+
+                        // Create a dynamic marker list
+                        state.markers = [
+                            { location: [37.7595, -122.4367], size: 0.03 },
+                            { location: [40.7128, -74.006], size: 0.03 },
+                            { location: [lat, lon], size: 0.08 }
+                        ];
+                    } else {
+                        state.markers = [
+                            { location: [37.7595, -122.4367], size: 0.03 },
+                            { location: [40.7128, -74.006], size: 0.03 },
+                        ];
+                    }
+                }
             },
         });
 
         return () => {
             globe.destroy();
+            window.removeEventListener('resize', onResize);
         };
-    }, [isHovered]);
+    }, []);
 
     return (
         <div
             className={`w-full h-full flex items-center justify-center ${className}`}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            style={{
+                width: '100%',
+                maxWidth: 600,
+                aspectRatio: 1,
+                margin: 'auto',
+                position: 'relative',
+            }}
         >
             <canvas
                 ref={canvasRef}
-                style={{ width: 600, height: 600, maxWidth: "100%", aspectRatio: 1 }}
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    contain: 'layout paint size',
+                    opacity: 1,
+                    transition: 'opacity 1s ease',
+                }}
+                onPointerMove={(e) => {
+                    const rect = canvasRef.current.getBoundingClientRect();
+                    pointerInteracting.current = [
+                        e.clientX - rect.left,
+                        e.clientY - rect.top
+                    ];
+                }}
+                onPointerOut={() => {
+                    pointerInteracting.current = null;
+                }}
             />
         </div>
     );

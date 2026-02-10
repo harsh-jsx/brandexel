@@ -655,8 +655,26 @@ const Home = ({ isPreloading }) => {
           className="min-h-screen overflow-hidden flex items-center justify-center relative z-9999"
           style={{ backgroundColor: "#000000" }}
         >
-          {/* Light Effect for Home Page */}
-          <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] bg-white/5 rounded-full blur-[150px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+          <div
+            className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2
+             w-[140%] h-[420px]
+             blur-[120px] opacity-90
+             z-[0]"
+            style={{
+              background:
+                "radial-gradient(ellipse at top, rgba(124,120,255,0.9) 0%, rgba(88,80,200,0.65) 35%, rgba(40,30,120,0.35) 55%, transparent 70%)",
+            }}
+          />
+          <div
+            className="pointer-events-none absolute top-24 left-1/2 -translate-x-1/2
+             w-[120%] h-[300px]
+             blur-[160px] opacity-40
+             z-[0]"
+            style={{
+              background:
+                "radial-gradient(ellipse at top, rgba(90,85,255,0.6), transparent 70%)",
+            }}
+          />
 
           <div className="text-center relative z-10 px-4">
             <h1
