@@ -716,7 +716,7 @@ const Home = ({ isPreloading }) => {
         <section
           ref={aboutSectionRef}
           className="min-h-screen overflow-x-hidden relative z-10 py-24 overflow-hidden md:pl-[60px]"
-          style={{ background: "linear-gradient(to bottom, #ffffff, #dbebff)" }} // White to Premium Blue gradient
+          style={{ background: "linear-gradient(to bottom, #ffffff 40%, #C4D6FF 100%)" }} // White to Prominent Blue
         >
           {/* Noise Overlay */}
           <div className="bg-noise opacity-30 mix-blend-multiply" />
@@ -760,7 +760,7 @@ const Home = ({ isPreloading }) => {
                 {/* Rotating Globe (Replaces Badge) */}
                 <div
                   ref={globeRef}
-                  className="absolute -top-20 right-0 lg:-top-10 lg:right-0 w-64 h-64 lg:w-[500px] lg:h-[500px] z-20 pointer-events-none mix-blend-multiply opacity-80"
+                  className="absolute -top-20 right-0 lg:-top-10 lg:right-0 w-64 h-64 lg:w-[500px] lg:h-[500px] z-20 mix-blend-multiply opacity-80"
                 >
                   <Globe />
                 </div>
@@ -835,7 +835,7 @@ const Home = ({ isPreloading }) => {
         </section >
 
         {/* --- ROLLING MARQUEE SEPARATOR --- */}
-        < div className="w-full relative py-12 bg-[#dbebff] overflow-hidden" >
+        < div className="w-full relative py-12 bg-[#C4D6FF] overflow-hidden" >
           <div className="absolute inset-0 flex items-center justify-center  scale-110 z-10 pointer-events-none">
             <div className="w-full bg-[#8A2BE2] py-6 shadow-2xl">
               <div className="marquee-container">
@@ -862,7 +862,8 @@ const Home = ({ isPreloading }) => {
         <section
           id="selected-works"
           ref={workListRef}
-          className="py-32 px-6 md:px-12 lg:px-20 relative z-10 bg-white text-[#1a1a1a] overflow-hidden"
+          className="py-32 px-6 md:px-12 lg:px-20 relative z-10 text-[#1a1a1a] overflow-hidden"
+          style={{ background: "linear-gradient(to bottom, #C4D6FF 0%, #E2D1F9 50%, #ffffff 100%)" }} // Blue -> Purple Hint -> White
         >
           {/* Noise Overlay - Multiply for light bg */}
           <div className="bg-noise opacity-30 mix-blend-multiply pointer-events-none" />
@@ -916,7 +917,7 @@ const Home = ({ isPreloading }) => {
                 onMouseLeave={handleWorkLeave}
               >
                 <div className="flex items-center gap-8 transition-transform duration-500 group-hover:translate-x-4">
-                  <h3 className="font-[druk] text-7xl md:text-[7vw] uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#C02FFB] group-hover:to-[#957E50] group-hover:bg-clip-text">
+                  <h3 className="font-[druk] text-7xl md:text-[7vw] uppercase text-[#1a1a1a] transition-all duration-500 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#957E50] group-hover:to-[#957E50] group-hover:bg-clip-text">
                     {work.name}
                   </h3>
                 </div>
