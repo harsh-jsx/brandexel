@@ -655,6 +655,9 @@ const Home = ({ isPreloading }) => {
           className="min-h-screen overflow-hidden flex items-center justify-center relative z-9999"
           style={{ backgroundColor: "#000000" }}
         >
+          {/* Light Effect for Home Page */}
+          <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] bg-white/5 rounded-full blur-[150px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+
           <div className="text-center relative z-10 px-4">
             <h1
               ref={line1Ref}
@@ -710,11 +713,10 @@ const Home = ({ isPreloading }) => {
           </div>
         </section>
 
-        {/* ABOUT SECTION (ENHANCED) */}
         <section
           ref={aboutSectionRef}
           className="min-h-screen overflow-x-hidden relative z-10 py-24 overflow-hidden md:pl-[60px]"
-          style={{ background: "linear-gradient(to bottom, #ffffff, #D4C1EC)" }} // White to Lavender gradient
+          style={{ background: "linear-gradient(to bottom, #ffffff, #dbebff)" }} // White to Premium Blue gradient
         >
           {/* Noise Overlay */}
           <div className="bg-noise opacity-30 mix-blend-multiply" />
@@ -746,7 +748,7 @@ const Home = ({ isPreloading }) => {
                 muted
                 loop
                 playsInline
-                className="w-full h-full object-contain"
+                className="w-full h-full object-cover"
               />
             </div>
 
@@ -833,7 +835,7 @@ const Home = ({ isPreloading }) => {
         </section >
 
         {/* --- ROLLING MARQUEE SEPARATOR --- */}
-        < div className="w-full relative py-12 bg-[#E6E6FA] overflow-hidden" >
+        < div className="w-full relative py-12 bg-[#dbebff] overflow-hidden" >
           <div className="absolute inset-0 flex items-center justify-center  scale-110 z-10 pointer-events-none">
             <div className="w-full bg-[#8A2BE2] py-6 shadow-2xl">
               <div className="marquee-container">

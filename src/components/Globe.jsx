@@ -1,8 +1,9 @@
 import createGlobe from "cobe";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Globe({ className }) {
     const canvasRef = useRef();
+    const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
         let phi = 0;
@@ -18,8 +19,8 @@ export default function Globe({ className }) {
             mapSamples: 16000,
             mapBrightness: 10,
             baseColor: [1, 1, 1], // Pure White
-            markerColor: [0.8, 0.8, 0.9], // Soft silver/white markers
-            glowColor: [1, 1, 1], // White glow
+            markerColor: isHovered ? [0.1, 0.8, 1] : [0.8, 0.8, 0.9], // Blue on hover, Soft silver otherwise
+            glowColor: isHovered ? [0.1, 0.5, 1] : [1, 1, 1], // Blue glow on hover
             scale: 1.1,
             opacity: 1,
             markers: [
@@ -38,10 +39,14 @@ export default function Globe({ className }) {
         return () => {
             globe.destroy();
         };
-    }, []);
+    }, [isHovered]);
 
     return (
-        <div className={`w-full h-full flex items-center justify-center ${className}`}>
+        <div
+            className={`w-full h-full flex items-center justify-center ${className}`}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+        >
             <canvas
                 ref={canvasRef}
                 style={{ width: 600, height: 600, maxWidth: "100%", aspectRatio: 1 }}
