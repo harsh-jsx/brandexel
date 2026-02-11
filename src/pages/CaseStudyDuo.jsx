@@ -141,10 +141,10 @@ const CaseStudyDuo = () => {
                         </div>
                     </div>
                     <div className="md:col-span-8">
-                        <p className="font-albra text-4xl md:text-6xl leading-[0.9] uppercase mb-12">
+                        <p className="font-[mst] text-4xl md:text-4xl leading-[0.9] uppercase mb-12">
                             {project.description}
                         </p>
-                        <p className="font-abc text-lg max-w-2xl leading-relaxed opacity-75 ">
+                        <p className="font-[mst] text-lg max-w-2xl leading-relaxed opacity-75 ">
                             The objective was not decoration, but direction. Every visual decision was driven by ease of recognition, legibility, and mass applicability. The identity system was designed to work seamlessly across packaging, logistics, and digital platforms—clear, efficient, and built to perform in high-volume, real-world environments.
                         </p>
                     </div>
