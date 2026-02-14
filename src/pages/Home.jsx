@@ -655,7 +655,7 @@ const Home = ({ isPreloading }) => {
           className="min-h-screen overflow-hidden flex items-center justify-center relative z-9999"
           style={{ backgroundColor: "#000000" }}
         >
-          <div
+          {/* <div
             className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2
              w-[140%] h-[420px]
              blur-[120px] opacity-90
@@ -674,7 +674,7 @@ const Home = ({ isPreloading }) => {
               background:
                 "radial-gradient(ellipse at top, rgba(90,85,255,0.6), transparent 70%)",
             }}
-          />
+          /> */}
 
           <div className="text-center relative z-10 px-4">
             <h1
