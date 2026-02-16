@@ -484,13 +484,13 @@ const Services = ({ isLoading }) => {
                 </div>
 
                 <div className="col-span-10 md:col-span-5">
-                  <h3 className={`font-albra text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal leading-none transition-all duration-500 ${activeService === index ? "text-white translate-x-4" : "text-white/60"}`}>
+                  <h3 className={`font-[mst] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal leading-none transition-all duration-500 ${activeService === index ? "text-white translate-x-4" : "text-white/60"}`}>
                     <ScrambleText text={service.title} isHovered={activeService === index} className="inline-block" />
                   </h3>
                 </div>
 
                 <div className="col-span-12 md:col-span-4 mt-4 md:mt-0">
-                  <p className={`text-sm md:text-base leading-relaxed max-w-sm transition-all duration-500 ${activeService === index ? "text-white/80 translate-x-3" : "text-white/40"}`}>
+                  <p className={`text-sm font-[mst] md:text-base leading-relaxed max-w-sm transition-all duration-500 ${activeService === index ? "text-white/80 translate-x-3" : "text-white/40"}`}>
                     {service.description}
                   </p>
                 </div>
@@ -513,7 +513,7 @@ const Services = ({ isLoading }) => {
                         key={detailIndex}
                         className="px-6 py-2 rounded-full text-xs md:text-sm border border-white/20 text-white/50 relative overflow-hidden group/pill transition-all duration-300 hover:border-[#AF986A] hover:text-white hover:shadow-[0_125px_150px_rgba(207,173,115,0.2)]"
                       >
-                        <span className="relative z-10 transition-colors duration-300 group-hover/pill:text-white">
+                        <span className="relative font-[mst] z-10 transition-colors duration-300 group-hover/pill:text-white">
                           {detail}
                         </span>
                         {/* Moving Shine - Improved */}
@@ -530,7 +530,7 @@ const Services = ({ isLoading }) => {
         {/* Bottom CTA (Magnetic) */}
         <div ref={ctaRef} className="mt-20 md:mt-32 flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
-            <p className="text-2xl md:text-3xl lg:text-4xl font-albra mb-2 text-[#cccccc]">Have a project in mind?</p>
+            <p className="text-2xl md:text-3xl lg:text-4xl font-[mst] mb-2 text-[#cccccc]">Have a project in mind?</p>
             <p className="text-sm uppercase tracking-[0.2em] text-[#666666]">Let's create something extraordinary together</p>
           </div>
 

@@ -133,7 +133,7 @@ const Home = ({ isPreloading }) => {
       label: "launches",
       description: "For happy, amazing clients",
     },
-    { number: 4, suffix: "", label: "Team Members", description: "" },
+    { number: 4, suffix: "", label: "Core Team", description: "" },
     { number: 100, suffix: "%", label: "Remote workplace", description: "" },
   ];
 
@@ -465,7 +465,7 @@ const Home = ({ isPreloading }) => {
                 { innerText: 0 },
                 {
                   innerText: stat.number,
-                  duration: 2,
+                  duration: 3,
                   ease: "power2.out",
                   snap: { innerText: 1 },
                   delay: index * 0.1,
@@ -740,12 +740,13 @@ const Home = ({ isPreloading }) => {
           <div className="bg-noise opacity-30 mix-blend-multiply" />
 
           {/* Background Gradient Orb */}
-          <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[hsl(40,30%,55%)]/10 rounded-full blur-[100px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+          <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[hsl(40,30%,55%)]/10 rounded-full blur-[80px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
           {/* Technical Grid Overlay REMOVED for cleaner look */}
 
           {/* Enhanced Gradient Orbs for Light Theme */}
-          <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-[#957E50]/20 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+          <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-[#957E50]/20 rounded-full blur-[100px] opacity-15
+ -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
           <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#C02FFB]/30 rounded-full blur-[100px] translate-y-1/4 translate-x-1/4 pointer-events-none" />
 
           {/* Tech Annotations */}
@@ -787,7 +788,7 @@ const Home = ({ isPreloading }) => {
                 <div className="max-w-4xl px-6 md:px-20 relative z-10 mt-16 lg:mt-0">
                   <p
                     ref={subtitleRef}
-                    className="font-abc text-sm tracking-[0.2em] mb-6 lg:mb-10 text-black/50 overflow-hidden"
+                    className="font-[mst] text-sm tracking-[0.2em] mb-6 lg:mb-10 text-black/50 overflow-hidden"
                   >
                     <span className="block">HOWDY, WE'RE ROGUE</span>
                   </p>
@@ -795,7 +796,7 @@ const Home = ({ isPreloading }) => {
                   <div ref={heroTextRef} className="space-y-2">
                     {["MAKING CULTURE VISIBLE", "THROUGH DESIGN, TECH,", "AND A LITTLE MAGIC"].map((text, i) => (
                       <div key={i} className="overflow-hidden pb-4 -mb-4 pr-4 -mr-4">
-                        <h1 className="font-[druk] text-[13vw] sm:text-6xl md:text-6xl lg:text-[7.5vw] uppercase leading-[1.1] md:leading-[0.85] text-black">
+                        <h1 className="font-[druk] text-[13vw] sm:text-6xl md:text-6xl lg:text-[7.5vw] uppercase leading-[1.1] md:leading-[0.95] text-black">
                           {text.includes("MAGIC") ? (
                             <span className="inline-block relative">
                               AND <span className="font-[druk] font-light italic bg-gradient-to-r from-[#8A2BE2] via-[#9370DB] to-[#8A2BE2] bg-clip-text text-transparent lowercase tracking-normal pr-4">a little magic</span>
@@ -820,7 +821,7 @@ const Home = ({ isPreloading }) => {
 
                   <p
                     ref={descriptionRef}
-                    className="font-abc text-2xl md:text-3xl leading-[1.2] text-black/80 font-medium"
+                    className="font-[albra] text-2xl md:text-3xl leading-[1.2] text-black/80 font-medium"
                   >
                     Infusing <span className="italic text-black font-semibold">playfulness</span> into everything we touch, creating distinctive brand solutions with extraordinary outcomes.
                   </p>
@@ -838,11 +839,11 @@ const Home = ({ isPreloading }) => {
                         <span ref={(el) => (statNumberRefs.current[index] = el)}>0</span>
                         <span className="text-black/60 text-4xl ml-1 group-hover/stat:text-black transition-colors">{stat.suffix}</span>
                       </p>
-                      <p className="font-abc text-sm uppercase tracking-wider text-black/60 inline-block relative font-bold group-hover/stat:text-black transition-colors">
+                      <p className="font-[albra] text-sm uppercase tracking-wider text-black/60 inline-block relative font-bold group-hover/stat:text-black transition-colors">
                         {stat.label}
                       </p>
                       {stat.description && (
-                        <p className="font-abc text-xs text-black/40 mt-2">{stat.description}</p>
+                        <p className="font-[albra] text-xs text-black/40 mt-2">{stat.description}</p>
                       )}
                     </div>
                   ))}
@@ -894,7 +895,7 @@ const Home = ({ isPreloading }) => {
           >
             <img src="" alt="Project Preview" className="w-full h-full object-cover" />
             {/* Optional: Add an overlay or filter */}
-            <div className="absolute inset-0 bg-black/10" />
+            <div className="absolute inset-0 bg-black/10 backdrop-contrast-110" />
           </div>
 
           <div
