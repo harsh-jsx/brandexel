@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import Navbar from "../components/Navbar";
 import CustomCursor from "../components/CustomCursor";
 import MagneticButton from "../components/MagneticButton";
 import Footer from "../components/Footer";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 const InlineInput = ({
     placeholder,
@@ -309,8 +310,9 @@ const Careers = () => {
         { title: "Motion Designer", type: "Remote", dept: "Animation" }
     ];
 
-    const scrollToSection = () => {
-        // Placeholder
+    const scrollToSection = (sectionId) => {
+        const el = document.getElementById(sectionId);
+        if (el) gsap.to(window, { duration: 1.2, scrollTo: { y: el, offsetY: 0 }, ease: "power3.inOut" });
     };
 
     return (
@@ -384,13 +386,24 @@ const Careers = () => {
 
                     <div className="border-t border-white/20">
                         {roles.map((role, i) => (
-                            <div key={i} className="role-item group flex flex-col md:flex-row justify-between items-start md:items-center py-16 border-b border-white/20 hover:bg-white/5 transition-colors cursor-pointer px-4 relative overflow-hidden">
+                            <div
+                                key={i}
+                                className="role-item group flex flex-col md:flex-row justify-between items-start md:items-center py-16 border-b border-white/20 hover:bg-white/5 transition-colors cursor-pointer px-4 relative overflow-hidden"
+                                onClick={() => {
+                                    handleChange("role", role.title);
+                                    gsap.to(window, {
+                                        duration: 1.2,
+                                        scrollTo: { y: formRef.current, offsetY: 0 },
+                                        ease: "power3.inOut",
+                                    });
+                                }}
+                            >
                                 <div className="relative z-10">
                                     <h4 className="font-albra text-4xl md:text-6xl mb-3 group-hover:translate-x-4 transition-transform duration-500 ease-out">{role.title}</h4>
                                     <span className="font-abc text-base text-white/50 uppercase tracking-widest">{role.dept}</span>
                                 </div>
 
-                                <div className="flex items-center gap-8 mt-6 md:mt-0 relative z-10">
+                                <div className="flex items-center gap-8 mt-6 md:mt-0 relative z-10" >
                                     <span className="font-abc border border-white/30 rounded-full px-6 py-2 text-sm group-hover:bg-white group-hover:text-black transition-colors duration-300">{role.type}</span>
                                     <div className="w-16 h-16 rounded-full bg-[hsl(40,30%,55%)] text-black flex items-center justify-center opacity-0 group-hover:opacity-100 transform scale-50 group-hover:scale-100 transition-all duration-500">
                                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>
@@ -402,7 +415,7 @@ const Careers = () => {
                 </section>
 
                 {/* APPLICATION FORM */}
-                <section ref={formRef} className="py-32 px-6 md:px-12 lg:px-20 bg-black text-white relative z-10">
+                <section ref={formRef} id="form" className="py-32 px-6 md:px-12 lg:px-20 bg-black text-white relative z-10">
                     <div className="max-w-4xl mx-auto">
                         <h2 className="font-albra text-5xl md:text-7xl mb-12 uppercase text-center">
                             Apply Now
@@ -488,7 +501,6 @@ const Careers = () => {
                     </div>
                 </section>
 
-                <Footer />
             </div>
         </>
     );
