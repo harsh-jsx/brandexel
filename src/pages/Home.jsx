@@ -659,27 +659,6 @@ const Home = ({ isPreloading }) => {
           className="min-h-screen overflow-hidden flex items-center justify-center relative z-9999"
           style={{ backgroundColor: "#000000" }}
         >
-          {/* <div
-            className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2
-             w-[140%] h-[420px]
-             blur-[120px] opacity-90
-             z-[0]"
-            style={{
-              background:
-                "radial-gradient(ellipse at top, rgba(124,120,255,0.9) 0%, rgba(88,80,200,0.65) 35%, rgba(40,30,120,0.35) 55%, transparent 70%)",
-            }}
-          />
-          <div
-            className="pointer-events-none absolute top-24 left-1/2 -translate-x-1/2
-             w-[120%] h-[300px]
-             blur-[160px] opacity-40
-             z-[0]"
-            style={{
-              background:
-                "radial-gradient(ellipse at top, rgba(90,85,255,0.6), transparent 70%)",
-            }}
-          /> */}
-
           <div className="text-center relative z-10 px-4">
             <h1
               ref={line1Ref}
@@ -749,9 +728,8 @@ const Home = ({ isPreloading }) => {
           {/* Technical Grid Overlay REMOVED for cleaner look */}
 
           {/* Enhanced Gradient Orbs for Light Theme */}
-          <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-[#957E50]/20 rounded-full blur-[100px] opacity-15
- -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
-          <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#C02FFB]/30 rounded-full blur-[100px] translate-y-1/4 translate-x-1/4 pointer-events-none" />
+          <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-[#957E50]/20 rounded-full blur-[100px] opacity-15 -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+          <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#C4D6FF]/30 rounded-full blur-[100px] translate-y-1/4 translate-x-1/4 pointer-events-none" />
 
           {/* Tech Annotations */}
           <div className="absolute top-28 left-10 text-[10px] uppercase font-mono text-black/40 hidden md:block tracking-widest z-20">
@@ -803,7 +781,7 @@ const Home = ({ isPreloading }) => {
                         <h1 className="font-[druk] text-[13vw] sm:text-6xl md:text-6xl lg:text-[7.5vw] uppercase leading-[1.1] md:leading-[0.95] text-black">
                           {text.includes("MAGIC") ? (
                             <span className="inline-block relative">
-                              AND <span className="font-[druk] font-light italic bg-gradient-to-r from-[#8A2BE2] via-[#9370DB] to-[#8A2BE2] bg-clip-text text-transparent lowercase tracking-normal pr-4">a little magic</span>
+                              AND <span className="font-[druk] font-light italic bg-gradient-to-r from-[#F4DBA9] via-[#978052] to-[#978052] bg-clip-text text-transparent lowercase tracking-normal pr-4">a little magic</span>
                             </span>
                           ) : (
                             <ScrambleText text={text} isHovered={isScrambling} className="inline-block" />
@@ -819,7 +797,7 @@ const Home = ({ isPreloading }) => {
               <div className="flex flex-col gap-24 px-6 md:px-22  overflow-hidden mt-20">
                 {/* Description */}
                 <div className="lg:w-2/3">
-                  <div ref={starRef} className="w-12 h-12 mb-8 text-[#8A2BE2]">
+                  <div ref={starRef} className="w-12 h-12 mb-8 text-[#C3AB7B]">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
                   </div>
 
@@ -858,17 +836,22 @@ const Home = ({ isPreloading }) => {
         </section >
 
         {/* --- ROLLING MARQUEE SEPARATOR --- */}
-        < div className="w-full relative py-12 bg-[#C4D6FF] overflow-hidden" >
-          <div className="absolute inset-0 flex items-center justify-center  scale-110 z-10 pointer-events-none">
-            <div className="w-full bg-[#8A2BE2] py-6 shadow-2xl">
+        <div className="w-full relative py-12 bg-[#C4D6FF] overflow-hidden">
+          <div className="absolute inset-0 flex items-center justify-center scale-110 z-10 pointer-events-none">
+            <div
+              className="w-full py-6 shadow-2xl"
+              style={{
+                background: "linear-gradient(to right, #957E50, #FAE1AE, #957E50)",
+              }}
+            >
               <div className="marquee-container">
                 <div className="marquee-content animate-marquee-slower">
                   {[...Array(4)].map((_, i) => (
                     <div key={i} className="flex items-center">
                       {["STRATEGY", "DESIGN", "DEVELOPMENT", "MOTION"].map((word, j) => (
                         <div key={j} className="flex items-center px-12">
-                          <span className="font-[druk] text-6xl lg:text-8xl text-[#ffffff] uppercase tracking-wide">{word}</span>
-                          <span className="ml-12 text-[#ffffff] text-4xl">★</span>
+                          <span className="font-[druk] text-6xl lg:text-8xl uppercase tracking-wide" style={{ color: "#1a1a1a" }}>{word}</span>
+                          <span className="ml-12 text-4xl" style={{ color: "#1a1a1a" }}>★</span>
                         </div>
                       ))}
                     </div>
@@ -886,7 +869,7 @@ const Home = ({ isPreloading }) => {
           id="selected-works"
           ref={workListRef}
           className="py-32 px-6 md:px-12 lg:px-20 relative z-10 text-[#1a1a1a] overflow-hidden"
-          style={{ background: "linear-gradient(to bottom, #C4D6FF 0%, #E2D1F9 50%, #ffffff 100%)" }} // Blue -> Purple Hint -> White
+          style={{ background: "white" }} // Blue -> Purple Hint -> White
         >
           {/* Noise Overlay - Multiply for light bg */}
           <div className="bg-noise opacity-30 mix-blend-multiply pointer-events-none" />

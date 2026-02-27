@@ -3,12 +3,12 @@ import { motion } from "motion/react";
 
 const MarqueeLoader = () => {
   const marqueeText = [
-    "ROGUE STUDIO",
-    "ROGUE STUDIO",
-    "ROGUE STUDIO",
-    "ROGUE STUDIO",
-    "ROGUE STUDIO",
-    "ROGUE STUDIO",
+    "BRANDEXEL",
+    "BRANDEXEL",
+    "BRANDEXEL",
+    "BRANDEXEL",
+    "BRANDEXEL",
+    "BRANDEXEL",
   ];
 
   return (
