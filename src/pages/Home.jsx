@@ -890,12 +890,10 @@ const Home = ({ isPreloading }) => {
           {/* Floating Image Container (Fixed to Viewport or Absolute to Section) */}
           <div
             ref={floatingImageRef}
-            className="fixed top-0 left-0 w-[400px] h-[300px] pointer-events-none z-50 opacity-0 scale-0 origin-center rounded-lg overflow-hidden shadow-2xl mix-blend-normal"
+            className=""
             style={{ transform: "translate(-50%, -50%)" }}
           >
-            <img src="" alt="Project Preview" className="w-full h-full object-cover" />
             {/* Optional: Add an overlay or filter */}
-            <div className="absolute inset-0 bg-black/10 backdrop-contrast-110" />
           </div>
 
           <div
