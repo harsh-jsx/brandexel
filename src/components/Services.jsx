@@ -452,7 +452,7 @@ const Services = ({ isLoading }) => {
         </div>
 
         {/* Services Grid (Shiny Cards) */}
-        <div className="space-y-0 border-b border-white/20">
+        <div className="space-y-0 border-b    border-white/20">
           {services.map((service, index) => (
             <div
               key={index}
@@ -506,13 +506,13 @@ const Services = ({ isLoading }) => {
               </div>
 
               {/* Details (Enhanced) */}
-              <div className={`grid grid-cols-12 gap-4 md:gap-8 overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${activeService === index ? "max-h-[200px] opacity-100 mt-8" : "max-h-0 opacity-0 mt-0"}`}>
+              <div className={`grid grid-cols-12 gap-4 md:gap-8 overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${activeService === index ? "max-h-[600px] opacity-100 mt-8" : "max-h-0 opacity-0 mt-0"}`}>
                 <div className="col-span-12 md:col-start-2 md:col-span-10 px-4">
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-3 typeshi">
                     {service.details.map((detail, detailIndex) => (
                       <span
                         key={detailIndex}
-                        className="px-6 py-2 rounded-full text-xs md:text-sm border border-white/20 text-white/50 relative overflow-hidden group/pill transition-all duration-300 hover:border-[#AF986A] hover:text-white hover:shadow-[0_125px_150px_rgba(207,173,115,0.2)]"
+                        className="px-6 py-2  rounded-full text-xs md:text-sm border border-white/20 text-white/50 relative overflow-hidden group/pill transition-all duration-300 hover:border-[#AF986A] hover:text-white hover:shadow-[0_125px_150px_rgba(207,173,115,0.2)]"
                       >
                         <span className="relative font-[mst] z-10 transition-colors duration-300 group-hover/pill:text-white">
                           {detail}
