@@ -761,7 +761,7 @@ const Home = ({ isPreloading }) => {
                 {/* Rotating Globe (Replaces Badge) */}
                 <div
                   ref={globeRef}
-                  className="absolute -top-20 right-0 lg:-top-10 lg:right-0 w-64 h-64 lg:w-[500px] lg:h-[500px] z-20 mix-blend-multiply opacity-80"
+                  className="absolute -top-20 right-0 lg:-top-32 lg:right-0 w-96 h-96 lg:w-[800px] lg:h-[800px] z-20 mix-blend-multiply opacity-80"
                 >
                   <Globe />
                 </div>

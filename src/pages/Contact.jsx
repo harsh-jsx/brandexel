@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import CustomCursor from "../components/CustomCursor";
+import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 gsap.registerPlugin(SplitText);
@@ -83,7 +83,6 @@ const InlineSelect = ({ options, value, onChange, index, placeholder, handleInpu
 );
 
 const Contact = () => {
-  const navigate = useNavigate();
   const containerRef = useRef(null);
   const revealRef = useRef(null);
   const headerRef = useRef(null);
@@ -342,42 +341,7 @@ const Contact = () => {
 
   return (
     <>
-      <CustomCursor />
-
-      {/* Back button */}
-      <button
-        onClick={() => navigate("/")}
-        className="fixed top-8 left-8 z-50 group flex items-center gap-4"
-      >
-        <div
-          className="relative w-12 h-12 rounded-full border border-foreground/20 
-          flex items-center justify-center overflow-hidden
-          group-hover:border-secondary transition-colors duration-500"
-        >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            className="text-white relative z-10 transform 
-              group-hover:-translate-x-1 transition-transform duration-300"
-          >
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
-          <div
-            className="absolute inset-0 bg-secondary scale-0 group-hover:scale-100 
-            transition-transform duration-500 rounded-full origin-center"
-          />
-        </div>
-        <span
-          className="text-white/60 text-xs tracking-[0.2em] uppercase
-          group-hover:text-white transition-colors duration-300"
-        >
-          Back
-        </span>
-      </button>
+      <Navbar isDarkMode={true} />
 
       <div
         ref={containerRef}

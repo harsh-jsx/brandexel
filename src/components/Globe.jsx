@@ -93,7 +93,7 @@ export default function Globe({ className }) {
             className={`w-full h-full flex items-center justify-center ${className}`}
             style={{
                 width: '100%',
-                maxWidth: 600,
+                maxWidth: 1000,
                 aspectRatio: 1,
                 margin: 'auto',
                 position: 'relative',
