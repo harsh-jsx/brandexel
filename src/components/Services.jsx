@@ -291,6 +291,7 @@ const Services = ({ isLoading }) => {
 
   return (
     <section
+      id="services"
       ref={sectionRef}
       className="min-h-screen overflow-hidden relative z-10 py-32 md:py-40"
       style={{

@@ -472,14 +472,7 @@ const Footer = ({ isLoading }) => {
                 </p>
               </div>
             </div>
-            <div className="flex justify-center items-center w-full mt-10">
 
-              <p
-                className="text-[15px] tracking-[0.2em] text-white uppercase text-center transition hover:text-[hsl(40,30%,55%)] duration-700 hover:scale-125"
-              >
-                <a href="http://403labs.in" target="_blank" rel="noopener noreferrer" className="underline">Made with ❤️ by Technology Partner: 403 Labs </a>
-              </p>
-            </div>
           </div>
 
         </div>
@@ -493,7 +486,8 @@ const Footer = ({ isLoading }) => {
             className="text-[10px] tracking-[0.2em] uppercase"
             style={{ color: "hsl(0, 0%, 30%)" }}
           >
-            © 2026 Brandexel Studio
+            Copyright © 2025 Brandexel By Raavi Wealth Management LLP (BrandExel) | All Rights Reserved.
+
           </p>
 
 

@@ -239,12 +239,12 @@ export default function ClientLogos({ isLoading }) {
         </div>
 
         {/* Logos */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:px-12 md:gap-8 mb-28">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:px-12 md:gap-10 mb-28">
           {clients.map((client, index) => (
             <div
               key={client.name}
               ref={(el) => (logosRef.current[index] = el)}
-              className="group relative flex items-center justify-center py-10 md:py-14 border border-white/10 rounded-xl backdrop-blur-sm"
+              className="group relative flex items-center justify-center py-14 md:py-20 border border-white/10 rounded-xl backdrop-blur-sm"
               style={{
                 background:
                   "linear-gradient(135deg, hsla(0,0%,100%,0.02), transparent)",
@@ -253,7 +253,7 @@ export default function ClientLogos({ isLoading }) {
               <img
                 src={client.logo}
                 alt={client.name}
-                className="logo-img max-h-28 md:max-h-48 opacity-70 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
+                className="logo-img max-h-36 md:max-h-64 opacity-70 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
                 draggable={false}
               />
             </div>

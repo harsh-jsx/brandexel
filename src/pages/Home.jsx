@@ -624,11 +624,15 @@ const Home = ({ isPreloading }) => {
   };
 
   const scrollToSection = (sectionId) => {
-    const targetRef = sectionId === "hero" ? heroSectionRef : aboutSectionRef;
-    if (targetRef.current) {
+    let target;
+    if (sectionId === "hero") target = heroSectionRef.current;
+    else if (sectionId === "about") target = aboutSectionRef.current;
+    else target = document.getElementById(sectionId);
+
+    if (target) {
       gsap.to(window, {
         duration: 1.2,
-        scrollTo: { y: targetRef.current, offsetY: 0 },
+        scrollTo: { y: target, offsetY: 0 },
         ease: "power3.inOut",
       });
     }
