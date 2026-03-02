@@ -89,7 +89,7 @@
 }
 
 .animate-marquee-slower {
-  animation: marquee 30s linear infinite;
+  animation: marquee 55s linear infinite;
 }
 
 /* Navbar specific text styles */
