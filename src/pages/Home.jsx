@@ -841,17 +841,17 @@ const Home = ({ isPreloading }) => {
             <div
               className="w-full py-6 shadow-2xl"
               style={{
-                background: "linear-gradient(to right, #957E50, #FAE1AE, #957E50)",
+                background: "linear-gradient(90deg, #1E293B 0%, #334155 50%, #1E293B 100%)",
               }}
             >
               <div className="marquee-container">
-                <div className="marquee-content animate-marquee-slower">
+                <div className="marquee-content  animate-marquee-slower">
                   {[...Array(4)].map((_, i) => (
                     <div key={i} className="flex items-center">
                       {["STRATEGY", "DESIGN", "DEVELOPMENT", "MOTION"].map((word, j) => (
-                        <div key={j} className="flex items-center px-12">
-                          <span className="font-[druk] text-6xl lg:text-8xl uppercase tracking-wide" style={{ color: "#1a1a1a" }}>{word}</span>
-                          <span className="ml-12 text-4xl" style={{ color: "#1a1a1a" }}>★</span>
+                        <div key={j} className="flex items-center px-12 ">
+                          <span className="font-[druk] text-6xl lg:text-8xl uppercase tracking-wide" style={{ color: "white" }}>{word}</span>
+                          <span className="ml-12 text-4xl" style={{ color: "black" }}>★</span>
                         </div>
                       ))}
                     </div>
