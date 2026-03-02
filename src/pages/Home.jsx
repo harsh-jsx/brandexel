@@ -761,7 +761,7 @@ const Home = ({ isPreloading }) => {
                 {/* Rotating Globe (Replaces Badge) */}
                 <div
                   ref={globeRef}
-                  className="absolute -top-20 right-0 lg:-top-32 lg:right-0 w-96 h-96 md:[w-500px] md:[h-500px] lg:w-[600px] lg:h-[600px] z-20 mix-blend-multiply opacity-80"
+                  className="absolute -top-20 right-0 lg:-top-32 lg:right-0 w-96 h-96 lg:w-[600px] lg:h-[600px] z-20 mix-blend-multiply opacity-80"
                 >
                   <Globe />
                 </div>
@@ -841,17 +841,17 @@ const Home = ({ isPreloading }) => {
             <div
               className="w-full py-6 shadow-2xl"
               style={{
-                background: "linear-gradient(90deg, #1E293B 0%, #334155 50%, #1E293B 100%)",
+                background: "linear-gradient(to right, #957E50, #FAE1AE, #957E50)",
               }}
             >
               <div className="marquee-container">
-                <div className="marquee-content  animate-marquee-slower">
+                <div className="marquee-content animate-marquee-slower">
                   {[...Array(4)].map((_, i) => (
                     <div key={i} className="flex items-center">
                       {["STRATEGY", "DESIGN", "DEVELOPMENT", "MOTION"].map((word, j) => (
-                        <div key={j} className="flex items-center px-12 ">
-                          <span className="font-[druk] text-6xl lg:text-8xl uppercase tracking-wide" style={{ color: "white" }}>{word}</span>
-                          <span className="ml-12 text-4xl" style={{ color: "black" }}>★</span>
+                        <div key={j} className="flex items-center px-12">
+                          <span className="font-[druk] text-6xl lg:text-8xl uppercase tracking-wide" style={{ color: "#1a1a1a" }}>{word}</span>
+                          <span className="ml-12 text-4xl" style={{ color: "#1a1a1a" }}>★</span>
                         </div>
                       ))}
                     </div>
