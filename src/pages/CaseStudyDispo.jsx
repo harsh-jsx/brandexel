@@ -96,7 +96,7 @@ const CaseStudyDispo = () => {
             <CustomCursor />
             <Navbar />
 
-            <div ref={containerRef} className="bg-[#E9E4D9] text-[#1a1a1a] min-h-screen">
+            <div ref={containerRef} className="text-[#1a1a1a] min-h-screen relative overflow-hidden" style={{ background: "linear-gradient(135deg, #f5eeff 0%, #ebe5ff 50%, #e0d8ff 100%)" }}>
 
                 {/* HERO */}
                 <section className="relative h-screen overflow-hidden flex items-end pb-24 px-6 md:px-12 lg:px-20">
@@ -110,7 +110,7 @@ const CaseStudyDispo = () => {
                         <div className="absolute inset-0 bg-black/20" />
                     </div>
 
-                    <div ref={titleRef} className="relative z-10 w-full mix-blend-difference text-[#E9E4D9]">
+                    <div ref={titleRef} className="relative z-10 w-full mix-blend-difference" style={{ color: "#f0e6ff" }}>
                         <div className="overflow-hidden">
                             <h1 className="font-albra md:text-[15vw] text-[25vw] leading-[0.8] uppercase tracking-tighter">
                                 {project.title.split(" ")[0]}
@@ -151,7 +151,7 @@ const CaseStudyDispo = () => {
                 </section>
 
                 {/* HORIZONTAL GALLERY */}
-                <section ref={galleryRef} className="h-screen w-full overflow-hidden flex items-center bg-[#1a1a1a] text-[#E9E4D9]">
+                <section ref={galleryRef} className="h-screen w-full overflow-hidden flex items-center text-[#e8e4ff]" style={{ background: "linear-gradient(180deg, #1a1625 0%, #0f0d18 100%)" }}>
                     <div className="flex flex-nowrap h-[80vh] px-20 gap-20">
                         {[1, 2, 3, 4].map((i) => (
                             <div key={i} className="gallery-item flex-shrink-0 w-[60vw] md:w-[40vw] h-full relative group overflow-hidden">
@@ -173,12 +173,12 @@ const CaseStudyDispo = () => {
                 </section>
 
                 {/* NEXT PROJECT */}
-                <section ref={nextProjectRef} className="h-screen flex items-center justify-center bg-[#E9E4D9] relative overflow-hidden group cursor-pointer">
+                <section ref={nextProjectRef} className="h-screen flex items-center justify-center relative overflow-hidden group cursor-pointer" style={{ background: "linear-gradient(135deg, #f5eeff 0%, #e0d8ff 100%)" }}>
                     <Link to="/case-study-disposek" className="absolute inset-0 z-20" /> {/* Link back to home or next project */}
 
                     <div className="absolute inset-0 bg-black transform scale-y-0 group-hover:scale-y-100 transition-transform duration-700 origin-bottom z-0" />
 
-                    <div className="relative z-10 text-center mix-blend-difference text-[#1a1a1a] group-hover:text-[#E9E4D9] transition-colors duration-500">
+                    <div className="relative z-10 text-center mix-blend-difference text-[#1a1a1a] group-hover:text-[#f0e6ff] transition-colors duration-500">
                         <p className="font-abc uppercase tracking-[0.3em] mb-4">Next Case Study</p>
                         <h2 className="font-albra text-[10vw] leading-none uppercase">
                             Disposek

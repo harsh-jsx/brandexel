@@ -717,19 +717,18 @@ const Home = ({ isPreloading }) => {
         <section
           ref={aboutSectionRef}
           className="min-h-screen overflow-x-hidden relative z-10 py-24 overflow-hidden md:pl-[60px]"
-          style={{ background: "linear-gradient(to bottom, #ffffff 40%, #C4D6FF 100%)" }} // White to Prominent Blue
+          style={{
+            background:
+              "linear-gradient(135deg, #faf7ff 0%, #f0eaff 40%, #e5dcff 100%)",
+          }}
         >
           {/* Noise Overlay */}
           <div className="bg-noise opacity-30 mix-blend-multiply" />
 
-          {/* Background Gradient Orb */}
-          <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[hsl(40,30%,55%)]/10 rounded-full blur-[80px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
-
-          {/* Technical Grid Overlay REMOVED for cleaner look */}
-
-          {/* Enhanced Gradient Orbs for Light Theme */}
-          <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-[#957E50]/20 rounded-full blur-[100px] opacity-15 -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
-          <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#C4D6FF]/30 rounded-full blur-[100px] translate-y-1/4 translate-x-1/4 pointer-events-none" />
+          {/* Logo-inspired gradient orbs: purple (left) → indigo (right) */}
+          <div className="absolute top-1/2 left-0 w-[500px] h-[500px] rounded-full blur-[80px] -translate-y-1/2 -translate-x-1/2 pointer-events-none opacity-40" style={{ background: "radial-gradient(circle, rgba(224,96,255,0.25) 0%, transparent 70%)" }} />
+          <div className="absolute top-1/4 right-0 w-[600px] h-[600px] rounded-full blur-[100px] opacity-30 -translate-y-1/2 translate-x-1/4 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(75,0,130,0.2) 0%, transparent 70%)" }} />
+          <div className="absolute bottom-0 left-1/2 w-[400px] h-[400px] rounded-full blur-[100px] opacity-20 -translate-x-1/2 translate-y-1/3 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(147,112,219,0.25) 0%, transparent 70%)" }} />
 
           {/* Tech Annotations */}
           <div className="absolute top-28 left-10 text-[10px] uppercase font-mono text-black/40 hidden md:block tracking-widest z-20">
@@ -836,12 +835,19 @@ const Home = ({ isPreloading }) => {
         </section >
 
         {/* --- ROLLING MARQUEE SEPARATOR --- */}
-        <div className="w-full relative py-12 bg-[#C4D6FF] overflow-hidden">
+        <div
+          className="w-full relative py-16 overflow-hidden"
+          style={{
+            background:
+              "linear-gradient(135deg, #faf7ff 0%, #f0eaff 40%, #e5dcff 100%)",
+          }}
+        >
           <div className="absolute inset-0 flex items-center justify-center scale-110 z-10 pointer-events-none">
             <div
-              className="w-full py-6 shadow-2xl"
+              className="w-full py-5 md:py-6 rounded-sm"
               style={{
-                background: "linear-gradient(to right, #957E50, #FAE1AE, #957E50)",
+                background: "linear-gradient(to bottom, hsl(40, 32%, 52%) 0%, hsl(40, 55%, 78%) 50%, hsl(40, 32%, 52%) 100%)",
+                boxShadow: "0 4px 24px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.2)",
               }}
             >
               <div className="marquee-container">
@@ -849,9 +855,17 @@ const Home = ({ isPreloading }) => {
                   {[...Array(4)].map((_, i) => (
                     <div key={i} className="flex items-center">
                       {["STRATEGY", "DESIGN", "DEVELOPMENT", "MOTION"].map((word, j) => (
-                        <div key={j} className="flex items-center px-12">
-                          <span className="font-[druk] text-6xl lg:text-8xl uppercase tracking-wide" style={{ color: "#1a1a1a" }}>{word}</span>
-                          <span className="ml-12 text-4xl" style={{ color: "#1a1a1a" }}>★</span>
+                        <div key={j} className="flex items-center px-10 md:px-14">
+                          <span
+                            className="font-[druk] text-5xl md:text-6xl lg:text-7xl uppercase tracking-wide font-bold"
+                            style={{
+                              color: "#0a0a0a",
+                              textShadow: "0 1px 0 rgba(255,255,255,0.3), 0 -1px 2px rgba(0,0,0,0.15)",
+                            }}
+                          >
+                            {word}
+                          </span>
+                          <span className="ml-10 md:ml-14 text-2xl md:text-3xl" style={{ color: "#0a0a0a" }} aria-hidden>★</span>
                         </div>
                       ))}
                     </div>
@@ -860,19 +874,24 @@ const Home = ({ isPreloading }) => {
               </div>
             </div>
           </div>
-          {/* Spacer to maintain height given that the marquee is absolute/rotated (optional, or just let it float) */}
-          <div className="h-32 md:h-48 w-full"></div>
-        </div >
+          <div className="h-28 md:h-40 w-full" />
+        </div>
 
-        {/* SELECTED WORKS SECTION - PREMIUM WHITE */}
+        {/* SELECTED WORKS SECTION - Logo-inspired subtle purple-indigo */}
         <section
           id="selected-works"
           ref={workListRef}
           className="py-32 px-6 md:px-12 lg:px-20 relative z-10 text-[#1a1a1a] overflow-hidden"
-          style={{ background: "white" }} // Blue -> Purple Hint -> White
+          style={{
+            background:
+              "linear-gradient(135deg, #faf7ff 0%, #f0eaff 40%, #e5dcff 100%)",
+          }}
         >
           {/* Noise Overlay - Multiply for light bg */}
           <div className="bg-noise opacity-30 mix-blend-multiply pointer-events-none" />
+          {/* Subtle glow orbs matching logo gradient */}
+          <div className="absolute top-0 left-0 w-[400px] h-[400px] rounded-full blur-[120px] opacity-20 pointer-events-none -translate-x-1/2 -translate-y-1/2" style={{ background: "rgba(224,96,255,0.15)" }} />
+          <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full blur-[120px] opacity-20 pointer-events-none translate-x-1/2 translate-y-1/2" style={{ background: "rgba(75,0,130,0.12)" }} />
 
           {/* Floating Image Container (Fixed to Viewport or Absolute to Section) */}
           <div
