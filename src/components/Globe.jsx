@@ -17,15 +17,19 @@ export default function Globe({ className }) {
         window.addEventListener('resize', onResize);
         onResize();
 
+        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+        const dpr = isMobile ? 1.5 : 2;
+        const mapSamples = isMobile ? 6000 : 12000;
+
         const globe = createGlobe(canvasRef.current, {
-            devicePixelRatio: 2,
-            width: width * 2,
-            height: width * 2,
+            devicePixelRatio: dpr,
+            width: width * dpr,
+            height: width * dpr,
             phi: 0,
             theta: 0,
             dark: 1,
             diffuse: 1.2,
-            mapSamples: 16000,
+            mapSamples,
             mapBrightness: 6,
             baseColor: [0.3, 0.3, 0.3],
             markerColor: [0.1, 0.8, 1],
@@ -36,9 +40,9 @@ export default function Globe({ className }) {
                 { location: [40.7128, -74.006], size: 0.03 },
             ],
             onRender: (state) => {
-                // Rotation
+                // Rotation (slower for calmer look)
                 state.phi = phi + r;
-                phi += 0.003;
+                phi += 0.001;
 
                 // Add cursor marker if interacting
                 if (pointerInteracting.current !== null) {

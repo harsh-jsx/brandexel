@@ -757,10 +757,10 @@ const Home = ({ isPreloading }) => {
               {/* Header / Top Part */}
               <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 relative">
 
-                {/* Rotating Globe (Replaces Badge) */}
+                {/* Rotating Globe (Replaces Badge) - smaller on mobile for responsiveness */}
                 <div
                   ref={globeRef}
-                  className="absolute -top-20 right-0 lg:-top-32 lg:right-0 w-96 h-96 lg:w-[600px] lg:h-[600px] z-20 mix-blend-multiply opacity-80"
+                  className="absolute -top-10 right-0 w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:-top-32 lg:right-0 lg:w-[600px] lg:h-[600px] z-20 mix-blend-multiply opacity-80 pointer-events-none touch-none"
                 >
                   <Globe />
                 </div>
@@ -793,10 +793,10 @@ const Home = ({ isPreloading }) => {
               </div>
 
               {/* Content & Stats */}
-              <div className="flex flex-col gap-24 px-6 md:px-22  overflow-hidden mt-20">
+              <div className="flex flex-col gap-24 px-6 md:px-22 overflow-hidden mt-12 md:mt-20">
                 {/* Description */}
-                <div className="lg:w-2/3">
-                  <div ref={starRef} className="w-12 h-12 mb-8 text-[#C3AB7B]">
+                <div className="lg:w-2/3 -mt-2 md:mt-0">
+                  <div ref={starRef} className="w-10 h-10 md:w-12 md:h-12 mb-4 md:mb-8 -mt-1 text-[#C3AB7B]">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
                   </div>
 

@@ -51,9 +51,10 @@ const CaseStudyDuo = () => {
                 }
             });
 
-            // 3. Horizontal Scroll Gallery
+            // 3. Horizontal Scroll Gallery (desktop only; mobile uses native touch scroll)
             const sections = gsap.utils.toArray(".gallery-item");
-            if (sections.length > 0) {
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
+            if (sections.length > 0 && !isMobile) {
                 gsap.to(sections, {
                     xPercent: -100 * (sections.length - 1),
                     ease: "none",
@@ -61,7 +62,7 @@ const CaseStudyDuo = () => {
                         trigger: galleryRef.current,
                         pin: true,
                         scrub: 1,
-                        end: "+=3000", // Makes the scroll longer
+                        end: "+=3000",
                     }
                 });
             }
@@ -150,13 +151,13 @@ const CaseStudyDuo = () => {
                     </div>
                 </section>
 
-                {/* HORIZONTAL GALLERY */}
-                <section ref={galleryRef} className="h-screen w-full overflow-hidden flex items-center text-[#e8e4ff]" style={{ background: "linear-gradient(180deg, #1a1625 0%, #0f0d18 100%)" }}>
-                    <div className="flex flex-nowrap h-[80vh] px-20 gap-20">
+                {/* HORIZONTAL GALLERY - native scroll on mobile, GSAP scrub on desktop */}
+                <section ref={galleryRef} className="min-h-[55vh] md:h-screen w-full flex items-center text-[#e8e4ff] overflow-visible md:overflow-hidden" style={{ background: "linear-gradient(180deg, #1a1625 0%, #0f0d18 100%)" }}>
+                    <div className="flex flex-nowrap h-[55vh] md:h-[80vh] px-4 py-4 md:px-20 md:py-0 gap-4 md:gap-20 overflow-x-auto overflow-y-hidden md:overflow-visible snap-x snap-mandatory md:snap-none scrollbar-hide w-full [-webkit-overflow-scrolling:touch]">
                         {[1, 2, 3, 4].map((i) => (
-                            <div key={i} className="gallery-item flex-shrink-0 w-[60vw] md:w-[40vw] h-full relative group overflow-hidden">
+                            <div key={i} className="gallery-item flex-shrink-0 w-[82vw] md:w-[40vw] min-w-[82vw] md:min-w-0 h-full relative group overflow-hidden rounded-lg md:rounded-none snap-center snap-always">
                                 <img
-                                    src={`https://picsum.photos/seed/neo${i}/800/1200`}
+                                    src={`https://picsum.photos/seed/neo${i}/800/600`}
                                     alt={`Gallery ${i}`}
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
