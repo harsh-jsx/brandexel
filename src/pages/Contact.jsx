@@ -16,12 +16,9 @@ const InlineInput = ({
   type = "text",
   handleInputFocus,
   handleInputBlur,
-  setRef
+  setRef,
 }) => (
-  <span
-    ref={(el) => setRef(index, el)}
-    className="relative inline-block mx-2"
-  >
+  <span ref={(el) => setRef(index, el)} className="relative inline-block mx-2">
     <input
       type={type}
       value={value}
@@ -41,11 +38,17 @@ const InlineInput = ({
   </span>
 );
 
-const InlineSelect = ({ options, value, onChange, index, placeholder, handleInputFocus, handleInputBlur, setRef }) => (
-  <span
-    ref={(el) => setRef(index, el)}
-    className="relative inline-block mx-2"
-  >
+const InlineSelect = ({
+  options,
+  value,
+  onChange,
+  index,
+  placeholder,
+  handleInputFocus,
+  handleInputBlur,
+  setRef,
+}) => (
+  <span ref={(el) => setRef(index, el)} className="relative inline-block mx-2">
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
@@ -128,7 +131,8 @@ const Contact = () => {
     setIsSubmitting(true);
 
     const dataToSend = formType === "client" ? formData : creatorData;
-    const endpoint = formType === "client" ? "/api/contact" : "/api/collaborate";
+    const endpoint =
+      formType === "client" ? "/api/contact" : "/api/collaborate";
 
     try {
       const response = await fetch(`http://localhost:3000${endpoint}`, {
@@ -190,7 +194,7 @@ const Contact = () => {
             duration: 1,
             ease: "power4.out",
           },
-          "-=0.5"
+          "-=0.5",
         );
       }
 
@@ -210,7 +214,7 @@ const Contact = () => {
             duration: 0.8,
             ease: "power3.out",
           },
-          "-=0.6"
+          "-=0.6",
         );
       }
 
@@ -233,7 +237,7 @@ const Contact = () => {
               duration: 0.6,
               ease: "power3.out",
             },
-            `-=${0.45 + i * 0.05}`
+            `-=${0.45 + i * 0.05}`,
           );
         });
       });
@@ -254,7 +258,7 @@ const Contact = () => {
                 duration: 0.5,
                 ease: "power2.out",
               },
-              `-=${0.4 - i * 0.05}`
+              `-=${0.4 - i * 0.05}`,
             );
           }
           if (value) {
@@ -269,7 +273,7 @@ const Contact = () => {
                 duration: 0.5,
                 ease: "power3.out",
               },
-              "-=0.3"
+              "-=0.3",
             );
           }
         });
@@ -287,15 +291,13 @@ const Contact = () => {
             duration: 0.5,
             ease: "power2.out",
           },
-          "-=0.2"
+          "-=0.2",
         );
       }
     }, containerRef);
 
     return () => ctx.revert();
   }, [formType]); // Re-run animation when form type changes
-
-
 
   // Input focus animation
   const handleInputFocus = (index) => {
@@ -336,8 +338,6 @@ const Contact = () => {
   const setRef = (index, el) => {
     inputRefs.current[index] = el;
   };
-
-
 
   return (
     <>
@@ -401,7 +401,9 @@ const Contact = () => {
           {/* Header */}
           <div className="mb-16 md:mb-20">
             <p className="text-secondary text-xs tracking-[0.4em] uppercase mb-6 font-serif">
-              {formType === "client" ? "✦ Let's Create Together" : "✦ Join the Team"}
+              {formType === "client"
+                ? "✦ Let's Create Together"
+                : "✦ Join the Team"}
             </p>
             <h1
               ref={headerRef}
@@ -483,7 +485,12 @@ const Contact = () => {
                   </span>
                   <InlineSelect
                     className="bg-black text-white"
-                    options={["1 month", "2-3 months", "3-6 months", "6+ months"]}
+                    options={[
+                      "1 month",
+                      "2-3 months",
+                      "3-6 months",
+                      "6+ months",
+                    ]}
                     value={formData.timeline}
                     onChange={(val) => handleChange("timeline", val)}
                     index={3}
@@ -524,7 +531,9 @@ const Contact = () => {
                   ref={(el) => (formLinesRef.current[4] = el)}
                   className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-8"
                 >
-                  <span className="form-text font-[PPE]">You can reach me at</span>
+                  <span className="form-text font-[PPE]">
+                    You can reach me at
+                  </span>
                   <InlineInput
                     placeholder="email@example.com"
                     value={formData.email}
@@ -538,7 +547,10 @@ const Contact = () => {
                 </p>
 
                 {/* Optional details */}
-                <div ref={(el) => (formLinesRef.current[5] = el)} className="mb-12">
+                <div
+                  ref={(el) => (formLinesRef.current[5] = el)}
+                  className="mb-12"
+                >
                   <p className="form-text font-[PPE] text-white/60 text-lg md:text-xl mb-4">
                     Optionally, share more about your project:
                   </p>
@@ -581,7 +593,9 @@ const Contact = () => {
                     handleInputBlur={handleInputBlur}
                     setRef={setRef}
                   />
-                  <span className="form-text font-[PPE]">and I specialize in</span>
+                  <span className="form-text font-[PPE]">
+                    and I specialize in
+                  </span>
                   <InlineInput
                     placeholder="skill (e.g. Design)"
                     value={creatorData.skill}
@@ -617,12 +631,15 @@ const Contact = () => {
                   ref={(el) => (formLinesRef.current[2] = el)}
                   className="text-white/90 text-2xl md:text-3xl lg:text-4xl leading-[1.8] mb-4"
                 >
-                  <span className="form-text font-[PPE]">
-                    I have
-                  </span>
+                  <span className="form-text font-[PPE]">I have</span>
                   <InlineSelect
                     className="bg-black text-white"
-                    options={["0-1 years", "1-3 years", "3-5 years", "5+ years"]}
+                    options={[
+                      "0-1 years",
+                      "1-3 years",
+                      "3-5 years",
+                      "5+ years",
+                    ]}
                     value={creatorData.experience}
                     onChange={(val) => handleChange("experience", val)}
                     index={3}
@@ -653,7 +670,10 @@ const Contact = () => {
                 </p>
 
                 {/* Why Brandexel */}
-                <div ref={(el) => (formLinesRef.current[4] = el)} className="mb-12">
+                <div
+                  ref={(el) => (formLinesRef.current[4] = el)}
+                  className="mb-12"
+                >
                   <p className="form-text font-[PPE] text-white/60 text-lg md:text-xl mb-4">
                     Why do you want to join Brandexel?
                   </p>
@@ -663,7 +683,9 @@ const Contact = () => {
                   >
                     <textarea
                       value={creatorData.whyBrandexel}
-                      onChange={(e) => handleChange("whyBrandexel", e.target.value)}
+                      onChange={(e) =>
+                        handleChange("whyBrandexel", e.target.value)
+                      }
                       onFocus={() => handleInputFocus(5)}
                       onBlur={() => handleInputBlur(5)}
                       placeholder="Tell us what drives you..."
@@ -700,7 +722,10 @@ const Contact = () => {
             </div>
 
             {/* Contact info */}
-            <div ref={contactInfoRef} className="flex flex-col md:flex-row justify-between gap-12 border-t border-white/10 pt-12 mt-20">
+            <div
+              ref={contactInfoRef}
+              className="flex flex-col md:flex-row justify-between gap-12 border-t border-white/10 pt-12 mt-20"
+            >
               <div className="info-item">
                 <p className="info-label text-white/40 text-xs tracking-[0.2em] uppercase mb-2">
                   Email
@@ -717,10 +742,10 @@ const Contact = () => {
                   Phone
                 </p>
                 <a
-                  href="tel:+12345678901"
+                  href="tel:+91 981 080 3019"
                   className="info-value text-white hover:text-secondary transition-colors duration-300 text-xl font-serif"
                 >
-                  +1 (234) 567-8901
+                  +91 981 080 3019
                 </a>
               </div>
               <div className="info-item">
@@ -728,7 +753,7 @@ const Contact = () => {
                   Address
                 </p>
                 <p className="info-value text-white/70 text-xl font-serif">
-                  123 Creative Ave, NYC
+                  126 B1 Savitri Nagar Sheikh Sarai Phase 1 New Delhi 110017
                 </p>
               </div>
             </div>
@@ -737,13 +762,12 @@ const Contact = () => {
           {/* Footer */}
           <div className="mt-24 pt-12 border-t border-foreground/10">
             <p ref={footerRef} className="text-white/30 text-sm">
-              © 2024 Brandexel. All rights reserved. We typically respond within
-              24 hours.
+              Copyright © 2025 Brandexel By Raavi Wealth Management LLP
+              (BrandExel) | All Rights Reserved.
             </p>
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
