@@ -7,16 +7,16 @@ import ImageMarquee from "../components/ImageMarquee";
 import Services from "../components/Services";
 import CustomCursor from "../components/CustomCursor";
 import ClientLogos from "../components/ClientLogos";
-import globe1 from '../assets/globe1.webp'
+import globe1 from "../assets/globe1.webp";
 import { Link, useLocation } from "react-router-dom";
 // import { fetchAPI, getStrapiMedia } from "../lib/strapi";
 import ScrambleText from "../components/ScrambleText";
-import brandVideo from '../assets/brandexel.mp4';
-import h1 from '../assets/h1.webp'
-import h2 from '../assets/h2.webp'
-import h3 from '../assets/h3.webp'
-import h4 from '../assets/h4.webp'
-import h5 from '../assets/h5.webp'
+import brandVideo from "../assets/brandexel.mp4";
+import h1 from "../assets/h1.webp";
+import h2 from "../assets/h2.webp";
+import h3 from "../assets/h3.webp";
+import h4 from "../assets/h4.webp";
+import h5 from "../assets/h5.webp";
 import Globe from "../components/Globe";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -35,7 +35,11 @@ const Home = ({ isPreloading }) => {
       const sectionId = location.state.scrollTo;
       // Small delay to allow mounting/preloading
       setTimeout(() => {
-        gsap.to(window, { scrollTo: `#${sectionId}`, duration: 1.5, ease: "power4.inOut" });
+        gsap.to(window, {
+          scrollTo: `#${sectionId}`,
+          duration: 1.5,
+          ease: "power4.inOut",
+        });
       }, 500);
     }
   }, [location]);
@@ -188,7 +192,7 @@ const Home = ({ isPreloading }) => {
         delay: 1.2, // Wait for preloader wipe
         onComplete: () => {
           // Ensure we don't double-trigger if forced
-        }
+        },
       });
       imagesIntroTl.current = tl;
 
@@ -200,12 +204,12 @@ const Home = ({ isPreloading }) => {
         .to(
           impossibleWrapperRef.current,
           { height: "auto", duration: 0.8, ease: "power2.inOut" },
-          "+=0.2"
+          "+=0.2",
         )
         .to(
           impossibleRef.current,
           { opacity: 1, y: 0, duration: 0.8, ease: "power4.out" },
-          "-=0.5"
+          "-=0.5",
         )
         .to(
           imagesRef.current,
@@ -219,7 +223,7 @@ const Home = ({ isPreloading }) => {
             stagger: 0.08,
             ease: "power4.out",
           },
-          "-=0.3"
+          "-=0.3",
         )
         // Ensure we explicitly set the state before transferring valid control
         .addLabel("complete")
@@ -230,7 +234,7 @@ const Home = ({ isPreloading }) => {
 
           initialPositions.forEach((pos, i) => {
             // Create the scroll-driven tween
-            // We use immediateRender: false to prevent it from seizing control 
+            // We use immediateRender: false to prevent it from seizing control
             // before the scroll actually happens (though scrub:1 makes it reactive).
             gsap.to(imagesRef.current[i], {
               x: pos.x,
@@ -244,7 +248,7 @@ const Home = ({ isPreloading }) => {
                 end: "bottom center",
                 scrub: 1,
                 invalidateOnRefresh: true, // Handle resize better
-              }
+              },
             });
           });
           ScrollTrigger.refresh();
@@ -256,13 +260,16 @@ const Home = ({ isPreloading }) => {
         start: 0,
         end: "max",
         onUpdate: (self) => {
-          if (imagesIntroTl.current && imagesIntroTl.current.isActive() && self.scroll() > 5) {
+          if (
+            imagesIntroTl.current &&
+            imagesIntroTl.current.isActive() &&
+            self.scroll() > 5
+          ) {
             // Force completion if user scrolls
             imagesIntroTl.current.progress(1);
           }
-        }
+        },
       });
-
     }, heroSectionRef);
 
     // Force refresh to ensure ScrollTrigger picks up the layout
@@ -281,7 +288,6 @@ const Home = ({ isPreloading }) => {
       ScrollTrigger.refresh();
     }
   };
-
 
   // Ensure ScrollTrigger refreshes when everything is ready
   useEffect(() => {
@@ -366,9 +372,9 @@ const Home = ({ isPreloading }) => {
         scrub: 0.5,
         onUpdate: (self) => {
           setIsNavbarDark(true);
-        }
-      }
-    })
+        },
+      },
+    });
 
     return () => ctx.revert();
   }, []);
@@ -407,7 +413,6 @@ const Home = ({ isPreloading }) => {
 
       // Image Curtain Setup
 
-
       // Main Timeline
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -416,7 +421,7 @@ const Home = ({ isPreloading }) => {
           end: "bottom center",
           toggleActions: "play none none reverse",
           // markers: true
-        }
+        },
       });
 
       tl
@@ -424,44 +429,59 @@ const Home = ({ isPreloading }) => {
         .to(subSpan, { y: "0%", duration: 0.8, ease: "power3.out" })
 
         // Headline Stagger
-        .to(splitTexts, {
-          y: "0%",
-          duration: 1.2,
-          stagger: 0.1,
-          ease: "power4.out"
-        }, "-=0.6")
+        .to(
+          splitTexts,
+          {
+            y: "0%",
+            duration: 1.2,
+            stagger: 0.1,
+            ease: "power4.out",
+          },
+          "-=0.6",
+        )
 
         // Globe Entry
-        .to(globeRef.current, {
-          x: 0,
-          opacity: 1,
-          rotation: 0,
-          duration: 1.4,
-          ease: "expo.out"
-        }, "<")
+        .to(
+          globeRef.current,
+          {
+            x: 0,
+            opacity: 1,
+            rotation: 0,
+            duration: 1.4,
+            ease: "expo.out",
+          },
+          "<",
+        )
 
         // Badge Pop
-        .to(globeBadgeRef.current, {
-          scale: 1,
-          opacity: 1,
-          duration: 0.8,
-          ease: "back.out(1.7)"
-        }, "-=1")
+        .to(
+          globeBadgeRef.current,
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.8,
+            ease: "back.out(1.7)",
+          },
+          "-=1",
+        )
 
         // Description Fade Up
         .to(descriptionRef.current, { opacity: 1, y: 0, duration: 1 }, "-=0.8")
 
         // Stats Stagger
-        .to(statsRef.current, { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 }, "-=0.8")
-
-
+        .to(
+          statsRef.current,
+          { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 },
+          "-=0.8",
+        )
 
         // Number Counter Trigger
         .add(() => {
           stats.forEach((stat, index) => {
             const numEl = statNumberRefs.current[index];
             if (numEl) {
-              gsap.fromTo(numEl,
+              gsap.fromTo(
+                numEl,
                 { innerText: 0 },
                 {
                   innerText: stat.number,
@@ -469,7 +489,7 @@ const Home = ({ isPreloading }) => {
                   ease: "power2.out",
                   snap: { innerText: 1 },
                   delay: index * 0.1,
-                }
+                },
               );
             }
           });
@@ -488,13 +508,14 @@ const Home = ({ isPreloading }) => {
           x: xPos,
           y: yPos,
           duration: 1.5,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       };
       window.addEventListener("mousemove", handleMouseMove);
 
       // Rotating Badge Loop
-      gsap.to("svg", { // Targeting svg inside badge specifically if needed
+      gsap.to("svg", {
+        // Targeting svg inside badge specifically if needed
         rotation: 360,
         duration: 20,
         repeat: -1,
@@ -507,7 +528,7 @@ const Home = ({ isPreloading }) => {
           rotation: 360,
           duration: 8,
           repeat: -1,
-          ease: "none"
+          ease: "none",
         });
       }
 
@@ -537,7 +558,6 @@ const Home = ({ isPreloading }) => {
       return () => {
         window.removeEventListener("mousemove", handleMouseMove);
       };
-
     }, aboutSectionRef);
 
     return () => ctx.revert();
@@ -547,9 +567,11 @@ const Home = ({ isPreloading }) => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Header Reveal
-      const headerSpans = worksHeaderRef.current?.querySelectorAll("span > span");
+      const headerSpans =
+        worksHeaderRef.current?.querySelectorAll("span > span");
       if (headerSpans && headerSpans.length > 0) {
-        gsap.fromTo(headerSpans,
+        gsap.fromTo(
+          headerSpans,
           { yPercent: 100, opacity: 0 },
           {
             yPercent: 0,
@@ -560,16 +582,17 @@ const Home = ({ isPreloading }) => {
             scrollTrigger: {
               trigger: worksHeaderRef.current,
               start: "top 85%", // Trigger earlier
-              toggleActions: "play none none reverse"
-            }
-          }
+              toggleActions: "play none none reverse",
+            },
+          },
         );
       }
 
       // List Items Reveal
       const workItems = workListRef.current?.querySelectorAll(".work-item");
       if (workItems && workItems.length > 0) {
-        gsap.fromTo(workItems,
+        gsap.fromTo(
+          workItems,
           { y: 30, opacity: 0 },
           {
             y: 0,
@@ -580,9 +603,9 @@ const Home = ({ isPreloading }) => {
             scrollTrigger: {
               trigger: workListRef.current,
               start: "top 75%", // Trigger earlier
-              toggleActions: "play none none reverse"
-            }
-          }
+              toggleActions: "play none none reverse",
+            },
+          },
         );
       }
 
@@ -601,7 +624,6 @@ const Home = ({ isPreloading }) => {
       window.addEventListener("mousemove", moveImage);
 
       return () => window.removeEventListener("mousemove", moveImage);
-
     }, workListRef);
 
     return () => ctx.revert();
@@ -613,13 +635,23 @@ const Home = ({ isPreloading }) => {
       if (imgEl && imgEl.src !== image) {
         imgEl.src = image;
       }
-      gsap.to(floatingImageRef.current, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" });
+      gsap.to(floatingImageRef.current, {
+        scale: 1,
+        opacity: 1,
+        duration: 0.4,
+        ease: "back.out(1.7)",
+      });
     }
   };
 
   const handleWorkLeave = () => {
     if (floatingImageRef.current) {
-      gsap.to(floatingImageRef.current, { scale: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
+      gsap.to(floatingImageRef.current, {
+        scale: 0,
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.in",
+      });
     }
   };
 
@@ -680,7 +712,7 @@ const Home = ({ isPreloading }) => {
               <h2
                 ref={impossibleRef}
                 className="bg-gradient-to-r from-[#957E50] via-[#FAE1AE] to-[#957E50] bg-clip-text text-transparent  font-[druk] text-[20vw]  md:text-6xl  lg:text-9xl xl:text-[12vw] font-black md:py-1 uppercase"
-                style={{ fontWeight: 900, }}
+                style={{ fontWeight: 900 }}
               >
                 IMPOSSIBLE
               </h2>
@@ -726,9 +758,27 @@ const Home = ({ isPreloading }) => {
           <div className="bg-noise opacity-30 mix-blend-multiply" />
 
           {/* Logo-inspired gradient orbs: purple (left) → indigo (right) */}
-          <div className="absolute top-1/2 left-0 w-[500px] h-[500px] rounded-full blur-[80px] -translate-y-1/2 -translate-x-1/2 pointer-events-none opacity-40" style={{ background: "radial-gradient(circle, rgba(224,96,255,0.25) 0%, transparent 70%)" }} />
-          <div className="absolute top-1/4 right-0 w-[600px] h-[600px] rounded-full blur-[100px] opacity-30 -translate-y-1/2 translate-x-1/4 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(75,0,130,0.2) 0%, transparent 70%)" }} />
-          <div className="absolute bottom-0 left-1/2 w-[400px] h-[400px] rounded-full blur-[100px] opacity-20 -translate-x-1/2 translate-y-1/3 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(147,112,219,0.25) 0%, transparent 70%)" }} />
+          <div
+            className="absolute top-1/2 left-0 w-[500px] h-[500px] rounded-full blur-[80px] -translate-y-1/2 -translate-x-1/2 pointer-events-none opacity-40"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(224,96,255,0.25) 0%, transparent 70%)",
+            }}
+          />
+          <div
+            className="absolute top-1/4 right-0 w-[600px] h-[600px] rounded-full blur-[100px] opacity-30 -translate-y-1/2 translate-x-1/4 pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(75,0,130,0.2) 0%, transparent 70%)",
+            }}
+          />
+          <div
+            className="absolute bottom-0 left-1/2 w-[400px] h-[400px] rounded-full blur-[100px] opacity-20 -translate-x-1/2 translate-y-1/3 pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(147,112,219,0.25) 0%, transparent 70%)",
+            }}
+          />
 
           {/* Tech Annotations */}
           <div className="absolute top-28 left-10 text-[10px] uppercase font-mono text-black/40 hidden md:block tracking-widest z-20">
@@ -756,7 +806,6 @@ const Home = ({ isPreloading }) => {
             <div ref={aboutContentRef}>
               {/* Header / Top Part */}
               <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 relative">
-
                 {/* Rotating Globe (Replaces Badge) - smaller on mobile for responsiveness */}
                 <div
                   ref={globeRef}
@@ -775,15 +824,29 @@ const Home = ({ isPreloading }) => {
                   </p>
 
                   <div ref={heroTextRef} className="space-y-2">
-                    {["MAKING CULTURE VISIBLE", "THROUGH DESIGN, TECH,", "AND A LITTLE MAGIC"].map((text, i) => (
-                      <div key={i} className="overflow-hidden pb-4 -mb-4 pr-4 -mr-4">
+                    {[
+                      "MAKING CULTURE VISIBLE",
+                      "THROUGH DESIGN, TECH,",
+                      "AND A LITTLE MAGIC",
+                    ].map((text, i) => (
+                      <div
+                        key={i}
+                        className="overflow-hidden pb-4 -mb-4 pr-4 -mr-4"
+                      >
                         <h1 className="font-[druk] text-[13vw] sm:text-6xl md:text-6xl lg:text-[7.5vw] uppercase leading-[1.1] md:leading-[0.95] text-black">
                           {text.includes("MAGIC") ? (
                             <span className="inline-block relative">
-                              AND <span className="font-[druk] font-light italic bg-gradient-to-r from-[#F4DBA9] via-[#978052] to-[#978052] bg-clip-text text-transparent lowercase tracking-normal pr-4">a little magic</span>
+                              AND{" "}
+                              <span className="font-[druk] font-light italic bg-gradient-to-r from-[#F4DBA9] via-[#978052] to-[#978052] bg-clip-text text-transparent lowercase tracking-normal pr-4">
+                                a little magic
+                              </span>
                             </span>
                           ) : (
-                            <ScrambleText text={text} isHovered={isScrambling} className="inline-block" />
+                            <ScrambleText
+                              text={text}
+                              isHovered={isScrambling}
+                              className="inline-block"
+                            />
                           )}
                         </h1>
                       </div>
@@ -793,18 +856,28 @@ const Home = ({ isPreloading }) => {
               </div>
 
               {/* Content & Stats */}
-              <div className="flex flex-col gap-24 px-6 md:px-22 overflow-hidden mt-12 md:mt-20">
+              <div className="flex flex-col gap-24 px-6 md:px-22 overflow-hidden ">
                 {/* Description */}
                 <div className="lg:w-2/3 -mt-2 md:mt-0">
-                  <div ref={starRef} className="w-10 h-10 md:w-12 md:h-12 mb-4 md:mb-8 -mt-1 text-[#C3AB7B]">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
+                  <div
+                    ref={starRef}
+                    className="w-10 h-10 md:w-12 md:h-12 mb-4 md:mb-8 -mt-1 text-[#C3AB7B]"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" />
+                    </svg>
                   </div>
 
                   <p
                     ref={descriptionRef}
                     className="font-[albra] text-2xl md:text-3xl leading-[1.2] text-black/80 font-medium"
                   >
-                    Infusing <span className="italic text-black font-semibold">playfulness</span> into everything we touch, creating distinctive brand solutions with extraordinary outcomes.
+                    Infusing{" "}
+                    <span className="italic text-black font-semibold">
+                      playfulness
+                    </span>{" "}
+                    into everything we touch, creating distinctive brand
+                    solutions with extraordinary outcomes.
                   </p>
                 </div>
 
@@ -817,14 +890,22 @@ const Home = ({ isPreloading }) => {
                       className="opacity-0 translate-y-8 group/stat cursor-pointer hover:bg-black/5 p-4 rounded-lg transition-colors duration-500"
                     >
                       <p className="font-albra text-6xl md:text-7xl text-black leading-none mb-3 transition-transform duration-500 group-hover/stat:-translate-y-2 flex items-baseline">
-                        <span ref={(el) => (statNumberRefs.current[index] = el)}>0</span>
-                        <span className="text-black/60 text-4xl ml-1 group-hover/stat:text-black transition-colors">{stat.suffix}</span>
+                        <span
+                          ref={(el) => (statNumberRefs.current[index] = el)}
+                        >
+                          0
+                        </span>
+                        <span className="text-black/60 text-4xl ml-1 group-hover/stat:text-black transition-colors">
+                          {stat.suffix}
+                        </span>
                       </p>
                       <p className="font-[albra] text-sm uppercase tracking-wider text-black/60 inline-block relative font-bold group-hover/stat:text-black transition-colors">
                         {stat.label}
                       </p>
                       {stat.description && (
-                        <p className="font-[albra] text-xs text-black/40 mt-2">{stat.description}</p>
+                        <p className="font-[albra] text-xs text-black/40 mt-2">
+                          {stat.description}
+                        </p>
                       )}
                     </div>
                   ))}
@@ -832,7 +913,7 @@ const Home = ({ isPreloading }) => {
               </div>
             </div>
           </div>
-        </section >
+        </section>
 
         {/* --- ROLLING MARQUEE SEPARATOR --- */}
         <div
@@ -846,28 +927,42 @@ const Home = ({ isPreloading }) => {
             <div
               className="w-full py-5 md:py-6 rounded-sm"
               style={{
-                background: "linear-gradient(to bottom, hsl(40, 32%, 52%) 0%, hsl(40, 55%, 78%) 50%, hsl(40, 32%, 52%) 100%)",
-                boxShadow: "0 4px 24px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.2)",
+                background:
+                  "linear-gradient(to bottom, hsl(40, 32%, 52%) 0%, hsl(40, 55%, 78%) 50%, hsl(40, 32%, 52%) 100%)",
+                boxShadow:
+                  "0 4px 24px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.2)",
               }}
             >
               <div className="marquee-container">
                 <div className="marquee-content animate-marquee-slower">
                   {[...Array(4)].map((_, i) => (
                     <div key={i} className="flex items-center">
-                      {["STRATEGY", "DESIGN", "DEVELOPMENT", "MOTION"].map((word, j) => (
-                        <div key={j} className="flex items-center px-10 md:px-14">
-                          <span
-                            className="font-[druk] text-5xl md:text-6xl lg:text-7xl uppercase tracking-wide font-bold"
-                            style={{
-                              color: "#0a0a0a",
-                              textShadow: "0 1px 0 rgba(255,255,255,0.3), 0 -1px 2px rgba(0,0,0,0.15)",
-                            }}
+                      {["STRATEGY", "DESIGN", "DEVELOPMENT", "MOTION"].map(
+                        (word, j) => (
+                          <div
+                            key={j}
+                            className="flex items-center px-10 md:px-14"
                           >
-                            {word}
-                          </span>
-                          <span className="ml-10 md:ml-14 text-2xl md:text-3xl" style={{ color: "#0a0a0a" }} aria-hidden>★</span>
-                        </div>
-                      ))}
+                            <span
+                              className="font-[druk] text-5xl md:text-6xl lg:text-7xl uppercase tracking-wide font-bold"
+                              style={{
+                                color: "#0a0a0a",
+                                textShadow:
+                                  "0 1px 0 rgba(255,255,255,0.3), 0 -1px 2px rgba(0,0,0,0.15)",
+                              }}
+                            >
+                              {word}
+                            </span>
+                            <span
+                              className="ml-10 md:ml-14 text-2xl md:text-3xl"
+                              style={{ color: "#0a0a0a" }}
+                              aria-hidden
+                            >
+                              ★
+                            </span>
+                          </div>
+                        ),
+                      )}
                     </div>
                   ))}
                 </div>
@@ -890,8 +985,14 @@ const Home = ({ isPreloading }) => {
           {/* Noise Overlay - Multiply for light bg */}
           <div className="bg-noise opacity-30 mix-blend-multiply pointer-events-none" />
           {/* Subtle glow orbs matching logo gradient */}
-          <div className="absolute top-0 left-0 w-[400px] h-[400px] rounded-full blur-[120px] opacity-20 pointer-events-none -translate-x-1/2 -translate-y-1/2" style={{ background: "rgba(224,96,255,0.15)" }} />
-          <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full blur-[120px] opacity-20 pointer-events-none translate-x-1/2 translate-y-1/2" style={{ background: "rgba(75,0,130,0.12)" }} />
+          <div
+            className="absolute top-0 left-0 w-[400px] h-[400px] rounded-full blur-[120px] opacity-20 pointer-events-none -translate-x-1/2 -translate-y-1/2"
+            style={{ background: "rgba(224,96,255,0.15)" }}
+          />
+          <div
+            className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full blur-[120px] opacity-20 pointer-events-none translate-x-1/2 translate-y-1/2"
+            style={{ background: "rgba(75,0,130,0.12)" }}
+          />
 
           {/* Floating Image Container (Fixed to Viewport or Absolute to Section) */}
           <div
@@ -920,17 +1021,19 @@ const Home = ({ isPreloading }) => {
               {
                 name: "Disposek",
                 cat: "Identity / Motion",
-                image: "https://fastly.picsum.photos/id/421/1920/1080.jpg?hmac=Gnli2YQHiOKz_MtRW--3GUsvc7Hg_8ICnqBrQKBj5-8",
+                image:
+                  "https://fastly.picsum.photos/id/421/1920/1080.jpg?hmac=Gnli2YQHiOKz_MtRW--3GUsvc7Hg_8ICnqBrQKBj5-8",
                 link: "/case-study-disposek",
-                year: "2024"
-              }, {
+                year: "2024",
+              },
+              {
                 name: "Duo Glam",
                 cat: "Identity / Design",
-                image: "https://fastly.picsum.photos/id/421/1920/1080.jpg?hmac=Gnli2YQHiOKz_MtRW--3GUsvc7Hg_8ICnqBrQKBj5-8",
+                image:
+                  "https://fastly.picsum.photos/id/421/1920/1080.jpg?hmac=Gnli2YQHiOKz_MtRW--3GUsvc7Hg_8ICnqBrQKBj5-8",
                 link: "/case-study-duo",
-                year: "2023"
+                year: "2023",
               },
-
             ].map((work, i) => (
               <Link
                 to={work.link}
@@ -946,17 +1049,18 @@ const Home = ({ isPreloading }) => {
                 </div>
 
                 <div className="flex flex-col md:items-end mt-4 md:mt-0 opacity-60 group-hover:opacity-100 transition-opacity duration-500">
-                  <span className="font-abc text-sm uppercase tracking-wider mb-1 text-[#1a1a1a]">{work.cat}</span>
-                  <span className="font-mono text-xs text-[#1a1a1a]/40">{work.year}</span>
+                  <span className="font-abc text-sm uppercase tracking-wider mb-1 text-[#1a1a1a]">
+                    {work.cat}
+                  </span>
+                  <span className="font-mono text-xs text-[#1a1a1a]/40">
+                    {work.year}
+                  </span>
                 </div>
               </Link>
             ))}
           </div>
-
-
-
-        </section >
-      </div >
+        </section>
+      </div>
 
       <div className="nav-dark" ref={darkNavbarContainerRef}>
         <ImageMarquee />
