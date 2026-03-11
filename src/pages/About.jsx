@@ -344,9 +344,9 @@ const About = ({ isPreloading }) => {
         </section>
 
         {/* --- TEAM HORIZONTAL --- */}
-        <section className="team-section  h-screen bg-[#101010] text-[#E9E4D9] overflow-hidden flex flex-col justify-center">
-          <div className="px-6 md:px-12 lg:px-20 mb-12 pt-20">
-            <h2 className="font-[druk] md:text-[8vw] text-[15vw] uppercase leading-none pt-20">
+        <section className="team-section min-h-screen bg-[#101010] text-[#E9E4D9] overflow-hidden flex flex-col justify-start md:justify-center py-16 md:py-20 lg:py-24">
+          <div className="px-6 md:px-12 lg:px-20 mb-10 md:mb-12">
+            <h2 className="font-[druk] md:text-[8vw] text-[15vw] uppercase leading-none">
               The
               <br />
               Outlaws
