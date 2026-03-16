@@ -806,10 +806,10 @@ const Home = ({ isPreloading }) => {
             <div ref={aboutContentRef}>
               {/* Header / Top Part */}
               <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 relative">
-                {/* Rotating Globe (Replaces Badge) - smaller on mobile for responsiveness */}
+                {/* Rotating Globe (Replaces Badge) - pushed further right on mobile so text stays readable */}
                 <div
                   ref={globeRef}
-                  className="absolute -top-10 right-0 w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:-top-32 lg:right-0 lg:w-[600px] lg:h-[600px] z-20 mix-blend-multiply opacity-80 pointer-events-none touch-none"
+                  className="absolute -top-6 -right-16 w-56 h-56 sm:-top-8 sm:-right-10 sm:w-72 sm:h-72 md:-top-10 md:right-0 md:w-80 md:h-80 lg:-top-32 lg:right-0 lg:w-[600px] lg:h-[600px] z-20 mix-blend-multiply opacity-80 pointer-events-none touch-none"
                 >
                   <Globe />
                 </div>
