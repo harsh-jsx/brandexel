@@ -44,7 +44,7 @@ const MobileNavbar = ({ onNavigate, navItems }) => {
             stagger: 0.08,
             ease: "power2.out",
           },
-          "-=0.4" // Overlap with overlay movement
+          "-=0.4", // Overlap with overlay movement
         )
         .to(
           itemRefs.current,
@@ -55,13 +55,9 @@ const MobileNavbar = ({ onNavigate, navItems }) => {
             stagger: 0.08,
             ease: "power4.out",
           },
-          "-=0.8" // Start appearing while lines are drawing
+          "-=0.8", // Start appearing while lines are drawing
         )
-        .to(
-          footerRef.current,
-          { opacity: 1, y: 0, duration: 0.8 },
-          "-=0.6"
-        );
+        .to(footerRef.current, { opacity: 1, y: 0, duration: 0.8 }, "-=0.6");
     }, containerRef);
 
     return () => {
@@ -94,7 +90,7 @@ const MobileNavbar = ({ onNavigate, navItems }) => {
             duration: 0.8,
             ease: "power4.inOut",
           },
-          "-=0.3"
+          "-=0.3",
         );
     }, containerRef);
   };
@@ -118,7 +114,7 @@ const MobileNavbar = ({ onNavigate, navItems }) => {
               onNavigate(sectionId);
             } else {
               const el = document.getElementById(sectionId);
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
+              if (el) el.scrollIntoView({ behavior: "smooth" });
             }
           }
         }
@@ -155,31 +151,32 @@ const MobileNavbar = ({ onNavigate, navItems }) => {
           </button>
 
           {/* Menu */}
-          <nav className="space-y-1">
-            {navItems && navItems.map((item, i) => (
-              <div key={item.label}>
-                <div
-                  className="flex items-center justify-between cursor-pointer py-2"
-                  onClick={() => handleNavClick(item.sectionId)}
-                >
-                  <h2
-                    ref={(el) => (itemRefs.current[i] = el)}
-                    className="font-[druk] text-[15vw] tracking-tight leading-[0.85] uppercase"
-                    style={{
-                      textShadow: "0 0 40px hsla(40,30%,55%,0.15)",
-                    }}
+          <nav className="space-y-2">
+            {navItems &&
+              navItems.map((item, i) => (
+                <div key={item.label}>
+                  <div
+                    className="flex items-center justify-between cursor-pointer py-3"
+                    onClick={() => handleNavClick(item.sectionId)}
                   >
-                    {item.label}
-                  </h2>
-                  <span className="text-sm text-white/50">{item.count}</span>
-                </div>
+                    <h2
+                      ref={(el) => (itemRefs.current[i] = el)}
+                      className="font-[druk] text-[13vw] tracking-wide leading-[0.9] uppercase"
+                      style={{
+                        textShadow: "0 0 40px hsla(40,30%,55%,0.15)",
+                      }}
+                    >
+                      {item.label}
+                    </h2>
+                    <span className="text-sm text-white/50">{item.count}</span>
+                  </div>
 
-                <div
-                  ref={(el) => (lineRefs.current[i] = el)}
-                  className="h-px bg-white/20 origin-left"
-                />
-              </div>
-            ))}
+                  <div
+                    ref={(el) => (lineRefs.current[i] = el)}
+                    className="h-px bg-white/20 origin-left"
+                  />
+                </div>
+              ))}
           </nav>
 
           {/* Footer */}
@@ -196,7 +193,10 @@ const MobileNavbar = ({ onNavigate, navItems }) => {
               <span>Instagram</span>
             </div>
 
-            <div className="border border-white/30 py-4 text-center tracking-[0.3em] text-xs uppercase cursor-pointer hover:bg-white hover:text-black transition-colors duration-300" onClick={() => window.location.href = "/contact"}>
+            <div
+              className="border border-white/30 py-4 text-center tracking-[0.3em] text-xs uppercase cursor-pointer hover:bg-white hover:text-black transition-colors duration-300"
+              onClick={() => (window.location.href = "/contact")}
+            >
               START A PROJECT →
             </div>
           </div>
